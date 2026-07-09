@@ -1,0 +1,143 @@
+{
+  "_meta": {
+    "pass_utc": "2026-07-09T05:41:06Z",
+    "added_utc": "2026-07-09T06:0X:00Z",
+    "source": "PubMed (via bio-research MCP), retrieved 2026-07-09",
+    "purpose": "Real, citable literature grounding for the genetic direction-of-effect calls in concordance_snapshot.json / the per-gene dossiers. Replaces bare 'literature_expectation' assertions with PMIDs + DOIs. Open Targets remained rate-limited; these citations are the interim evidence base.",
+    "attribution_note": "According to PubMed. DOIs are the canonical links for each reference below.",
+    "modality": "KO; concordant = protective_lof"
+  },
+  "SOCS1": {
+    "direction": "risk_lof",
+    "genome_wide_sig": true,
+    "references": [
+      {
+        "pmid": "33087723",
+        "doi": "10.1038/s41467-020-18925-4",
+        "first_author": "Hadjadj J",
+        "journal": "Nat Commun",
+        "year": 2020,
+        "title": "Early-onset autoimmunity associated with SOCS1 haploinsufficiency.",
+        "claim": "Heterozygous germline LOSS-OF-FUNCTION SOCS1 mutations cause dominantly inherited early-onset autoimmunity (increased STAT activation). => LoF raises autoimmune risk (risk_lof); confirms SOCS1 is a human immune brake."
+      },
+      {
+        "pmid": "39028869",
+        "doi": "10.1084/jem.20232337",
+        "first_author": "Jeanpierre M",
+        "journal": "J Exp Med",
+        "year": 2024,
+        "title": "Haploinsufficiency in PTPN2 leads to early-onset systemic autoimmunity from Evans syndrome to lupus.",
+        "claim": "Groups SOCS1 with PTPN2 as monogenic autoimmune diseases from LoF of negative regulators of cytokine signaling (supporting SOCS1 risk_lof)."
+      }
+    ]
+  },
+  "CBLB": {
+    "direction": "risk_lof",
+    "genome_wide_sig": true,
+    "references": [
+      {
+        "pmid": "20453840",
+        "doi": "10.1038/ng.584",
+        "first_author": "Sanna S",
+        "journal": "Nat Genet",
+        "year": 2010,
+        "title": "Variants within the immunoregulatory CBLB gene are associated with multiple sclerosis.",
+        "claim": "GWAS: CBLB variant rs9657904 associated with MS, overall P=1.6e-10, OR=1.40 (GENOME-WIDE SIGNIFICANT). CBLB is a negative regulator; Cblb-null mice are EAE-prone => risk_lof."
+      },
+      {
+        "pmid": "17391982",
+        "doi": "10.1016/j.smim.2007.02.004",
+        "first_author": "Loeser S",
+        "journal": "Semin Immunol",
+        "year": 2007,
+        "title": "Regulation of peripheral T cell tolerance by the E3 ubiquitin ligase Cbl-b.",
+        "claim": "Cbl-b loss renders animals susceptible to antigen-triggered autoimmunity ('key autoimmunity gene') and Cbl-b-deficient mice reject tumors => risk_lof + IO rationale."
+      }
+    ]
+  },
+  "TNFAIP3": {
+    "direction": "risk_lof",
+    "genome_wide_sig": true,
+    "references": [
+      {
+        "pmid": "25302371",
+        "doi": "10.1007/978-1-4939-0398-6_10",
+        "first_author": "Mele A",
+        "journal": "Adv Exp Med Biol",
+        "year": 2014,
+        "title": "SNPs at the TNFAIP3/A20 locus and susceptibility/resistance to inflammatory and autoimmune diseases.",
+        "claim": "GWAS SNPs that DECREASE A20 expression / NF-kB-inhibitory function associate with SLE and other autoimmune/inflammatory disease => risk_lof. Also notes A20-KO mouse lethality/multi-organ failure (supports tumor-suppressor/safety flag)."
+      }
+    ]
+  },
+  "UBASH3A": {
+    "direction": "protective_lof",
+    "genome_wide_sig": true,
+    "references": [
+      {
+        "pmid": "28607106",
+        "doi": "10.2337/db16-1023",
+        "first_author": "Ge Y",
+        "journal": "Diabetes",
+        "year": 2017,
+        "title": "UBASH3A Mediates Risk for Type 1 Diabetes Through Inhibition of T-Cell Receptor-Induced NF-kB Signaling.",
+        "claim": "T1D RISK alleles (rs11203203, rs80054410) INCREASE UBASH3A expression in human CD4 T cells, suppressing NF-kB/IL-2. => higher UBASH3A drives risk, so LOSS is protective (protective_lof). Direct support for the sole concordant hero call."
+      },
+      {
+        "pmid": "34205929",
+        "doi": "10.3390/genes12060852",
+        "first_author": "Mordes JP",
+        "journal": "Genes (Basel)",
+        "year": 2021,
+        "title": "T Cell Receptor Genotype and Ubash3a Determine Susceptibility to Rat Autoimmune Diabetes.",
+        "claim": "In vivo rat model: UBASH3A provides downstream immunoregulation modulating T1D susceptibility (consistent with UBASH3A as a TCR brake)."
+      }
+    ]
+  },
+  "RASA2": {
+    "direction": null,
+    "genome_wide_sig": false,
+    "references": [
+      {
+        "pmid": "36002574",
+        "doi": "10.1038/s41586-022-05126-w",
+        "first_author": "Carnevale J",
+        "journal": "Nature",
+        "year": 2022,
+        "title": "RASA2 ablation in T cells boosts antigen sensitivity and long-term function.",
+        "claim": "RASA2 identified via genome-wide CRISPR-KO screens as a signalling checkpoint; ablation enhances CAR-T cytolysis, persistence, anti-tumor efficacy. Strong FUNCTIONAL/novelty support; NO directional human-genetics => concordance direction = none."
+      }
+    ]
+  },
+  "CD5": {
+    "direction": "risk_lof",
+    "genome_wide_sig": false,
+    "references": [],
+    "note": "No genome-wide-significant directional human-genetics citation retrieved this pass; kept out of the directional funnel. Tractability/clinical evidence is in CD5.json (ChEMBL immunotoxins + 15 active CD5 CAR-T/CAR-NK trials)."
+  },
+  "TCEB2": {
+    "direction": null,
+    "genome_wide_sig": false,
+    "references": [],
+    "note": "Direction = none (housekeeping/likely pan-essential complex subunit). No directional immune-genetics citation applicable."
+  },
+  "ARID1A": {
+    "direction": null,
+    "genome_wide_sig": false,
+    "references": [],
+    "note": "Direction = none for immune set-point. ARID1A genetics is somatic tumor-suppressor / developmental (Coffin-Siris), not immune GWAS."
+  },
+  "_screen_lineage": {
+    "references": [
+      {
+        "pmid": "30449619",
+        "doi": "10.1016/j.cell.2018.10.024",
+        "first_author": "Shifrut E",
+        "journal": "Cell",
+        "year": 2018,
+        "title": "Genome-wide CRISPR Screens in Primary Human T Cells Reveal Key Regulators of Immune Function.",
+        "claim": "Primary-dataset lineage (SLICE). Genome-wide LoF screens found genes that NEGATIVELY tune proliferation after stimulation; targeted ablation enhanced cancer-cell killing. Basis for the pre-registered expected KO hit list."
+      }
+    ]
+  }
+}

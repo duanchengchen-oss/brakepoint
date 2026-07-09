@@ -1,6 +1,25 @@
 # WAR LOG — Built with Claude: Life Sciences (research track, solo)
 Append-only, newest first. Self-critique loop: every 8h. Results-watcher: every 6h.
 
+## 2026-07-09T06:05Z (Day 3) — pass #3 follow-up: QA of the concordance layer (Sam online)
+_Confirmed P0 (E-distance `make smoke` passes) + P1 (git `5c681ec`) below — no rework. Funnel math re-checked, correct (8→5→4→4→1). Run 2b's PubMed grounding fixes the *citation* provenance but sharpens, not settles, the sign issue below (OT variant-level direction still missing)._
+
+**The concordance SIGN is anchored wrong for an effector-ENHANCEMENT screen.** `concordance_call` hard-codes `KO → concordant = protective_lof` (`concordance.py:30-31`) — the convention for treating the disease whose GWAS you use. But the screen readout is immune **enhancement** (KO a brake → cytotoxicity ↑) and the genetics is **autoimmune** (the mirror phenotype), so a gene whose LoF boosts effector function reads **`risk_lof`** there. The rule therefore scores the three clean, now-literature-solid brakes **SOCS1 / CBLB / TNFAIP3 as "discordant"** — selecting *against* the exact targets the screen exists to find — and reports "**1 concordant**." Worse, the sole "concordant" hero **UBASH3A** is the mechanistically *ambiguous* one: its `protective_lof` (Ge 2017, T1D-risk allele ↑UBASH3A) implies LoF→↑TCR→↑effector, which should read like the other brakes (risk), yet scores protective via distinct T1D/NF-κB biology — the paradox its own dossier flags. Net: the rule elevates the ambiguous gene and discards the clean ones — the funnel figure + hero a Gladstone immunologist is most likely to challenge.
+
+### Action items
+1. **[P1 — rigor; ~1h, gated on the anchor below] Make concordance anchor-explicit.** Add `therapeutic_direction` ("enhance"|"dampen") to `concordance_call`; for an enhancement screen, count autoimmune-`risk_lof` as concordant → funnel becomes ~**3–4 concordant** (SOCS1/CBLB/TNFAIP3), hero reframes to a strong-genetics brake, UBASH3A → hedged. Keep the honest coverage funnel; fix only the sign. Don't hard-code until the anchor is set.
+2. **[P1 — provenance] Still no OT variant-level direction** (rate-limited across runs 2/2b). Keep OT `directionOnTarget`/`directionOnTrait` re-enrichment on the list to confirm the PubMed-grounded signs.
+
+### NEEDS SAM
+- **Pick the indication anchor — immune ENHANCEMENT (IO/CAR-T: KO brakes) vs AUTOIMMUNE dampening (agonize/restore).** Sets the concordance sign, the concordant gene set, the hero, and the demo headline; can't be auto-resolved. The pipeline currently assumes the autoimmune-native `protective_lof` rule while the whole narrative ("KO → cytotoxicity rises") is enhancement — internally inconsistent. If enhancement: SOCS1/CBLB/TNFAIP3 are your concordant nominations and UBASH3A becomes a sign-ambiguous candidate.
+
+## 2026-07-09T06:03Z (14:03 HKT) — results-watcher run 2b (PubMed grounding)
+
+Grounded run-2's genetic direction-of-effect calls in real literature (PubMed via MCP). Added `dossiers/references.json` + `dossiers/REFERENCES.md` (9 citations, DOI-linked). Highlights: **UBASH3A `protective_lof` confirmed** (Ge et al., Diabetes 2017 — T1D risk allele ↑UBASH3A expression ⇒ loss is protective; the hero's basis); **CBLB `risk_lof` now genome-wide-sig-backed** (Sanna et al., Nat Genet 2010 — rs9657904 P=1.6×10⁻¹⁰ in MS); SOCS1 (Hadjadj, Nat Commun 2020) and TNFAIP3 (Mele, 2014) confirmed `risk_lof`; RASA2 functional/novelty-only (Carnevale, Nature 2022) ⇒ direction `none`; screen lineage = Shifrut et al., Cell 2018. **Concordance funnel unchanged: 8 / 5 / 4 / 4 / 1.** New files only — no plan/framework/report/pipeline source touched (append-only held).
+
+### NEEDS SAM
+- Open Targets **still** globally rate-limited (0 successful OT calls across runs 2 + 2b). Genetics now has PubMed grounding but still lacks OT variant-level direction-of-effect confirmation — keep the OT re-enrichment on the list.
+
 ## 2026-07-09 (Day 3) — Sam back online; P0 + P1 applied
 - **P0 E-distance diagonal-bias bug — FIXED + verified.** `edistance_core.py` within-group terms are now off-diagonal (U-statistic, ÷ n(n−1)). Null E is now ~0 and n-invariant: n=40 → E=−0.28, n=500 → E=0.009 (was ≈5.0 at n=40). Real effect still recovered (E=43.9 ≈ 2‖μ‖²=45, p=0.002). `_smoke()` extended to assert null≈0 at n∈{40,500}; `make smoke` passes. Re-validated the README "strong-120 outranks weak-500" claim = **real biology, not the bug** (STRONG 28.9 ≫ WEAK 1.4 ≫ NULL 0.24 post-fix). Caught by self-critique pass #3.
 - **P1 git repo — DONE.** `git init` + `.gitignore` + first commit (local). Public remote/push still needs Sam's GitHub (see NEEDS SAM).
