@@ -1,0 +1,7 @@
+data/*.h5ad
+data/*.h5
+outputs/
+outputs_synth/
+__pycache__/
+*.pyc
+.watcher_state.json

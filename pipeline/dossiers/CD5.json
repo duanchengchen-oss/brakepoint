@@ -1,0 +1,104 @@
+{
+  "gene": "CD5",
+  "aliases": [
+    "LEU1",
+    "T1"
+  ],
+  "status": "PRE-REGISTERED EXPECTATION \u2014 pending real analysis, NOT a result",
+  "pass_utc": "2026-07-09T05:41:06Z",
+  "modality_context": "KO (Shifrut/Marson primary human CD8 T-cell CRISPR-KO screens); concordance rule: concordant = protective_lof",
+  "ensembl_expected": "ENSG00000110448 (literature; unverified \u2014 confirm via OT)",
+  "identifiers": {
+    "chembl_target_id": "CHEMBL3712888",
+    "uniprot": "P06127"
+  },
+  "io_rationale": "Inhibitory scaffold that tunes TCR signal strength. Knockdown/KO lowers the activation threshold and improves CAR-T potency; also a direct surface antigen in T-cell malignancies.",
+  "tractability": {
+    "chembl_target_exists": true,
+    "chembl_target_type": "SINGLE PROTEIN",
+    "structures_available": true,
+    "assessment": "tractable_biologic / cell-therapy (surface antigen)",
+    "evidence": "ChEMBL target CHEMBL3712888; cell-surface glycoprotein. Two CD5-binding immunotoxins in ChEMBL (max_phase 2) and a large active CD5 CAR-T/CAR-NK clinical wave.",
+    "ot_tractability": "unavailable_rate_limited"
+  },
+  "genetic_evidence": {
+    "any_gwas": true,
+    "genome_wide_sig": false,
+    "direction": "risk_lof",
+    "anchor_disease": "immune-mediated traits (e.g., MS-region / immunoglobulin levels)",
+    "rationale": "CD5 region carries immune-trait associations; as an inhibitory receptor, reduced function is expected to raise immune tone (risk_lof for autoimmunity). Not cleanly genome-wide-significant/directional -> excluded from the directional funnel.",
+    "direction_confidence": "moderate",
+    "source": "literature_expectation"
+  },
+  "known_drugs": {
+    "chembl_mechanisms": [
+      {
+        "molecule_chembl_id": "CHEMBL2108785",
+        "moa": "CD5 binding agent (immunotoxin)",
+        "action_type": "BINDING AGENT",
+        "max_phase": 2
+      },
+      {
+        "molecule_chembl_id": "CHEMBL2108790",
+        "moa": "CD5 binding agent (Telimomab aritox)",
+        "action_type": "BINDING AGENT",
+        "max_phase": 2
+      }
+    ],
+    "clinical_programs_direct": [
+      {
+        "name": "CD5.CAR/28zeta CAR-T (auto+allo)",
+        "sponsor": "Baylor College of Medicine",
+        "nct": "NCT03081910",
+        "phase": "PHASE1",
+        "status": "RECRUITING"
+      },
+      {
+        "name": "Nanobody CD5 CAR-T (CONQUER)",
+        "sponsor": "Peking University People's Hospital",
+        "nct": "NCT06874946",
+        "phase": "PHASE1/2",
+        "status": "RECRUITING"
+      },
+      {
+        "name": "Anti-CD5 CAR-NK",
+        "sponsor": "Chongqing Precision Biotech",
+        "nct": "NCT06909474",
+        "phase": "PHASE1",
+        "status": "RECRUITING"
+      },
+      {
+        "name": "CD5/CD7 CAR-T",
+        "sponsor": "Essen Biotech",
+        "nct": "NCT06420076",
+        "phase": "PHASE1/2",
+        "status": "RECRUITING"
+      }
+    ],
+    "note": "15 active CD5-directed cell-therapy trials found (T-cell malignancies).",
+    "max_clinical_phase": 2
+  },
+  "active_trials": {
+    "direct_target_trials_active": 15,
+    "examples": [
+      "NCT03081910",
+      "NCT06874946",
+      "NCT06909474",
+      "NCT06420076"
+    ],
+    "note": "Note: these target CD5+ tumor cells; using CD5 as an intracellular KO to boost the therapeutic T cell is a distinct, adjacent hypothesis."
+  },
+  "essentiality": {
+    "pan_essential": false,
+    "note": "Not pan-essential; immune-cell restricted.",
+    "source": "literature_expectation"
+  },
+  "safety_flags": [
+    "CD5 KO/blockade may perturb T-cell selection/tolerance; fratricide considerations in CD5-directed cell therapy."
+  ],
+  "provenance": {
+    "chembl": "ChEMBL v34 via bio-research MCP, 2026-07-09 (REAL query)",
+    "c_trials": "ClinicalTrials.gov API v2 via bio-research MCP, 2026-07-09 (REAL query)",
+    "open_targets": "UNAVAILABLE 2026-07-09 \u2014 persistent global rate limit despite exponential backoff; genetic/tractability direction below is LITERATURE EXPECTATION to be confirmed via OT on a future run"
+  }
+}

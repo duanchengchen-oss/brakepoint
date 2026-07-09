@@ -1,0 +1,57 @@
+{
+  "gene": "UBASH3A",
+  "aliases": [
+    "STS-2",
+    "STS2",
+    "TULA"
+  ],
+  "status": "PRE-REGISTERED EXPECTATION \u2014 pending real analysis, NOT a result",
+  "pass_utc": "2026-07-09T05:41:06Z",
+  "modality_context": "KO (Shifrut/Marson primary human CD8 T-cell CRISPR-KO screens); concordance rule: concordant = protective_lof",
+  "ensembl_expected": "ENSG00000160185 (literature; unverified \u2014 confirm via OT)",
+  "identifiers": {
+    "chembl_target_id": "CHEMBL6067628",
+    "uniprot": "P57075"
+  },
+  "io_rationale": "Suppressor of TCR signaling (histidine-phosphatase family; TULA-2 paralog). KO/reduced function raises TCR signal strength and effector output.",
+  "tractability": {
+    "chembl_target_exists": true,
+    "chembl_target_type": "SINGLE PROTEIN",
+    "structures_available": true,
+    "assessment": "candidate_tractable (histidine-phosphatase + SH3 domains offer a small-molecule/allosteric handle); no drug yet",
+    "evidence": "ChEMBL target CHEMBL6067628; PDB structures (e.g., 5WDI). Enzyme/adaptor architecture is more chemically approachable than pure adaptors like SOCS1/RASA2.",
+    "ot_tractability": "unavailable_rate_limited"
+  },
+  "genetic_evidence": {
+    "any_gwas": true,
+    "genome_wide_sig": true,
+    "direction": "protective_lof",
+    "anchor_disease": "type 1 diabetes (also RA, vitiligo, other autoimmunity); 21q22.3 locus",
+    "rationale": "Established autoimmune GWAS locus. T1D RISK allele is associated with INCREASED UBASH3A expression (more TCR inhibition) -> therefore LOSS/reduced UBASH3A is genetically PROTECTIVE (protective_lof). This makes a KO (loss) concordant.",
+    "direction_confidence": "moderate",
+    "interpretation_note": "Direction rests on the eQTL sign (risk allele up-regulates UBASH3A); UBASH3A also has NF-kB roles, so the mechanism is debated. This is the ONLY strict-concordant (protective_lof) gene in the pre-registered set under the KO rule.",
+    "source": "literature_expectation"
+  },
+  "known_drugs": {
+    "chembl_mechanisms": [],
+    "clinical_programs_direct": [],
+    "note": "No direct drug; novel target.",
+    "max_clinical_phase": null
+  },
+  "active_trials": {
+    "direct_target_trials": 0
+  },
+  "essentiality": {
+    "pan_essential": false,
+    "note": "Not pan-essential; lymphocyte-restricted expression.",
+    "source": "literature_expectation"
+  },
+  "safety_flags": [
+    "Autoimmune-risk direction: enhancing T-cell activity is mechanism-consistent but IRAEs plausible."
+  ],
+  "provenance": {
+    "chembl": "ChEMBL v34 via bio-research MCP, 2026-07-09 (REAL query)",
+    "c_trials": "ClinicalTrials.gov API v2 via bio-research MCP, 2026-07-09 (REAL query)",
+    "open_targets": "UNAVAILABLE 2026-07-09 \u2014 persistent global rate limit despite exponential backoff; genetic/tractability direction below is LITERATURE EXPECTATION to be confirmed via OT on a future run"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "SOCS1": {
+    "any_gwas": true,
+    "genome_wide_sig": true,
+    "direction": "risk_lof"
+  },
+  "CBLB": {
+    "any_gwas": true,
+    "genome_wide_sig": true,
+    "direction": "risk_lof"
+  },
+  "RASA2": {
+    "any_gwas": false,
+    "genome_wide_sig": false,
+    "direction": null
+  },
+  "TCEB2": {
+    "any_gwas": false,
+    "genome_wide_sig": false,
+    "direction": null
+  },
+  "CD5": {
+    "any_gwas": true,
+    "genome_wide_sig": false,
+    "direction": "risk_lof"
+  },
+  "TNFAIP3": {
+    "any_gwas": true,
+    "genome_wide_sig": true,
+    "direction": "risk_lof"
+  },
+  "UBASH3A": {
+    "any_gwas": true,
+    "genome_wide_sig": true,
+    "direction": "protective_lof"
+  },
+  "ARID1A": {
+    "any_gwas": false,
+    "genome_wide_sig": false,
+    "direction": null
+  }
+}

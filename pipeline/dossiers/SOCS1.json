@@ -1,0 +1,58 @@
+{
+  "gene": "SOCS1",
+  "aliases": [
+    "JAB",
+    "SSI1",
+    "CISH1"
+  ],
+  "status": "PRE-REGISTERED EXPECTATION \u2014 pending real analysis, NOT a result",
+  "pass_utc": "2026-07-09T05:41:06Z",
+  "modality_context": "KO (Shifrut/Marson primary human CD8 T-cell CRISPR-KO screens); concordance rule: concordant = protective_lof",
+  "ensembl_expected": "ENSG00000185338 (literature; unverified \u2014 confirm via OT)",
+  "identifiers": {
+    "chembl_target_id": null,
+    "uniprot": "O15524"
+  },
+  "io_rationale": "Suppressor of cytokine signaling; brakes JAK/STAT + TCR. KO enhances CD8 effector/cytokine output and anti-tumor function; a top-ranked enhancer in Shifrut 2018 and a leading CAR-T knockout candidate.",
+  "tractability": {
+    "chembl_target_exists": false,
+    "chembl_target_type": null,
+    "structures_available": true,
+    "assessment": "hard_to_drug_small_molecule / intracellular; addressable by KO/CRISPR or gene-edited cell therapy",
+    "evidence": "No ChEMBL target record (0 hits). SH2-domain adaptor \u2014 classic 'undruggable' by small molecules; being pursued as an ex vivo KO in engineered T/CAR-T cells.",
+    "ot_tractability": "unavailable_rate_limited"
+  },
+  "genetic_evidence": {
+    "any_gwas": true,
+    "genome_wide_sig": true,
+    "direction": "risk_lof",
+    "anchor_disease": "autoimmune / immune dysregulation (Mendelian haploinsufficiency; autoimmune GWAS at 16p13.13)",
+    "rationale": "SOCS1 haploinsufficiency (heterozygous LoF) causes early-onset autoimmunity (OMIM 618287); LoF de-represses cytokine signaling. LoF -> autoimmune RISK.",
+    "direction_confidence": "high",
+    "interpretation_note": "risk_lof scores 'discordant' under a cancer-anchored (LoF-is-protective) rule, but mechanistically CONFIRMS SOCS1 is a human immune brake whose removal amplifies T-cell activity \u2014 supportive for an IO-enhancing KO. Direction convention must be read with the disease anchor in mind.",
+    "source": "literature_expectation"
+  },
+  "known_drugs": {
+    "chembl_mechanisms": [],
+    "clinical_programs_direct": [],
+    "note": "No direct SOCS1-targeted drug; clinical translation is via SOCS1-KO engineered cell products.",
+    "max_clinical_phase": null
+  },
+  "active_trials": {
+    "direct_target_trials": 0,
+    "note": "No small-molecule/biologic trials targeting SOCS1 directly (intracellular). Appears as an engineering KO in cell-therapy programs."
+  },
+  "essentiality": {
+    "pan_essential": false,
+    "note": "Not pan-essential; immune-restricted regulator.",
+    "source": "literature_expectation"
+  },
+  "safety_flags": [
+    "SOCS1 loss is pro-autoimmune (haploinsufficiency phenotype) and SOCS1 is a lymphoma tumor suppressor \u2014 durability/safety of permanent KO needs a controlled window."
+  ],
+  "provenance": {
+    "chembl": "ChEMBL v34 via bio-research MCP, 2026-07-09 (REAL query)",
+    "c_trials": "ClinicalTrials.gov API v2 via bio-research MCP, 2026-07-09 (REAL query)",
+    "open_targets": "UNAVAILABLE 2026-07-09 \u2014 persistent global rate limit despite exponential backoff; genetic/tractability direction below is LITERATURE EXPECTATION to be confirmed via OT on a future run"
+  }
+}

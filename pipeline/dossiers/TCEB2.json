@@ -1,0 +1,55 @@
+{
+  "gene": "TCEB2",
+  "aliases": [
+    "ELOB",
+    "SIII"
+  ],
+  "status": "PRE-REGISTERED EXPECTATION \u2014 pending real analysis, NOT a result",
+  "pass_utc": "2026-07-09T05:41:06Z",
+  "modality_context": "KO (Shifrut/Marson primary human CD8 T-cell CRISPR-KO screens); concordance rule: concordant = protective_lof",
+  "ensembl_expected": "ENSG00000103363 (literature; unverified \u2014 confirm via OT)",
+  "identifiers": {
+    "chembl_target_id": "CHEMBL3259468",
+    "uniprot": "Q15370"
+  },
+  "io_rationale": "Elongin B; subunit of Elongin BC / CRL2(VHL) ubiquitin-ligase complexes. Appears as an enhancer hit in T-cell KO screens, likely via HIF/degradation rewiring.",
+  "tractability": {
+    "chembl_target_exists": true,
+    "chembl_target_type": "SINGLE PROTEIN",
+    "structures_available": true,
+    "assessment": "MISLEADING structure count \u2014 low standalone tractability; likely poor therapeutic window",
+    "evidence": "ChEMBL target CHEMBL3259468 with 100+ PDB entries, but these are VHL/CRL2 complex and PROTAC ternary-complex structures where Elongin B is a co-crystallized scaffold, NOT the small-molecule binding target. Elongin B itself is not a validated drug pocket.",
+    "ot_tractability": "unavailable_rate_limited"
+  },
+  "genetic_evidence": {
+    "any_gwas": false,
+    "genome_wide_sig": false,
+    "direction": null,
+    "anchor_disease": null,
+    "rationale": "Housekeeping complex subunit; no directional immune GWAS.",
+    "direction_confidence": "n/a",
+    "source": "literature_expectation"
+  },
+  "known_drugs": {
+    "chembl_mechanisms": [],
+    "clinical_programs_direct": [],
+    "note": "No drug targeting Elongin B itself.",
+    "max_clinical_phase": null
+  },
+  "active_trials": {
+    "direct_target_trials": 0
+  },
+  "essentiality": {
+    "pan_essential": true,
+    "note": "Elongin complex is broadly/commonly essential (expected DepMap common-essential) -> poor selectivity/therapeutic-window; strong DE-PRIORITIZATION flag.",
+    "source": "literature_expectation"
+  },
+  "safety_flags": [
+    "Likely pan-essential \u2014 narrow therapeutic window; screen hit may partly reflect fitness effects. Symbol note: TCEB2==ELOB (map both when joining to results)."
+  ],
+  "provenance": {
+    "chembl": "ChEMBL v34 via bio-research MCP, 2026-07-09 (REAL query)",
+    "c_trials": "ClinicalTrials.gov API v2 via bio-research MCP, 2026-07-09 (REAL query)",
+    "open_targets": "UNAVAILABLE 2026-07-09 \u2014 persistent global rate limit despite exponential backoff; genetic/tractability direction below is LITERATURE EXPECTATION to be confirmed via OT on a future run"
+  }
+}

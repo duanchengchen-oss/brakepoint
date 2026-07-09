@@ -1,0 +1,57 @@
+{
+  "gene": "ARID1A",
+  "aliases": [
+    "BAF250A",
+    "SMARCF1",
+    "B120"
+  ],
+  "status": "PRE-REGISTERED EXPECTATION \u2014 pending real analysis, NOT a result",
+  "pass_utc": "2026-07-09T05:41:06Z",
+  "modality_context": "KO (Shifrut/Marson primary human CD8 T-cell CRISPR-KO screens); concordance rule: concordant = protective_lof",
+  "ensembl_expected": "ENSG00000117713 (literature; unverified \u2014 confirm via OT)",
+  "identifiers": {
+    "chembl_target_id": "CHEMBL6066172",
+    "uniprot": "O14497"
+  },
+  "io_rationale": "SWI/SNF (BAF) chromatin-remodeling subunit; KO reprograms T-cell differentiation/exhaustion-related state in some screens.",
+  "tractability": {
+    "chembl_target_exists": true,
+    "chembl_target_type": "SINGLE PROTEIN",
+    "structures_available": true,
+    "assessment": "low_direct_tractability; addressable indirectly via synthetic lethality (ATR, EZH2, etc.)",
+    "evidence": "ChEMBL target CHEMBL6066172; large multidomain complex subunit. No direct inhibitor; ARID1A-mutant tumors are targeted via synthetic-lethal partners in trials.",
+    "ot_tractability": "unavailable_rate_limited"
+  },
+  "genetic_evidence": {
+    "any_gwas": false,
+    "genome_wide_sig": false,
+    "direction": null,
+    "anchor_disease": "somatic cancer driver (tumor suppressor); germline LoF -> Coffin-Siris syndrome (developmental)",
+    "rationale": "Genetics is somatic-oncogenic and developmental, not immune-set-point GWAS. No directional immune concordance call.",
+    "direction_confidence": "n/a",
+    "source": "literature_expectation"
+  },
+  "known_drugs": {
+    "chembl_mechanisms": [],
+    "clinical_programs_direct": [],
+    "note": "No direct ARID1A drug; synthetic-lethal agents (e.g., ATR inhibitors) trialed in ARID1A-mutant tumors.",
+    "max_clinical_phase": null
+  },
+  "active_trials": {
+    "direct_target_trials": 0,
+    "note": "ARID1A appears as a biomarker for synthetic-lethal trials, not as a direct target."
+  },
+  "essentiality": {
+    "pan_essential": false,
+    "note": "Context-dependent; tumor suppressor.",
+    "source": "literature_expectation"
+  },
+  "safety_flags": [
+    "Tumor suppressor \u2014 permanent KO in a therapeutic T cell raises a transformation/oncogenic-safety flag. Strong de-prioritization for durable KO."
+  ],
+  "provenance": {
+    "chembl": "ChEMBL v34 via bio-research MCP, 2026-07-09 (REAL query)",
+    "c_trials": "ClinicalTrials.gov API v2 via bio-research MCP, 2026-07-09 (REAL query)",
+    "open_targets": "UNAVAILABLE 2026-07-09 \u2014 persistent global rate limit despite exponential backoff; genetic/tractability direction below is LITERATURE EXPECTATION to be confirmed via OT on a future run"
+  }
+}

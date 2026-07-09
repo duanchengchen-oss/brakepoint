@@ -1,0 +1,81 @@
+{
+  "gene": "CBLB",
+  "aliases": [
+    "Cbl-b",
+    "RNF56",
+    "Nbla00127"
+  ],
+  "status": "PRE-REGISTERED EXPECTATION \u2014 pending real analysis, NOT a result",
+  "pass_utc": "2026-07-09T05:41:06Z",
+  "modality_context": "KO (Shifrut/Marson primary human CD8 T-cell CRISPR-KO screens); concordance rule: concordant = protective_lof",
+  "ensembl_expected": "ENSG00000114423 (literature; unverified \u2014 confirm via OT)",
+  "identifiers": {
+    "chembl_target_id": "CHEMBL4879459",
+    "uniprot": "Q13191"
+  },
+  "io_rationale": "E3 ubiquitin ligase; sets TCR activation threshold and T-cell anergy. KO lowers the costimulation requirement and boosts anti-tumor immunity \u2014 canonical positive-control enhancer in T-cell KO screens.",
+  "tractability": {
+    "chembl_target_exists": true,
+    "chembl_target_type": "SINGLE PROTEIN",
+    "structures_available": true,
+    "assessment": "tractable_small_molecule (clinically validated)",
+    "evidence": "ChEMBL target CHEMBL4879459; >20 PDB structures; Pharos-listed. Oral CBL-B inhibitors already in the clinic (see known_drugs).",
+    "ot_tractability": "unavailable_rate_limited"
+  },
+  "genetic_evidence": {
+    "any_gwas": true,
+    "genome_wide_sig": true,
+    "direction": "risk_lof",
+    "anchor_disease": "multiple sclerosis, type 1 diabetes, autoimmune thyroid disease",
+    "rationale": "CBLB variants/reduced function are associated with increased autoimmune risk; Cblb-/- mice develop spontaneous autoimmunity. LoF -> autoimmune RISK.",
+    "direction_confidence": "high",
+    "interpretation_note": "risk_lof (autoimmune) = mechanistically supportive for an IO KO though 'discordant' under a strict cancer-anchored rule.",
+    "source": "literature_expectation"
+  },
+  "known_drugs": {
+    "chembl_mechanisms": [],
+    "clinical_programs_direct": [
+      {
+        "name": "NX-1607",
+        "sponsor": "Nurix Therapeutics",
+        "modality": "oral CBL-B inhibitor",
+        "nct": "NCT05107674",
+        "phase": "PHASE1",
+        "status": "RECRUITING",
+        "enrollment": 345
+      },
+      {
+        "name": "HST-1011 (+/- cemiplimab)",
+        "sponsor": "HotSpot Therapeutics",
+        "modality": "oral allosteric CBL-B inhibitor",
+        "nct": "NCT05662397",
+        "phase": "PHASE1/2",
+        "status": "ACTIVE_NOT_RECRUITING",
+        "enrollment": 77
+      }
+    ],
+    "note": "0 mechanisms in ChEMBL v34 (inhibitors post-date the release); confirmed via ClinicalTrials.gov.",
+    "max_clinical_phase": 2
+  },
+  "active_trials": {
+    "direct_target_trials_found": 2,
+    "examples": [
+      "NCT05107674",
+      "NCT05662397"
+    ],
+    "note": "Two active oral CBL-B inhibitor programs in advanced solid tumors."
+  },
+  "essentiality": {
+    "pan_essential": false,
+    "note": "Not pan-essential; immune-restricted.",
+    "source": "literature_expectation"
+  },
+  "safety_flags": [
+    "Immune-related adverse events plausible (mechanism-based, as with checkpoint blockade)."
+  ],
+  "provenance": {
+    "chembl": "ChEMBL v34 via bio-research MCP, 2026-07-09 (REAL query)",
+    "c_trials": "ClinicalTrials.gov API v2 via bio-research MCP, 2026-07-09 (REAL query)",
+    "open_targets": "UNAVAILABLE 2026-07-09 \u2014 persistent global rate limit despite exponential backoff; genetic/tractability direction below is LITERATURE EXPECTATION to be confirmed via OT on a future run"
+  }
+}

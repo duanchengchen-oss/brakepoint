@@ -1,0 +1,57 @@
+{
+  "gene": "TNFAIP3",
+  "aliases": [
+    "A20",
+    "OTUD7C",
+    "TNFA1P2"
+  ],
+  "status": "PRE-REGISTERED EXPECTATION \u2014 pending real analysis, NOT a result",
+  "pass_utc": "2026-07-09T05:41:06Z",
+  "modality_context": "KO (Shifrut/Marson primary human CD8 T-cell CRISPR-KO screens); concordance rule: concordant = protective_lof",
+  "ensembl_expected": "ENSG00000118503 (literature; unverified \u2014 confirm via OT)",
+  "identifiers": {
+    "chembl_target_id": "CHEMBL4523200",
+    "uniprot": "P21580"
+  },
+  "io_rationale": "A20; ubiquitin-editing brake on NF-kB. KO amplifies NF-kB-driven activation/effector output in T cells.",
+  "tractability": {
+    "chembl_target_exists": true,
+    "chembl_target_type": "SINGLE PROTEIN",
+    "structures_available": true,
+    "assessment": "partially_tractable (OTU deubiquitinase enzymatic domain) but no approved/clinical drug; enzyme-restoration (agonism) is the harder therapeutic direction",
+    "evidence": "ChEMBL target CHEMBL4523200; OTU DUB + A20 zinc fingers with PDB structures. No drug in ChEMBL mechanisms.",
+    "ot_tractability": "unavailable_rate_limited"
+  },
+  "genetic_evidence": {
+    "any_gwas": true,
+    "genome_wide_sig": true,
+    "direction": "risk_lof",
+    "anchor_disease": "SLE, rheumatoid arthritis, psoriasis, IBD, coeliac (canonical multi-autoimmune locus)",
+    "rationale": "One of the best-established human autoimmune loci; reduced A20 function -> unrestrained NF-kB -> autoimmune RISK. LoF -> risk.",
+    "direction_confidence": "very_high",
+    "interpretation_note": "Strong human proof that A20 is a bona fide immune brake; 'discordant' under a cancer-anchored rule but powerful mechanistic support.",
+    "source": "literature_expectation"
+  },
+  "known_drugs": {
+    "chembl_mechanisms": [],
+    "clinical_programs_direct": [],
+    "note": "No direct A20-targeted drug in clinic.",
+    "max_clinical_phase": null
+  },
+  "active_trials": {
+    "direct_target_trials": 0
+  },
+  "essentiality": {
+    "pan_essential": false,
+    "note": "Not pan-essential.",
+    "source": "literature_expectation"
+  },
+  "safety_flags": [
+    "A20 is a tumor suppressor \u2014 biallelic LoF drives B-cell lymphomas (MALT/DLBCL). Permanent KO carries an oncogenic/autoimmune safety flag. STRONG de-prioritization for durable KO."
+  ],
+  "provenance": {
+    "chembl": "ChEMBL v34 via bio-research MCP, 2026-07-09 (REAL query)",
+    "c_trials": "ClinicalTrials.gov API v2 via bio-research MCP, 2026-07-09 (REAL query)",
+    "open_targets": "UNAVAILABLE 2026-07-09 \u2014 persistent global rate limit despite exponential backoff; genetic/tractability direction below is LITERATURE EXPECTATION to be confirmed via OT on a future run"
+  }
+}

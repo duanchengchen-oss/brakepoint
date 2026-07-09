@@ -1,0 +1,56 @@
+{
+  "gene": "RASA2",
+  "aliases": [
+    "GAP1M",
+    "NGAP"
+  ],
+  "status": "PRE-REGISTERED EXPECTATION \u2014 pending real analysis, NOT a result",
+  "pass_utc": "2026-07-09T05:41:06Z",
+  "modality_context": "KO (Shifrut/Marson primary human CD8 T-cell CRISPR-KO screens); concordance rule: concordant = protective_lof",
+  "ensembl_expected": "ENSG00000155903 (literature; unverified \u2014 confirm via OT)",
+  "identifiers": {
+    "chembl_target_id": null,
+    "uniprot": "Q7L0Q8"
+  },
+  "io_rationale": "Ras GTPase-activating protein; inhibitory node downstream of TCR. KO enhances repeated-stimulation persistence and CAR-T potency (Carnevale/Marson, Nature 2022) \u2014 high-novelty enhancer.",
+  "tractability": {
+    "chembl_target_exists": false,
+    "chembl_target_type": null,
+    "structures_available": false,
+    "assessment": "hard_to_drug_small_molecule (RasGAP); addressable by ex vivo KO",
+    "evidence": "No ChEMBL target record (0 hits). No small-molecule chemistry; realistic route is engineered-cell KO.",
+    "ot_tractability": "unavailable_rate_limited"
+  },
+  "genetic_evidence": {
+    "any_gwas": false,
+    "genome_wide_sig": false,
+    "direction": null,
+    "anchor_disease": null,
+    "rationale": "Sparse human genetic disease association; no robust directional immune signal known.",
+    "direction_confidence": "n/a",
+    "source": "literature_expectation"
+  },
+  "known_drugs": {
+    "chembl_mechanisms": [],
+    "clinical_programs_direct": [],
+    "note": "No direct drug; nominated as a CAR-T engineering KO.",
+    "max_clinical_phase": null
+  },
+  "active_trials": {
+    "direct_target_trials": 0,
+    "note": "No direct-target trials; strong preclinical CAR-T KO data."
+  },
+  "essentiality": {
+    "pan_essential": false,
+    "note": "Not pan-essential.",
+    "source": "literature_expectation"
+  },
+  "safety_flags": [
+    "Ras pathway modulation \u2014 theoretical proliferation/transformation risk if dysregulated; ex vivo KO context mitigates."
+  ],
+  "provenance": {
+    "chembl": "ChEMBL v34 via bio-research MCP, 2026-07-09 (REAL query)",
+    "c_trials": "ClinicalTrials.gov API v2 via bio-research MCP, 2026-07-09 (REAL query)",
+    "open_targets": "UNAVAILABLE 2026-07-09 \u2014 persistent global rate limit despite exponential backoff; genetic/tractability direction below is LITERATURE EXPECTATION to be confirmed via OT on a future run"
+  }
+}
