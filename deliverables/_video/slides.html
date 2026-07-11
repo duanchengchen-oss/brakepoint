@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --dark:#0a1211; --dark2:#0c1614; --ink:#eef4f2; --mut:#8fa39d;
+    --teal:#2fd6bf; --teal2:#0d9488; --amber:#f4b062; --amber2:#d97a12;
+    --disp:"Space Grotesk",sans-serif; --sans:"Plus Jakarta Sans",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1920px;height:1080px;overflow:hidden;background:var(--dark);
+    font-family:var(--sans);color:var(--ink);-webkit-font-smoothing:antialiased}
+  .slide{position:absolute;inset:0;display:none;padding:118px 130px;
+    background:var(--dark);overflow:hidden}
+  .slide.show{display:block}
+  .glow::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(55% 65% at 16% 6%,rgba(13,148,136,.30),transparent 60%),
+               radial-gradient(48% 55% at 90% 28%,rgba(217,122,18,.16),transparent 62%)}
+  .grid-bg::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.45;
+    background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+    background-size:70px 70px;mask-image:radial-gradient(75% 70% at 30% 25%,#000,transparent 78%)}
+  .in{position:relative;z-index:2;height:100%;display:flex;flex-direction:column}
+  .eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:19px;font-weight:700;
+    letter-spacing:.26em;text-transform:uppercase;color:var(--teal);
+    background:rgba(47,214,191,.08);border:1px solid rgba(47,214,191,.2);
+    padding:11px 22px;border-radius:999px;align-self:flex-start}
+  h1{font-family:var(--disp);font-weight:700;letter-spacing:-.025em;line-height:1.02;color:#fff}
+  .t-xl{font-size:118px} .t-lg{font-size:88px} .t-md{font-size:66px}
+  .lead{font-size:38px;line-height:1.4;color:var(--mut);max-width:30ch;font-weight:400}
+  .g{background:linear-gradient(96deg,var(--teal),var(--amber));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .amber{color:var(--amber)} .teal{color:var(--teal)} .w{color:#fff}
+  .spacer{flex:1}
+  .foot{display:flex;align-items:center;gap:16px;font-size:23px;color:var(--mut)}
+  .foot .dot{width:26px;height:26px;border-radius:8px;background:conic-gradient(from 210deg,var(--teal2),var(--amber2))}
+  .kpi-row{display:flex;gap:70px;margin-top:20px}
+  .kpi .n{font-family:var(--disp);font-size:74px;font-weight:600;color:#fff;letter-spacing:-.02em}
+  .kpi .l{font-size:24px;color:var(--mut);margin-top:6px;max-width:14ch}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:14px}
+  .quad{border-radius:26px;padding:44px 46px;border:1px solid rgba(255,255,255,.1)}
+  .quad.up{background:linear-gradient(180deg,rgba(217,122,18,.16),rgba(217,122,18,.03))}
+  .quad.dn{background:linear-gradient(180deg,rgba(13,148,136,.04),rgba(13,148,136,.16))}
+  .quad .qt{font-family:var(--disp);font-size:40px;font-weight:600}
+  .quad.up .qt{color:var(--amber)} .quad.dn .qt{color:var(--teal)}
+  .quad p{font-size:29px;line-height:1.4;color:#d6e3df;margin-top:16px}
+  .steps{display:flex;gap:26px;margin-top:36px}
+  .step{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);
+    border-radius:24px;padding:38px 34px}
+  .step .num{font-family:var(--disp);color:var(--teal);font-size:26px;font-weight:600;letter-spacing:.1em}
+  .step h3{font-family:var(--disp);font-weight:600;font-size:34px;margin:16px 0 12px;color:#fff}
+  .step p{font-size:24px;color:var(--mut);line-height:1.42}
+  .figwrap{margin-top:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+    padding:14px;border-radius:28px}
+  .figwrap .core{background:#fcfcfb;border-radius:16px;overflow:hidden}
+  .figwrap img{display:block;width:100%}
+  .bullets{margin-top:26px;display:flex;flex-direction:column;gap:22px}
+  .bullet{display:flex;gap:22px;align-items:flex-start;font-size:33px;line-height:1.35;color:#dbe7e3}
+  .bullet .m{flex:none;width:16px;height:16px;border-radius:6px;margin-top:14px}
+  .m.t{background:var(--teal)} .m.a{background:var(--amber)}
+  .big-stat{font-family:var(--disp);font-size:150px;font-weight:700;color:#fff;letter-spacing:-.03em;line-height:1}
+  .code{white-space:pre;font-family:ui-monospace,"Space Grotesk",monospace;font-size:34px;line-height:1.9;
+    background:#0c1614;border:1px solid rgba(255,255,255,.09);border-radius:22px;padding:44px 48px;color:#d6e6e1}
+  .code .c{color:#6f8f88} .code .k{color:var(--teal)}
+</style>
+</head>
+<body>
+
+<!-- 0 · TITLE -->
+<section class="slide glow grid-bg" data-s="0">
+  <div class="in">
+    <div class="eyebrow">Built with Claude · Life Sciences · Research track</div>
+    <div class="spacer"></div>
+    <h1 class="t-xl" style="max-width:20ch">A signed causal map of <span class="g">T-cell function</span>.</h1>
+    <p class="lead" style="margin-top:40px;max-width:44ch;font-size:42px">Drug-target discovery from a 2.64-million-cell CRISPRi Perturb-seq screen — built end-to-end with Claude Science.</p>
+    <div class="spacer"></div>
+    <div class="foot"><span class="dot"></span>Gladstone genome-scale CD4⁺ T-cell Perturb-seq · Marson lab</div>
+  </div>
+</section>
+
+<!-- 1 · QUESTION -->
+<section class="slide glow" data-s="1">
+  <div class="in">
+    <div class="eyebrow">The question</div>
+    <div class="spacer"></div>
+    <h1 class="t-lg" style="max-width:24ch">Which knockdowns make a T&nbsp;cell a <span class="amber">better</span> effector — and which just <span class="teal">break</span> it?</h1>
+    <p class="lead" style="margin-top:38px;max-width:40ch">Every gene, knocked down, in primary human CD4⁺ T cells. The drug targets are the <b class="w">brakes</b> — but they hide among thousands of genes the cell simply needs to work.</p>
+    <div class="spacer"></div>
+    <div class="kpi-row">
+      <div class="kpi"><div class="n">2,638,736</div><div class="l">primary human CD4⁺ T cells</div></div>
+      <div class="kpi"><div class="n">12,449</div><div class="l">CRISPRi knockdowns</div></div>
+      <div class="kpi"><div class="n">2 donors</div><div class="l">scVI-integrated · Stim 8h</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · PROVENANCE -->
+<section class="slide glow grid-bg" data-s="2">
+  <div class="in">
+    <div class="eyebrow">How Claude Science got us there</div>
+    <div class="spacer"></div>
+    <h1 class="t-lg" style="max-width:22ch">Every number carries its <span class="g">provenance</span>.</h1>
+    <div class="bullets" style="margin-top:44px">
+      <div class="bullet"><span class="m t"></span><div>Each result is a <b class="w">versioned artifact</b> — its exact code, environment, and conversation trail.</div></div>
+      <div class="bullet"><span class="m a"></span><div>A background <b class="w">reviewer</b> checks every claim against what actually ran — it caught a real statistical bug in the effect-size metric <b class="w">before it reached a figure</b>.</div></div>
+      <div class="bullet"><span class="m t"></span><div>Heavy compute runs on an <b class="w">NVIDIA DGX Spark</b> over SSH; the signed axis over 2.64 M cells finishes in ~40 seconds.</div></div>
+    </div>
+    <div class="spacer"></div>
+    <div class="foot"><span class="dot"></span>Reproducible by construction — one command regenerates the map.</div>
+  </div>
+</section>
+
+<!-- 3 · METHOD -->
+<section class="slide glow" data-s="3">
+  <div class="in">
+    <div class="eyebrow">The method · two axes</div>
+    <div class="spacer" style="flex:.5"></div>
+    <h1 class="t-md" style="max-width:30ch">Magnitude tells you <span class="teal">how much</span>. Only the sign tells you <span class="amber">which way</span>.</h1>
+    <div class="two">
+      <div class="quad dn"><div class="qt">↓ direction &lt; 0 — machinery</div><p>Knockdown pushes cells <b>away</b> from the effector program. A large effect in the wrong direction — required, not druggable.</p></div>
+      <div class="quad up"><div class="qt">↑ direction &gt; 0 — a brake</div><p>Knockdown pushes cells <b>toward</b> the effector program. Removing the gene enhances function — the therapeutic quadrant.</p></div>
+    </div>
+    <p class="lead" style="margin-top:34px;max-width:52ch;font-size:31px">Axis 1 — power-equalized <b class="w">energy distance</b> (causal magnitude). Axis 2 — a per-cell <b class="w">effector minus dysfunction</b> score, over all 2.64 M cells.</p>
+  </div>
+</section>
+
+<!-- 4 · VALIDATION -->
+<section class="slide glow grid-bg" data-s="4">
+  <div class="in">
+    <div class="eyebrow">Validation · it recovers ground truth</div>
+    <div class="spacer" style="flex:.4"></div>
+    <div style="display:flex;gap:80px;align-items:center">
+      <div style="flex:none;text-align:center">
+        <div class="big-stat">14<span style="font-size:80px;color:var(--mut)">/15</span></div>
+        <div style="font-size:26px;color:var(--mut);margin-top:14px;max-width:12ch;margin-inline:auto">largest effects are machinery, not targets</div>
+      </div>
+      <div>
+        <h1 class="t-md" style="max-width:20ch">Unsupervised, the biggest effects are the entire <span class="teal">TCR module</span>.</h1>
+        <p class="lead" style="margin-top:30px;max-width:34ch">ZAP70, CD3D/E/G, CD247, PLCG1, LAT, LCP2, VAV1, ITK — and the direction axis flags every one as machinery, <b class="w">donor-consistently</b>. A map that gets the machinery right is one you can trust to point at the brakes.</p>
+      </div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+</section>
+
+<!-- 5 · THE MAP -->
+<section class="slide" data-s="5" style="padding:70px 90px">
+  <div class="in">
+    <div class="eyebrow" style="margin-bottom:22px">The finding · the signed causal map</div>
+    <div class="figwrap" style="flex:1;display:flex;align-items:center"><div class="core"><img src="../figures/causal_map.png" alt="signed causal map"/></div></div>
+  </div>
+</section>
+
+<!-- 6 · BRAKES -->
+<section class="slide glow" data-s="6">
+  <div class="in">
+    <div class="eyebrow">The therapeutic quadrant</div>
+    <div class="spacer" style="flex:.4"></div>
+    <h1 class="t-md" style="max-width:26ch">The brake quadrant recovers <span class="amber">real drug-target biology</span>.</h1>
+    <div class="bullets" style="margin-top:38px">
+      <div class="bullet"><span class="m a"></span><div><b class="w">CD5, DGKA</b> — canonical inhibitory brakes, donor-consistent; DGKα and CBL-B inhibitors are already in the clinic.</div></div>
+      <div class="bullet"><span class="m a"></span><div><b class="w">SMAD3 (TGF-β), LAT2, CBLB</b> — higher-magnitude candidates, donor-split at n=2 — a prioritized shortlist for the full four-donor cohort.</div></div>
+      <div class="bullet"><span class="m t"></span><div>We report donor consistency <b class="w">honestly</b> — the method is validated; the brake list is a lead, not an overclaim.</div></div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+</section>
+
+<!-- 7 · CLOSE -->
+<section class="slide glow grid-bg" data-s="7">
+  <div class="in">
+    <div class="eyebrow">Reproducible by design</div>
+    <div class="spacer"></div>
+    <h1 class="t-lg" style="max-width:18ch">One command. <span class="g">Fixed seeds.</span> MIT.</h1>
+    <div class="code" style="margin-top:44px;max-width:24ch"><span class="c"># runs anywhere</span>
+make smoke
+make figure</div>
+    <div class="spacer"></div>
+    <div class="foot" style="font-size:27px"><span class="dot"></span>A signed causal map of CD4⁺ T-cell function — built with Claude Science.</div>
+  </div>
+</section>
+
+<script>
+  const p=new URLSearchParams(location.search); const s=p.get('s')||'0';
+  const el=document.querySelector(`.slide[data-s="${s}"]`);
+  if(el) el.classList.add('show');
+</script>
+</body>
+</html>
