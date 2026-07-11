@@ -69,5 +69,6 @@
   <text class="bandh" x="72" y="600">VALIDATION</text>
   <text class="bandt" x="72" y="620">Top causal hits are the entire TCR module: ZAP70, CD3D/E/G, PLCG1, LAT, VAV1, RASGRP1, ITK.</text>
   <text class="bandt" x="648" y="600">Novel frontier</text>
-  <text class="bandt" x="648" y="620"><tspan class="amber">VAV2 · BLNK</tspan> — genuinely undrugged.</text>
+  <text class="bandt" x="648" y="620" fill="#fbbf24" font-weight="700">VAV2 · BLNK</text>
+  <text class="bandt" x="742" y="620">— genuinely undrugged</text>
 </svg>
