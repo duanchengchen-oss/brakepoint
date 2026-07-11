@@ -77,6 +77,58 @@ EXHAUSTION_GENES: tuple[str, ...] = (
     "CXCL13",
 )
 
+# --- CD4 effector axis (the genome-scale Gladstone arm is primary human CD4+) --
+# The CD8 cytotoxic/exhaustion contrast above is the wrong axis for a CD4+
+# stimulation screen. For the Stim-8h CD4 arm we score the canonical T-cell
+# effector/activation program against the inhibitory-receptor / exhaustion-TF
+# program. Same signed convention: KD that raises (effector - dysfunction)
+# relative to control => brake (its removal enhances effector function).
+#
+#   effector cytokines + activation TFs  ......... IFNG, IL2, TNF, CSF2, LTA,
+#       XCL1/2, CCL3/4, GZMB, TNFRSF9 (4-1BB), CD69, MYC, IRF4, BATF, TBX21
+#   inhibitory receptors + exhaustion/anergy TFs . PDCD1, CTLA4, LAG3, HAVCR2,
+#       TIGIT, BTLA, CD160, VSIR, ENTPD1, TOX, NR4A1/2/3
+#
+# Effector cytokines/receptors are textbook activation markers; TOX (Khan et al.
+# Nature 2019) and NR4A1/2/3 (Chen et al. Nature 2019; Liu et al. Nature 2019)
+# are the master exhaustion/tolerance transcription factors. IL2RB is
+# deliberately excluded (it is the network-nominated hero — scoring it would be
+# circular). All genes below are present in the 4,816 measured HVGs of the
+# Gladstone CD4 build (coverage verified before the run).
+CD4_EFFECTOR_GENES: tuple[str, ...] = (
+    "IFNG",
+    "IL2",
+    "TNF",
+    "CSF2",
+    "LTA",
+    "XCL1",
+    "XCL2",
+    "CCL3",
+    "CCL4",
+    "GZMB",
+    "TNFRSF9",
+    "CD69",
+    "MYC",
+    "IRF4",
+    "BATF",
+    "TBX21",
+)
+CD4_DYSFUNCTION_GENES: tuple[str, ...] = (
+    "PDCD1",
+    "CTLA4",
+    "LAG3",
+    "HAVCR2",
+    "TIGIT",
+    "BTLA",
+    "CD160",
+    "VSIR",
+    "ENTPD1",
+    "TOX",
+    "NR4A1",
+    "NR4A2",
+    "NR4A3",
+)
+
 # --- tier thresholds (tunable; see re-run note) -------------------------------
 DIRECTION_TAU: float = 0.05  # |direction_score| at or below this => neutral
 VIABILITY_FLOOR: float = 0.8  # viability_ratio below this => essential machinery
@@ -132,18 +184,23 @@ def assign_tier(
 
 
 def _direction_scores_numpy(
-    expr: np.ndarray, gene_names: Sequence[str]
+    expr: np.ndarray,
+    gene_names: Sequence[str],
+    positive_genes: Sequence[str] = CYTOTOXIC_GENES,
+    negative_genes: Sequence[str] = EXHAUSTION_GENES,
 ) -> np.ndarray:
-    """Per-cell ``cytotoxic − exhaustion`` score, pure numpy.
+    """Per-cell ``positive − negative`` module score, pure numpy.
 
     A dependency-light stand-in for ``scanpy.tl.score_genes``: each module score
     is ``mean(module genes) − mean(background genes)`` where the background is
     every gene outside both modules. Same sign behaviour as ``score_genes``'s
     binned control set; used for the smoke test and as a scanpy-free fallback.
+    Defaults to the CD8 cytotoxic/exhaustion axis; pass the ``CD4_*`` modules for
+    the CD4 effector/dysfunction axis.
     """
     name_to_idx = {g: i for i, g in enumerate(gene_names)}
-    cyto_idx = [name_to_idx[g] for g in CYTOTOXIC_GENES if g in name_to_idx]
-    exh_idx = [name_to_idx[g] for g in EXHAUSTION_GENES if g in name_to_idx]
+    cyto_idx = [name_to_idx[g] for g in positive_genes if g in name_to_idx]
+    exh_idx = [name_to_idx[g] for g in negative_genes if g in name_to_idx]
     if not cyto_idx or not exh_idx:
         raise ValueError(
             "expression matrix is missing all genes of a module "
@@ -163,19 +220,23 @@ def compute_cell_direction_scanpy(
     adata: "object",
     use_raw: bool | None = None,
     random_state: int = 0,
+    positive_genes: Sequence[str] = CYTOTOXIC_GENES,
+    negative_genes: Sequence[str] = EXHAUSTION_GENES,
 ) -> np.ndarray:
-    """Per-cell ``cytotoxic − exhaustion`` via ``scanpy.tl.score_genes``.
+    """Per-cell ``positive − negative`` module score via ``scanpy.tl.score_genes``.
 
     Runs in Claude Science / any scanpy env (NOT exercised by the numpy smoke
     test). Writes ``cytotoxic_score`` / ``exhaustion_score`` into ``adata.obs``
     and returns their per-cell difference. Only genes present in ``var_names``
-    are scored, so Ensembl-id var names simply score fewer genes rather than
-    crashing.
+    are scored, so var names carrying only a subset of the module simply score
+    fewer genes rather than crashing. Pass gene *symbols* here; if ``var_names``
+    are Ensembl ids, translate the modules to Ensembl before calling (see
+    ``direction_genomescale.py``).
     """
     import scanpy as sc  # local import: heavy, absent in the sandbox
 
-    present_cyto = [g for g in CYTOTOXIC_GENES if g in adata.var_names]
-    present_exh = [g for g in EXHAUSTION_GENES if g in adata.var_names]
+    present_cyto = [g for g in positive_genes if g in adata.var_names]
+    present_exh = [g for g in negative_genes if g in adata.var_names]
     if not present_cyto or not present_exh:
         raise ValueError(
             "adata.var_names carries none of a module's genes — are var names "
@@ -221,33 +282,42 @@ def score_direction(
         cell_scores = _direction_scores_numpy(expr, gene_names)
 
     scores = np.asarray(cell_scores, dtype=float)
-    perts = np.asarray(perturbations)
-    donor_arr = np.asarray(donors)
+    perts = np.asarray([str(x) for x in perturbations])
+    donor_arr = np.asarray([str(x) for x in donors])
     if scores.shape[0] != perts.shape[0] or scores.shape[0] != donor_arr.shape[0]:
         raise ValueError("perturbations, donors and cell scores must be aligned")
-
-    ctrl_mask = perts == control
-    if not ctrl_mask.any():
+    if control not in set(perts.tolist()):
         raise ValueError(f"control label {control!r} not found in perturbations")
-    global_ctrl_mean = float(scores[ctrl_mask].mean())
-    ctrl_mean_by_donor: dict[str, float] = {}
-    for d in np.unique(donor_arr[ctrl_mask]):
-        ctrl_mean_by_donor[str(d)] = float(scores[ctrl_mask & (donor_arr == d)].mean())
+
+    # Vectorized per-(perturbation x donor) means via integer group codes — pure
+    # numpy (bincount), so this scales to millions of cells / thousands of
+    # perturbations while producing exactly the per-donor deltas the loop above
+    # computed (donors sorted; unseen-donor control falls back to the pooled mean).
+    uperts, pcode = np.unique(perts, return_inverse=True)
+    udon, dcode = np.unique(donor_arr, return_inverse=True)
+    n_p, n_d = uperts.shape[0], udon.shape[0]
+    combo = pcode * n_d + dcode
+    g_sum = np.bincount(combo, weights=scores, minlength=n_p * n_d).reshape(n_p, n_d)
+    g_cnt = np.bincount(combo, minlength=n_p * n_d).reshape(n_p, n_d)
+    with np.errstate(invalid="ignore", divide="ignore"):
+        g_mean = g_sum / g_cnt
+
+    ctrl_row = int(np.where(uperts == control)[0][0])
+    global_ctrl_mean = float(g_sum[ctrl_row].sum() / max(g_cnt[ctrl_row].sum(), 1))
+    ctrl_ref = np.where(g_cnt[ctrl_row] > 0, g_mean[ctrl_row], global_ctrl_mean)
 
     results: list[DirectionResult] = []
-    for p in sorted(set(map(str, perts))):
-        if p == control:
+    for pi in range(n_p):
+        if pi == ctrl_row:
             continue
-        p_mask = perts == p
-        per_donor: list[float] = []
-        for d in np.unique(donor_arr[p_mask]):
-            pert_mean = float(scores[p_mask & (donor_arr == d)].mean())
-            ref = ctrl_mean_by_donor.get(str(d), global_ctrl_mean)
-            per_donor.append(pert_mean - ref)
-        deltas = np.asarray(per_donor, dtype=float)
+        present = g_cnt[pi] > 0
+        if not present.any():
+            continue
+        deltas = g_mean[pi, present] - ctrl_ref[present]
         direction_score = float(deltas.mean())
         agg_sign = np.sign(direction_score)
         agreement = bool(agg_sign != 0 and np.all(np.sign(deltas) == agg_sign))
+        p = str(uperts[pi])
         via = viability.get(p) if viability is not None else None
         results.append(
             DirectionResult(
@@ -255,7 +325,7 @@ def score_direction(
                 direction_score=direction_score,
                 tier=assign_tier(direction_score, via, tau, viability_floor),
                 donor_sign_agreement=agreement,
-                n_donors=int(deltas.shape[0]),
+                n_donors=int(present.sum()),
                 per_donor_scores=tuple(round(float(x), 6) for x in deltas),
             )
         )

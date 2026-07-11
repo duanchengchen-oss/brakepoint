@@ -1,6 +1,29 @@
 # WAR LOG — Built with Claude: Life Sciences (research track, solo)
 Append-only, newest first. Self-critique loop: every 8h. Results-watcher: every 6h.
 
+## 2026-07-12T (Day 6) — Fable 5 (Claude Code on the Mac): REAL direction axis computed on the genome-scale data; hero reframed to the signed causal map; P0-B honesty correction
+_Running in Claude Code on Sam's MacBook (NOT the DGX, contrary to the finish-prompt's assumption) — but the DGX (`spark-hk`, GB10) is SSH-reachable and holds the real data, so I finished the science the sandbox couldn't. User directive this session: quality bar is "impress the judges; ship nothing improvable."_
+
+**Ground truth established (verify-don't-assume):**
+- The genome-scale CD4 data lives on the DGX: `/home/sam/tcell_data/GWCD4i_Stim8hr_D1D2.built.h5ad` (2,638,736 cells × 4,816 HVGs, raw counts, Ensembl var, obs=`perturbation`+`donor`, control=`control`) + `.scvi.h5ad` (X_scVI). DGX env `~/miniforge3/envs/tcell` (scanpy 1.12; use `PYTHONNOUSERSITE=1` — a broken user-site pandas shadows it).
+- **P0-B RESOLVED — there is NO Gladstone-provided PPI network and NO Decima/Performer regulatory model.** The authoritative `data_sharing_readme.md` documents the provided artifacts: Perturb-seq expression (cell + pseudobulk), a genome-wide **DESeq2 DE result** (`GWCD4i.DE_stats.h5ad`), and supplementary signature/validation tables (Th1/Th2 polarization, autoimmune-cluster enrichment, arrayed validation, aging). No interaction network, no regulatory model — those were never provided. → The long-standing caveat ("provided PPI/regulatory not used yet") is **misframed and must be corrected everywhere**: STRING v12 + Open Targets are legitimate *public* layers on top of the provided data, not substitutes for withheld provided data. (README line 38, index.html lines 142/161/214, hero_dossier §5, gladstone-datasets-integration.md all carry the false claim — fixing.)
+
+**Did — P0-A, the carried #1 gap, now REAL on 2.64M cells:**
+1. `direction.py` — added a **CD4-appropriate signed axis** (`CD4_EFFECTOR_GENES` 16: IFNG/IL2/TNF/CSF2/LTA/XCL1-2/CCL3-4/GZMB/TNFRSF9/CD69/MYC/IRF4/BATF/TBX21 vs `CD4_DYSFUNCTION_GENES` 13: PDCD1/CTLA4/LAG3/HAVCR2/TIGIT/BTLA/CD160/VSIR/ENTPD1/TOX/NR4A1-3). CD8 cyto/exh kept as default so `_smoke` is unchanged. **Vectorized `score_direction`** (bincount over integer group codes) — 12.4k perts × 2.64M cells now aggregates in ~1s (was ~30 min of object-array masking); numpy-only, identical smoke output.
+2. `direction_genomescale.py` (NEW, runs on DGX) — streams the built h5ad in row-chunks (never materializes the ~5B-nnz matrix), scores `mean(log-norm effector) − mean(log-norm dysfunction)` per cell (background cancels), reuses `score_direction`. **Ran in 38.9s**, both modules 16/16 + 13/13 present. Output → `outputs_gladstone/direction_scores_raw.csv` + `direction_meta.json`.
+3. `merge_direction.py` (NEW) — merges the signed score into `ranked_perturbations.csv` + assigns `direction_tier` via the unit-tested `assign_tier` (tau=0.05). Tier counts: brake 2308 / enhancer 2972 / required-machinery 2542 / neutral 4627.
+
+**Result — the signed map validates itself and reframes the hero:**
+- The 9 largest E-distance effects are ALL strongly **negative** direction (donor-agreed): ZAP70 −0.63, CD3E −0.66, CD3D −0.66, CD3G −0.70, PLCG1 −0.66, LAT −0.64, VAV1 −0.59, LCP2 −0.76, CD247 −0.49 → the TCR machinery is correctly flagged **required-machinery, not druggable** (magnitude alone would headline them).
+- Known immune **brakes trend positive**: CBLB +0.14, CD5 +0.15, DGKA +0.08, UBASH3A +0.05, CDKN1B +0.06, TOX +0.18, CTLA4≈0. Highest-magnitude viable positive candidate with sensible biology = **SMAD3** (E-dist 25, TGF-β effector brake; donor sign-agreement is False — caveat).
+- **IL2RB reframed:** KD is ~lethal (viability 0.13, direction −0.24) → required machinery for the pro-survival IL-2 signal. This is exactly why the therapeutic is an IL-2/CD122 **agonist** (aldesleukin, N-803/Anktiva), NOT an inhibitor — the direction data now *explains* IL2RB instead of resting on a STRING nomination.
+
+**Decision (reframe):** headline pivots from "STRING→IL2RB network nomination" (the most attackable part) to **the genome-scale signed causal map** (novel, visual, self-validating). Present a brake shortlist (validated CBLB/CD5/DGKA/UBASH3A + higher-magnitude SMAD3/TGF-β and IL-2/IL-12 axis); keep IL2RB as an honestly-caveated convergence node (network + agonist-axis). Rebuild all deliverables (figures/landing/video/summary/README) on this, to a high visual bar.
+
+### NEEDS SAM (unchanged hard walls)
+- Record the narrated video VO + live Claude Science provenance capture (beats 2 & 5).
+- Final submission click. (Repo push now unblocked — `gh` authed as duanchengchen-oss; will create/push after the rebuild lands.)
+
 ## 2026-07-11T14:05Z (Day 5, 22:05 HKT) — VIDEO REBUILT for quality (Sam live: "that video was horrible, very low quality") → hand-built 1080p cut + narration deck
 _Sam returned mid-run and rejected the HeyGen auto-cut; asked for "1 2 3 together." A **parallel Cowork session** (13:35Z entry below) had meanwhile shipped `direction_axis.svg` + the T1D→autoimmune fix + verified the HeyGen renders — I built on that; **net-new here = a genuinely high-quality demo I control end-to-end + a narration deck**. Sandbox network is locked (npm/pip 403 → no pptxgenjs/Canva-native install), so I used **preinstalled matplotlib → ffmpeg**. No hard walls crossed (no submit/push/creds/connectors)._
 
