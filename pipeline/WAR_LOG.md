@@ -1,6 +1,12 @@
 # WAR LOG — Built with Claude: Life Sciences (research track, solo)
 Append-only, newest first. Self-critique loop: every 8h. Results-watcher: every 6h.
 
+## 2026-07-12T (Day 6, latest) — Fable 5: demo rebuilt as a Remotion motion-graphics video (user: "the demo video is very shitty")
+_User asked to make a much better video and to work with Codex. Attempted `codex exec` (gpt-5.6-sol) on a scene spec, but Codex's environment was wedged (older stuck sessions saturating its 2-thread cap → 0 output); I built the scenes myself for reliability. Genuine motion graphics now, not a slideshow._
+- **Remotion 4.0.290 project** at `deliverables/_remotion/` (React 19 / TS): 8 scenes, TransitionSeries crossfades, Space Grotesk / Plus Jakarta fonts, synced per-scene edge-tts audio. Total **2:48**.
+- **Animated causal map** (`MapScene.tsx`) driven by real exported data (`public/mapdata.json`): bulk cloud fades in, TCR machinery springs in with labels, the 14/15 callout slides in, brakes (circle=consistent / diamond=donor-split) pop in, quadrant captions reveal. Count-up KPIs (2,638,736 / 12,449), kinetic headings, method cards, honest brakes framing carried over verbatim.
+- Replaced `deliverables/demo.mp4`; committed `_remotion` source (node_modules/out/audio gitignored); pushed. Reproduce: `cd deliverables/_remotion && npm i && npm run render`.
+
 ## 2026-07-12T (Day 6, later) — Fable 5: adversarial red-team + honesty correction (the brake quadrant is NOT enriched)
 _Ran a 5-agent red-team workflow over the whole submission. 0 critical, 3 high, 12 medium. Two HIGH findings drove real corrections; fixing them made the submission more honest and, for a research prize, stronger._
 
