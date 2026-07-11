@@ -1,0 +1,17 @@
+# HyperFrames demo video — IL2RB story (motion-graphics cut / b-roll)
+# Recorded by results-watcher scheduled task, 2026-07-11.
+
+STATUS: render COMPLETED (HeyGen HyperFrames)
+PROJECT_ID: 60cf1164-eb0c-4332-a12a-81a5a857eeb8
+VIDEO_ID:   4327a9ea-4feb-4b39-8dba-ad102001c138
+DURATION:   65.7s (8 scene compositions)
+PROJECT_URL: https://app.heygen.com/projects/60cf1164-eb0c-4332-a12a-81a5a857eeb8
+
+# Presigned MP4 (expires 2026-07-18T11:06:54Z — before this it is a live download):
+MP4_URL: https://files2.heygen.ai/aries/output/4327a9ea-4feb-4b39-8dba-ad102001c138/video.mp4?Expires=1784372814&Signature=c22oXu~Ov2TZkpvOWz~gijaabUDMomc8naCVkc2t6JHSOcnFvnE1ZUVWWc6vWSIY-EEXcj0ha-UuT3FAzczdqfhiaVcVey9r480VK6MOb-Y62uMTjFPd~pDEZOdc8kIdp-k-AL000fhvrZePzSJXQxH07I16g~Ra4AAXWrSeL5u3cfjBhOVam4P4CpRgCtNisUyOWXE8a4KNKRQXqLdTVyIyNYsUsmx-c92XahAgqra4lE6oUxhB~zaJHcJOV8RmoPkDNJC4RS8FI-aw43hqI7YHtmnK-LCE0eFNDqx4IWj2I5Vmz2qXzXPbWU7RVElSrbcMDPq4I98p8AkmO5zqaw__&Key-Pair-Id=K38HBHX5LX3X2H
+
+# NOTE: presigned URL expires. To regenerate a fresh link, call HeyGen get_render_status
+#   with the PROJECT_ID + VIDEO_ID above (no re-render needed).
+# NOTE: this HyperFrames cut is the animated/motion-graphics component. The full 3-min
+#   submission video adds single-voice VO + live Claude Science screen capture (beats 2 & 5)
+#   per deliverables/demo_storyboard.md — those require Sam (agent cannot drive the CS tab / VO).

@@ -1,6 +1,21 @@
 # WAR LOG — Built with Claude: Life Sciences (research track, solo)
 Append-only, newest first. Self-critique loop: every 8h. Results-watcher: every 6h.
 
+## 2026-07-11T13:35Z (Day 5, 21:35 HKT) — build pass: REAL video kicked off (honest ID correction), 2-axis direction figure shipped, T1D→autoimmune accuracy fix
+_Cowork main session, numpy-only sandbox. No hard walls crossed (no submit / push / creds / connectors). Smokes all green (edistance_core, direction, concordance)._
+
+**Did:**
+1. **3-min video — actually started it.** Fired the HeyGen HyperFrames `compose` (6-beat IL2RB script) → **real project `29939a8d-a6ab-47a8-82ab-e521034f5189`** (runId 360f4942…), status `processing`. **Honesty correction:** an earlier note/`GOAL.md` cited project `60cf1164-…` as if rendering — that ID was a placeholder I'd stated before ever firing `compose`. Corrected `GOAL.md` to the real ID; MP4 URL will be saved to `deliverables/VIDEO_URL.txt` on render completion.
+2. **Shipped the 2-axis differentiator figure** — `deliverables/direction_axis.svg` (effect-size X × signed direction Y): essential TCR machinery (ZAP70/CD3D/LAT, undruggable) vs the druggable **brake** quadrant (CBLB/RASA2/SOCS1/CBL). Rendered to PNG and **eyeballed twice** — fixed opacity/tspan/label-collision issues so it renders cleanly in any rasterizer (solid light tints, no inline tspans). **Clearly labeled SCHEMATIC** (positions illustrative until the CS `--direction` re-run populates real `direction_score`). Wired into `index.html` (new "The differentiator" section) and `demo_storyboard.md` beat 3.
+3. **Accuracy fix — closes the pass-#7 minor NEEDS-SAM item.** Softened IL2RB "type-1-diabetes genetics" → "broader autoimmune genetics" across the 5 judge-facing assets (README, summary.md, index.html, hero_convergence.svg, storyboard). Left internal `real-finding-genomescale.md` as Sam set it.
+
+**Decisions:** kept IL2RB **out** of the 2-axis scatter (it's a network nominee, not a direct hit — plotting it would imply a measured effect/direction it doesn't have); noted in the caption instead. Used CD8-brake exemplars (CBLB/RASA2/SOCS1/CBL) as the schematic's "good target" quadrant since they're the real, citable brakes.
+
+### NEEDS SAM (unchanged hard walls)
+- **[critical path]** Claude Science `run_pipeline.py --direction` re-run → real `direction_score` CSV (turns the schematic figure into data).
+- **[hard walls]** Push public repo + finish video → fill `REPO_URL`/`DEMO_URL`, then submit.
+- **[decision]** Hero-arm framing (IL2RB default).
+
 ## 2026-07-11T12:40Z (Day 5, 20:40 HKT) — agent build pass: direction.py authored (#1 gap closed in code), IL2RB/VAV2/BLNK dossiers enriched (live OT+CT+PubMed), IL2RB drug overclaim fixed
 _Cowork agent, numpy-only sandbox (no scanpy/GPU). Delivered the finishable items; commits **92492fe** (direction.py) + **e2c6a54** (dossiers + doc corrections). All hard walls respected — no submit / no push / no creds / no connectors._
 
