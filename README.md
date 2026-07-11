@@ -15,20 +15,23 @@ effect** — to separate drug-relevant *brakes* from the cell's essential
 ## The finding
 On the **genome-scale Gladstone CRISPRi Perturb-seq** — **2,638,736 primary human
 CD4⁺ T cells**, **12,449 knockdowns**, scVI donor-integrated — ranking by causal
-effect size alone is not enough: the nine largest effects are the entire **TCR
-signalling module** (ZAP70, CD3D/E/G, CD247, PLCG1, LAT, LCP2, VAV1, ITK),
-recovered **unsupervised**. Adding a per-cell **signed direction-of-effect axis**
-(effector − dysfunction program, scored on all 2.64 M cells) reveals that **14 of
-the 15 largest-effect knockdowns are strongly negative** — knocking them down
-*cripples* the effector program. They are **required machinery, not drug
-targets.** The therapeutically useful signal is the sparse **positive quadrant**,
-where the map recovers canonical immune **brakes** (CD5, DGKA, CBLB) whose
-knockdown *enhances* effector function.
+effect size alone is not enough: **8 of the 9 largest effects** are the **TCR
+signalling module** (ZAP70, LCP2, CD3E/G/D, PLCG1, LAT, VAV1; the 8th, SMARCD3, is
+a toxic chromatin-remodeler dropout), recovered **unsupervised**. Adding a per-cell
+**signed direction-of-effect axis** (effector − dysfunction program, scored on all
+2.64 M cells) reveals that **14 of the 15 largest-effect knockdowns are strongly
+negative** — knocking them down *cripples* the effector program. They are
+**required machinery, not drug targets**, donor-consistently. That
+machinery→negative result is the **validated, load-bearing finding**.
 
-The machinery axis is unanimous across both donors; the brake side is where
-**2 donors shows its limits** — so the brake list is a prioritized shortlist for
-the full 4-donor cohort, presented honestly (see the donor-consistency marks in
-the figure). Full write-up:
+The **positive quadrant** (knockdown *enhances* effector function) is the
+therapeutic hypothesis space — and we report it honestly. At 2 donors it is noisy:
+a curated set of known T-cell brakes is **not yet significantly enriched** there
+(Mann–Whitney p = 0.56; `pipeline/brake_enrichment.py`), and the strongest raw
+positives include likely artifacts. Individual literature brakes — **CD5, DGKA**
+(donor-consistent), and the TGF-β node **SMAD3** (donor-split) — do land positive
+as a consistency check, but the positive side is a **prioritized hypothesis space
+for the full 4-donor cohort, not a finished target list**. Full write-up:
 [`pipeline/real-finding-genomescale.md`](pipeline/real-finding-genomescale.md).
 
 ## Why it's trustworthy

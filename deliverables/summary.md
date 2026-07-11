@@ -1,23 +1,21 @@
 # Written summary (submission)
 
-## Version A — the signed causal map (PRIMARY) — ~180 words
+## Version A — the signed causal map (PRIMARY)
 Using **Claude Science**, we built a reproducible pipeline that turns a
 genome-scale CRISPRi Perturb-seq screen into a **signed causal map** of human
 CD4⁺ T-cell function. On **2,638,736 primary human T cells** (12,449 knockdowns,
 scVI donor-integrated, run on an NVIDIA DGX Spark), we rank perturbations by
 **causal effect size** — power-equalized energy distance with a permutation test —
 then add the axis magnitude cannot supply: a per-cell **direction-of-effect**
-score (an effector program versus a dysfunction program). The map validates itself
-in both axes. Unsupervised, the largest effects are the entire TCR-signalling
-module; the direction axis then correctly flags **14 of the top 15 as required
-machinery** whose knockdown *cripples* the cell — not drug targets. The
-therapeutic signal is the opposite quadrant, where the map recovers canonical
-immune **brakes** (CD5, DGKA, CBLB) whose knockdown *enhances* effector function.
-We report donor consistency honestly (2 donors). Every artifact carries Claude
-Science provenance and a reviewer trail — which caught a real statistical bug
-before any figure. One command reproduces the map.
-
-_(167 words — inside the 100–200 window.)_
+score (an effector program versus a dysfunction program). The map validates
+itself: unsupervised, 8 of the 9 largest effects are the TCR-signalling module,
+and the direction axis correctly flags **14 of the top 15 as required machinery**
+whose knockdown *cripples* the cell — not drug targets, donor-consistently. That
+is the load-bearing result. The opposite, positive quadrant is the therapeutic
+hypothesis space; we report it honestly — at two donors it is not yet enriched for
+known brakes (p = 0.56), though brakes like CD5 and DGKA do land there. Every
+artifact carries Claude Science provenance and a reviewer trail, which caught a
+real statistical bug before any figure. One command reproduces the map.
 
 ## Version B — public-data fallback (Shifrut CD8; ~150 words)
 Using Claude Science, we built a reproducible pipeline that ranks CRISPR-KO

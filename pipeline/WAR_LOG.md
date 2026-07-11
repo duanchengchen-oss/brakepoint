@@ -1,6 +1,15 @@
 # WAR LOG — Built with Claude: Life Sciences (research track, solo)
 Append-only, newest first. Self-critique loop: every 8h. Results-watcher: every 6h.
 
+## 2026-07-12T (Day 6, later) — Fable 5: adversarial red-team + honesty correction (the brake quadrant is NOT enriched)
+_Ran a 5-agent red-team workflow over the whole submission. 0 critical, 3 high, 12 medium. Two HIGH findings drove real corrections; fixing them made the submission more honest and, for a research prize, stronger._
+
+1. **"the nine largest effects are the entire TCR module" was an overclaim.** True top-9 by E-distance = ZAP70, LCP2, CD3E, CD3G, PLCG1, LAT, VAV1, **SMARCD3** (rank 8, SWI/SNF chromatin remodeler, viability 0.16 — a toxic dropout), CD3D. CD247/ITK are ranks 15/17. README even listed 10 genes for "nine". → Corrected to **"8 of the 9 largest are TCR; the 8th (SMARCD3) is a chromatin-remodeler dropout"** across README, real-finding, index.html, summary.md, slides/VO. (hero_dossier §2 was already correct.)
+2. **The central "map recovers canonical immune brakes" claim was hand-picking, not a method result.** Wrote `brake_enrichment.py`: a curated set of 29 known non-module T-cell brakes is **NOT enriched** in the positive quadrant (Mann–Whitney one-sided **p = 0.56**; 37.9% vs 35.5% positive; brake median −0.047). The featured CD5/DGKA/CBLB/SMAD3/LAT2 were selected by prior biology; the raw top positives are artifacts (CFAP298 cilia gene, germ-cell/chromatin genes). → **Reframed everywhere**: the validated, load-bearing result is the **machinery axis** (14/15 top effects negative, donor-consistent); the positive quadrant is an **honest, prioritized hypothesis space** at 2 donors (null enrichment stated with the p-value), with CD5/DGKA as a consistency check — NOT a target list. Rebuilt the narrated video (slide 6 now "the positive quadrant, reported honestly") + deck + landing + one-pager to match.
+3. SMAD3 "highest-magnitude positive node" → "highest-magnitude *biologically-coherent* brake" (CFAP298 etc. are higher but artifacts). summary.md word-count label fixed (180, verified 100–200).
+
+**Repo:** history rewritten with `git filter-repo` to purge `pipeline/data/*.h5ad` (a 128 MB blob had blocked the push); .git 1.0 GB → 47 MB; pushed to **github.com/duanchengchen-oss/brakepoint** (renamed from tcell-causal-map — "Brakepoint": the drug targets are the brakes). Narrated demo (edge-tts) replaces the "record-it-yourself" hand-off; NEEDS SAM is now just the platform submit click.
+
 ## 2026-07-12T (Day 6) — Fable 5 (Claude Code on the Mac): REAL direction axis computed on the genome-scale data; hero reframed to the signed causal map; P0-B honesty correction
 _Running in Claude Code on Sam's MacBook (NOT the DGX, contrary to the finish-prompt's assumption) — but the DGX (`spark-hk`, GB10) is SSH-reachable and holds the real data, so I finished the science the sandbox couldn't. User directive this session: quality bar is "impress the judges; ship nothing improvable."_
 

@@ -34,23 +34,24 @@ slide's speaker notes in `demo_deck.pptx`). Everything here regenerates from
 > brake. Negative, it's required machinery.
 
 ### Slide 4 · Validation (~23s)
-> And the map validates itself. Unsupervised, the largest effects are the entire
-> T-cell-receptor module — ZAP70, the CD3 complex, LAT. The direction axis flags
+> And the map validates itself. Unsupervised, eight of the nine largest effects are
+> the T-cell-receptor module — ZAP70, the CD3 complex, LAT. The direction axis flags
 > fourteen of the top fifteen as machinery, not targets — and both donors agree,
-> every time. Get the machinery right, and you can trust the brakes.
+> every time. That machinery result is the load-bearing one.
 
 ### Slide 5 · The signed causal map (~21s)
 > This is the map. Effect size across the bottom, direction up the side. In teal,
 > the largest, most consistent effects — the machinery: knock it down, you cripple
-> the cell. The drug signal is the sparse amber quadrant up top: knockdowns that
-> enhance effector function. That's where the real targets live.
+> the cell. Up top, in amber, the sparse positive quadrant: knockdowns that enhance
+> effector function — the therapeutic hypothesis space a magnitude-only ranking
+> would never have looked at.
 
-### Slide 6 · The therapeutic quadrant (~25s)
-> There, the map recovers real drug-target biology. CD5 and DGKA — classic brakes,
-> consistent across donors, already being drugged. Higher-magnitude candidates like
-> the TGF-beta node SMAD3 are donor-split at two donors, so we flag them honestly —
-> a shortlist for the full four-donor cohort. The method is validated; the leads
-> are leads.
+### Slide 6 · The positive quadrant, honestly (~25s)
+> And we report that quadrant honestly. Known brakes like CD5 and DGKA do land
+> there, donor-consistent — a consistency check. But at two donors it isn't yet
+> enriched for known brakes, and its strongest raw hits include likely artifacts.
+> So the positive side is a prioritized hypothesis space for the full cohort; the
+> validated result is the machinery axis.
 
 ### Slide 7 · Close (~10s)
 > Fully open source — fixed seeds, one command to reproduce. The whole map, from

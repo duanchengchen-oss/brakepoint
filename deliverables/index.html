@@ -198,7 +198,7 @@
   <div class="wrap">
     <span class="eyebrow kicker reveal">The finding</span>
     <h2 class="reveal" style="max-width:20ch">A genome-scale map that knows which direction is up.</h2>
-    <p class="lead reveal" style="margin-top:20px">Rank the knockdowns by causal effect size and the biggest hits are the entire TCR-signalling module — recovered unsupervised. Add a per-cell <b>direction-of-effect</b> axis and the interpretation flips: those top effects all point <b>down</b> (knockdown cripples the cell). The drug signal lives in the sparse quadrant above the line.</p>
+    <p class="lead reveal" style="margin-top:20px">Rank the knockdowns by causal effect size and 8 of the 9 biggest hits are the TCR-signalling module — recovered unsupervised. Add a per-cell <b>direction-of-effect</b> axis and the interpretation flips: those top effects all point <b>down</b> (knockdown cripples the cell). The drug signal lives in the sparse quadrant above the line.</p>
     <div class="frame reveal" style="margin-top:44px">
       <div class="core"><img src="figures/causal_map.svg" alt="Signed causal map: causal effect size (E-distance) on the x-axis versus signed direction-of-effect on the y-axis. The TCR machinery clusters far-right and strongly negative; candidate brakes sit in the positive quadrant."/></div>
     </div>
@@ -214,11 +214,11 @@
     <div class="axis-ex reveal" style="margin-top:34px">
       <div class="quad up">
         <div class="t">↑ direction &gt; 0 — a brake</div>
-        <p>Knockdown pushes cells <b>toward</b> the effector program. Removing the gene enhances function — the therapeutic quadrant. Recovers CD5, DGKA, CBLB.</p>
+        <p>Knockdown pushes cells <b>toward</b> the effector program. Removing the gene enhances function — the therapeutic quadrant (e.g. CD5, DGKA land here).</p>
       </div>
       <div class="quad dn">
         <div class="t">↓ direction &lt; 0 — machinery</div>
-        <p>Knockdown pushes cells <b>away</b> from the effector program. The gene is required for function — a large effect in the wrong direction. The entire TCR module lands here.</p>
+        <p>Knockdown pushes cells <b>away</b> from the effector program. The gene is required for function — a large effect in the wrong direction. The TCR module lands here.</p>
       </div>
     </div>
     <div class="grid cols-3 reveal" style="margin-top:26px">
@@ -235,7 +235,7 @@
     <div class="reveal">
       <span class="eyebrow kicker">Validation</span>
       <h2 style="max-width:14ch">It recovers ground truth — in both axes.</h2>
-      <p class="lead" style="margin-top:20px">Unsupervised, the largest causal effects are the canonical TCR proximal-signalling module: ZAP70, CD3D/E/G, CD247, PLCG1, LAT, LCP2, VAV1, ITK. The direction axis then flags every one of them as machinery — and it agrees across <b>both</b> donors, every time.</p>
+      <p class="lead" style="margin-top:20px">Unsupervised, 8 of the 9 largest effects are the TCR proximal-signalling module — ZAP70, LCP2, CD3E/G/D, PLCG1, LAT, VAV1 (the 8th, SMARCD3, is a toxic chromatin-remodeler dropout); CD247 and ITK sit just below. The direction axis flags every TCR gene as machinery — and it agrees across <b>both</b> donors, every time.</p>
       <p class="lead" style="margin-top:16px">That two-way agreement with known biology is the internal control: a map that gets the machinery right in sign is a map you can trust to point at the brakes.</p>
     </div>
     <div class="reveal">
@@ -251,8 +251,8 @@
 <section class="pad" id="brakes" style="background:#f4f4ef">
   <div class="wrap">
     <span class="eyebrow kicker reveal">The therapeutic quadrant</span>
-    <h2 class="reveal" style="max-width:24ch">The brakes the map surfaces — reported honestly.</h2>
-    <p class="lead reveal" style="margin-top:18px">Knockdowns that <em>raise</em> the effector program are the drug-relevant class. The quadrant recovers real immune-brake biology. With two donors, the machinery axis is unanimous but the brake signals are modest — so this is a prioritized shortlist for the full four-donor cohort, not a finished target claim.</p>
+    <h2 class="reveal" style="max-width:24ch">Known brakes land in the positive quadrant — reported honestly.</h2>
+    <p class="lead reveal" style="margin-top:18px">Knockdowns that <em>raise</em> the effector program are the drug-relevant class. Known brakes like CD5 and DGKA land here and are donor-consistent — a consistency check. But we're honest: at two donors this quadrant is <b>not yet enriched</b> for a curated known-brake set (Mann–Whitney p = 0.56), and its strongest raw hits include likely artifacts. It is a prioritized hypothesis space for the full four-donor cohort, not a finished target list.</p>
     <div class="frame reveal" style="margin-top:30px;background:transparent;border:none;padding:0">
       <div class="core" style="padding:8px 20px 4px">
         <table class="shortlist">

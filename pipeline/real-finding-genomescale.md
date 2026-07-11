@@ -6,14 +6,16 @@ supersedes the earlier IL2RB-centric framing and the auto-generated
 
 ## The one-line finding
 On 2.64 M primary human CD4⁺ T cells, ranking CRISPRi knockdowns by **causal
-effect size alone cannot tell a drug target from the cell's own machinery** — the
-nine largest effects are the TCR signalling module. Adding a **signed
+effect size alone cannot tell a drug target from the cell's own machinery** — 8 of
+the 9 largest effects are the TCR signalling module. Adding a **signed
 direction-of-effect axis** splits the map: those top effects are all strongly
 **negative** (knockdown *cripples* the effector program → required machinery),
-while the therapeutically useful signal lives in the sparse **positive** quadrant
-(knockdown *enhances* effector function → candidate brakes). The map recovers
-known immune brakes in that quadrant and is validated, in both directions, by
-ground-truth biology.
+donor-consistently. That machinery→negative result is the **validated,
+load-bearing finding**, confirmed against ground-truth biology in both magnitude
+and sign. The **positive** quadrant (knockdown *enhances* effector function) is the
+therapeutic hypothesis space — presented honestly: at 2 donors it is noisy and
+**not yet enriched** for a curated known-brake set (p = 0.56), so it is a
+prioritized space for the full cohort, not a finished target list.
 
 ## The run
 - **Data:** genome-scale CRISPRi Perturb-seq, **primary human CD4⁺ T cells**
@@ -34,35 +36,55 @@ ground-truth biology.
   Code: `direction.py`, `direction_genomescale.py`, `merge_direction.py`.
 
 ## Validation — the map recovers ground truth in *both* axes
-1. **Magnitude (unsupervised):** the top of the leaderboard is the canonical TCR
-   proximal-signalling module — ZAP70, CD3E/G/D, CD247, PLCG1, LAT, LCP2, VAV1,
-   ITK — the strongest possible internal control that the method measures real
-   biology at 2.4 M-cell scale.
+1. **Magnitude (unsupervised):** the top of the leaderboard is dominated by the
+   canonical TCR proximal-signalling module. **8 of the 9 largest effects** are
+   TCR-proximal genes — ZAP70, LCP2, CD3E, CD3G, PLCG1, LAT, VAV1, CD3D; the one
+   exception (rank 8, **SMARCD3**, a SWI/SNF chromatin-remodeler) is a
+   high-toxicity dropout (viability 0.16). The rest of the module — CD247, ITK,
+   RASGRP1 — sits just below (ranks ~15–17). This is the strongest possible
+   internal control that the method measures real biology at 2.6 M-cell scale.
 2. **Sign (the key result):** **14 of the 15 largest-effect knockdowns have a
    negative direction score**, and every TCR-module gene is **donor-consistent**
    (both donors strongly negative: e.g. ZAP70 −0.63, LCP2 −0.76, CD3D −0.66, LAT
    −0.64). Magnitude alone would headline the cell's own activation machinery; the
    sign axis correctly reclassifies it as **required machinery, not druggable.**
+   This machinery→negative direction is the validated, load-bearing result.
 
-## The therapeutic signal — the positive (brake) quadrant
-Knockdowns that *raise* the effector program are the drug-relevant class. This
-quadrant recovers real immune-brake biology:
+## The therapeutic signal — the positive (brake) quadrant, reported honestly
+Knockdowns that *raise* the effector program are the drug-relevant class. Several
+literature-known immune **brakes** land in this quadrant and are donor-consistent —
+a useful consistency check:
 
 | Gene | E-distance | direction | donor-consistent? | note |
 |---|---|---|---|---|
 | **CD5** | 5.6 | +0.15 | **yes** (+0.15 / +0.14) | inhibitory co-receptor; KD de-represses TCR signalling |
 | **DGKA** | 2.5 | +0.08 | **yes** (+0.09 / +0.07) | DAG kinase brake; DGKα inhibitors are an IO strategy |
 | **CBLB** | 6.4 | +0.14 | no (+0.44 / −0.15) | E3-ligase brake; oral CBL-B inhibitors (NX-1607, HST-1011) in Ph1 |
-| **SMAD3** | 25.1 | +0.06 | no (−0.13 / +0.26) | TGF-β effector brake — highest-magnitude positive node |
+| **SMAD3** | 25.1 | +0.06 | no (−0.13 / +0.26) | TGF-β effector brake; the highest-E-distance *biologically-coherent* positive node |
 | **LAT2** | 23.0 | +0.20 | no (−0.09 / +0.49) | negative modulator of LAT signalling |
 
-**Honest read (do not overclaim):** the *machinery* axis is unanimous across both
-donors; the *brake* side is where **n = 2 donors shows its limits**. The
-donor-consistent brakes (CD5, DGKA) are modest in magnitude; the higher-magnitude
-candidates (SMAD3, LAT2, CBLB) are **donor-split** — driven by one of the two
-donors — so they are a **prioritized shortlist for the full 4-donor / Stim-48 h
-cohort**, not a finished de-novo target claim. The deliverable is the *validated
-method + signed map + shortlist*, which is exactly what the full cohort sharpens.
+**The critical honest caveat — we do not overclaim the positive side.** Two
+things must be stated plainly:
+1. **The positive quadrant is not brake-enriched at this scale.** A curated set of
+   29 known T-cell negative regulators (CBLB, CBL, DGKA/Z, TNFAIP3, SOCS1/3, CISH,
+   PTPN2/6, RASA2/3, UBASH3A, MAP4K1, TET2, …; scoring-module genes excluded to
+   avoid circularity) is **not significantly shifted toward positive direction vs
+   background** (Mann–Whitney one-sided **p = 0.56**; 37.9% positive vs 35.5%).
+   The genes above were selected by prior biology and are a **consistency check,
+   not a method-level enrichment result.**
+2. **The raw top of the positive quadrant is dominated by likely artifacts** — the
+   highest-E-distance positive-direction hits include CFAP298 (a cilia gene) and
+   germ-cell/chromatin genes, not credible CD4 brakes. So SMAD3 is the
+   highest-magnitude *coherent* brake, not the highest positive overall.
+
+**What this means.** The **validated, load-bearing result is the machinery axis**
+(14/15 largest effects negative, donor-consistent — magnitude alone would mislead).
+The **positive/brake side is a noisy hypothesis space at 2 donors / Stim-8 h**: the
+donor-consistent brakes (CD5, DGKA) are low-magnitude, the higher-magnitude ones
+(SMAD3, LAT2, CBLB) are donor-split, and the set as a whole isn't yet enriched. The
+honest deliverable is a **validated signed-map method + a prioritized hypothesis
+space** that the full 4-donor / Stim-48 h cohort is expected to sharpen — not a
+finished target list. (Enrichment recomputes via `pipeline/brake_enrichment.py`.)
 
 ## IL2RB — a convergence node, reframed honestly
 An independent layer (personalized-PageRank diffusion of the causal signal over
