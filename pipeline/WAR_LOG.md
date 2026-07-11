@@ -1,6 +1,25 @@
 # WAR LOG — Built with Claude: Life Sciences (research track, solo)
 Append-only, newest first. Self-critique loop: every 8h. Results-watcher: every 6h.
 
+## 2026-07-11T14:05Z (Day 5, 22:05 HKT) — VIDEO REBUILT for quality (Sam live: "that video was horrible, very low quality") → hand-built 1080p cut + narration deck
+_Sam returned mid-run and rejected the HeyGen auto-cut; asked for "1 2 3 together." A **parallel Cowork session** (13:35Z entry below) had meanwhile shipped `direction_axis.svg` + the T1D→autoimmune fix + verified the HeyGen renders — I built on that; **net-new here = a genuinely high-quality demo I control end-to-end + a narration deck**. Sandbox network is locked (npm/pip 403 → no pptxgenjs/Canva-native install), so I used **preinstalled matplotlib → ffmpeg**. No hard walls crossed (no submit/push/creds/connectors)._
+
+**Did:**
+1. **PRIMARY video — `deliverables/IL2RB_demo.mp4`** (1920×1080, **2:24**, 6 beats, gentle fades). Slides hand-designed in matplotlib on the **hero_convergence teal/navy brand** (no purple, no emoji); encoded per-clip + concat-copy (xfade too heavy for the 45s shell window). **Real numbers only** — validation chart pulls genome-scale `outputs_gladstone` E-distances (ZAP70 73.3 … CD3D 47.2); RASA2 flagged as the **CD8-arm** cross-check. Every slide visually QA'd (fixed chip/pillar overflow, hero-node caption, band collision) + frames QA'd from the encoded mp4.
+2. **Narration deck — `deliverables/IL2RB_demo_deck.pptx`** (validates clean): same 6 slides full-bleed + **verbatim VO in the speaker notes** (TCR gene list matched to slide; IL2RB genetics = "MS + autoimmune"). Plus `IL2RB_demo_slides.pdf` + `video_slides/`.
+3. **HeyGen (route 3 → b-roll):** my `compose` refined the original project (**60cf1164 → new render 3a8adaa1**, COMPLETED); the parallel session's full 6-beat cut (**29939a8d / 8e3a4436**) also COMPLETED. Both re-verified via get_render_status this run. `VIDEO_URL.txt` rewritten to lead with the local cut + no-re-render refresh instructions.
+4. **Landing page:** embedded the mp4 in a new dark **#demo** section (poster = slide 1) + footer links (demo · deck · Canva infographic · repo); hero button → `#demo`.
+5. **INFOGRAPHIC:** Canva `DAHPEnceXZE` exported to PNG (job success) but the **network lockout blocks pulling the binary into the repo** → landing page references the **Canva view link** instead. (Local embed needs Sam to drop the PNG in `deliverables/`.)
+6. **Pipeline upkeep (subagent):** `edistance_core.py` + `direction.py` smokes **PASS**; direction.py verified complete; added `direction_figure_spec.md` + guarded `direction_figure.py`; dossiers IL2RB/VAV2/BLNK/CBLB re-validated.
+
+**Decisions:** hand-built matplotlib/ffmpeg mp4 over a Canva-native export (Sam flagged quality + I control every pixel + network lockout blocked installs); kept it **silent/caption-driven at 2:24** since the narrated submission needs Sam's VO + live CS capture regardless; demoted HeyGen to b-roll rather than deleting (verified, free insurance).
+
+### NEEDS SAM
+- **[the scored artifact]** Record VO onto `IL2RB_demo_deck.pptx` (script in the notes) + screen-capture the **live Claude Science provenance** for beats 2 (reviewer) & 5 (hero) — the "show us how CS got you there" moment no agent can drive.
+- **[hard walls]** `REPO_URL` + hosted `DEMO_URL`, create/push the public repo, final submit (local commits done).
+- **[minor]** Drop the Canva infographic PNG into `deliverables/` if a local embed is wanted (agent is network-blocked from downloading it).
+- **[carried]** Signed `direction_score` CS re-run to populate the real 2-axis figure (direction.py authored + unit-tested; no scanpy/GPU here).
+
 ## 2026-07-11T13:35Z (Day 5, 21:35 HKT) — build pass: REAL video kicked off (honest ID correction), 2-axis direction figure shipped, T1D→autoimmune accuracy fix
 _Cowork main session, numpy-only sandbox. No hard walls crossed (no submit / push / creds / connectors). Smokes all green (edistance_core, direction, concordance)._
 

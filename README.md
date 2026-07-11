@@ -2,7 +2,7 @@
 
 **Built with Claude: Life Sciences · research track (solo).** A reproducible pipeline that ranks CRISPR perturbations in **primary human T cells** by **causal effect size**, validates itself against known biology, and nominates a novel, genetically-concordant, **druggable** target — every step carrying Claude Science provenance.
 
-> **Demo (≤3 min):** `DEMO_URL` · **Landing page:** `deliverables/index.html` · **Written summary:** `deliverables/summary.md`
+> **Demo (≤3 min):** [`deliverables/IL2RB_demo.mp4`](deliverables/IL2RB_demo.mp4) — 1080p 6-beat cut (2:24) · narration deck with verbatim VO in the speaker notes: [`IL2RB_demo_deck.pptx`](deliverables/IL2RB_demo_deck.pptx) · **Landing page:** `deliverables/index.html` · **Written summary:** `deliverables/summary.md`
 
 ## The finding
 On the **genome-scale Gladstone CRISPRi Perturb-seq** (2.44M primary human CD4⁺ T cells, 12,449 perturbations, scVI-integrated, knockdown-gated), the pipeline — **unsupervised** — recovers the entire TCR-signaling module (ZAP70, CD3D/E/G, PLCG1, LAT, VAV1). Diffusing the causal signal over the human interactome then re-discovers **IL2RB** (the IL-2/IL-15 receptor β): never a direct hit, yet network-central among causal nodes, carrying multiple-sclerosis and broader autoimmune genetics, and drug-adjacent via IL-2-pathway agonists — a real, actionable immune node surfaced from raw data. Genuinely undrugged **VAV2** and **BLNK** mark the novel frontier. (Public-data validation first re-nominated **RASA2**, a *Nature*-2022 CAR-T enhancer, and lead **CBLB**, an immune brake already in trials.) Full write-ups: [`pipeline/real-finding-genomescale.md`](pipeline/real-finding-genomescale.md) · [`pipeline/real-finding.md`](pipeline/real-finding.md).
@@ -29,7 +29,8 @@ Every result is a versioned artifact carrying its exact code, environment, and c
 pipeline/            edistance_core.py · run_pipeline.py · concordance.py · SKILL.md · Makefile · environment.yml · LICENSE (MIT) · SOURCES.md
 pipeline/outputs*/   ranked_perturbations.csv + figures (real runs)
 pipeline/real-finding.md   the finding, with real numbers
-deliverables/        demo_storyboard.md · summary.md · index.html · hero_convergence.svg
+deliverables/        IL2RB_demo.mp4 · IL2RB_demo_deck.pptx (VO in notes) · IL2RB_demo_slides.pdf · video_slides/
+                     index.html · summary.md · demo_storyboard.md · hero_convergence.svg · direction_axis.svg · VIDEO_URL.txt
 CONTEXT.md           full project handoff · gladstone-datasets-integration.md · research-track-target-discovery-plan.md · target-assessment-framework.md
 ```
 

@@ -1,24 +1,21 @@
-# HyperFrames motion-graphics cut — IL2RB story (b-roll for the 3-min submission)
-# Two real, tool-VERIFIED renders exist. Both confirmed via HeyGen get_render_status
-# on 2026-07-11T13:40Z (renderStatus=COMPLETED, URLs returned by the tool verbatim).
+# DEMO VIDEO — pointer file.  Updated 2026-07-11 (Sam flagged the HeyGen auto-cut as low quality).
 
-## PRIMARY — this session's full 6-beat script cut
-PROJECT_ID:  29939a8d-a6ab-47a8-82ab-e521034f5189
-VIDEO_ID:    8e3a4436-3f46-4649-a9c9-5ec7363bb65e
-PREVIEW_URL: https://api2.heygen.com/v1/magic_edit/sessions/29939a8d-a6ab-47a8-82ab-e521034f5189/preview
-# Presigned MP4 (expires ~2026-07-18):
-MP4_URL: https://files2.heygen.ai/aries/output/8e3a4436-3f46-4649-a9c9-5ec7363bb65e/video.mp4?Expires=1784381589&Signature=c~l0S4w4L3pLbDwW6LAM-auDc7ccLTdQ0erQ4VfTWqkTYjpmpGil4iEtJfoY5A2~INQYiQDi0SAt1D9nZmLJAHy~8e7-WV4v33iPAQO648GaOoT~vbdE55LOmctiiwOyO1kn06SWD3JCuf4505vWpUFUmGnixb3NueffDBYzk0XHmHY7l3B9Jk4mIufBE35M-3f1kRNFdpJfqLT6evyjucDR0dLqZhM64JhxEd5Yl9uXiP2mKYC-foP3uGwR2A4P3jO~OOsxDhqKHLDeVnVy5Db5yWd3X6guMBU-LbU96qWa4BhOxpA~291CLqSTTjPqMioZElu~mB5tP9OOpDC5Ew__&Key-Pair-Id=K38HBHX5LX3X2H
+## ★ PRIMARY (this session) — hand-built 1080p cut + narration deck  [in this folder]
+#  Rendered from designed slides (matplotlib → ffmpeg). Clean, on-brand, accurate numbers.
+VIDEO:  deliverables/IL2RB_demo.mp4          # 1920x1080, 2:24, silent 6-beat motion cut
+DECK:   deliverables/IL2RB_demo_deck.pptx    # same 6 slides + VERBATIM voiceover in speaker notes
+PDF:    deliverables/IL2RB_demo_slides.pdf   # static fallback
+SLIDES: deliverables/video_slides/slide_1..6.png
+#  -> For the narrated 3-min SUBMISSION: record VO onto the deck (script is in the notes) and
+#     screen-capture the live Claude Science provenance for beats 2 (reviewer) & 5 (hero). Only Sam can do that.
 
-## ALTERNATE — earlier autonomous watcher cut (65.7s, 8 scenes)
-PROJECT_ID:  60cf1164-eb0c-4332-a12a-81a5a857eeb8
-VIDEO_ID:    4327a9ea-4feb-4b39-8dba-ad102001c138
-PROJECT_URL: https://app.heygen.com/projects/60cf1164-eb0c-4332-a12a-81a5a857eeb8
-# Presigned MP4 (expires 2026-07-18T11:06:54Z):
-MP4_URL: https://files2.heygen.ai/aries/output/4327a9ea-4feb-4b39-8dba-ad102001c138/video.mp4?Expires=1784372814&Signature=c22oXu~Ov2TZkpvOWz~gijaabUDMomc8naCVkc2t6JHSOcnFvnE1ZUVWWc6vWSIY-EEXcj0ha-UuT3FAzczdqfhiaVcVey9r480VK6MOb-Y62uMTjFPd~pDEZOdc8kIdp-k-AL000fhvrZePzSJXQxH07I16g~Ra4AAXWrSeL5u3cfjBhOVam4P4CpRgCtNisUyOWXE8a4KNKRQXqLdTVyIyNYsUsmx-c92XahAgqra4lE6oUxhB~zaJHcJOV8RmoPkDNJC4RS8FI-aw43hqI7YHtmnK-LCE0eFNDqx4IWj2I5Vmz2qXzXPbWU7RVElSrbcMDPq4I98p8AkmO5zqaw__&Key-Pair-Id=K38HBHX5LX3X2H
-
-# HOW TO REFRESH: presigned URLs expire (~7 days). For a fresh link with NO re-render,
-#   call HeyGen get_render_status with a PROJECT_ID + VIDEO_ID pair above.
-#
-# SCOPE NOTE: these HyperFrames cuts are the animated/motion-graphics b-roll. The full 3-min
-#   submission video adds single-voice VO + a live Claude Science screen capture (storyboard
-#   beats 2 & 5) — those require Sam (the agent can't drive the CS browser tab or record VO).
+## HeyGen HyperFrames cuts — animated b-roll / alternates (verified COMPLETED 2026-07-11T13:41Z)
+# (a) full 6-beat script cut
+PROJECT_ID: 29939a8d-a6ab-47a8-82ab-e521034f5189   VIDEO_ID: 8e3a4436-3f46-4649-a9c9-5ec7363bb65e
+# (b) refined cut on the original project (this session's compose)
+PROJECT_ID: 60cf1164-eb0c-4332-a12a-81a5a857eeb8   VIDEO_ID: 3a8adaa1-fbcf-4275-923e-a042bd7c8e55
+# (c) earliest autonomous cut (65.7s)
+PROJECT_ID: 60cf1164-eb0c-4332-a12a-81a5a857eeb8   VIDEO_ID: 4327a9ea-4feb-4b39-8dba-ad102001c138
+# Presigned MP4 links expire (~7 days). Regenerate a fresh link with NO re-render via HeyGen
+# get_render_status(PROJECT_ID, VIDEO_ID). Latest (b) link, expires ~2026-07-18:
+#   https://files2.heygen.ai/aries/output/3a8adaa1-fbcf-4275-923e-a042bd7c8e55/video.mp4?Expires=1784381924&Signature=gurX-P5Roj1qGMdgOb0QSrV4S5psMFu5VJMY6~KMBQkigqHkdcz7aW3JRjdOccrSsxBIL5ntbk-wGX7YF31et73I~dzeYtyCBKRr0An5o6kUvp7Amapv3FDhwo8fHxfl-qyeU6DrUxsf6JD02Tbv2ZRmWpAkXyBVzhoVbX0RBOGKowAHobH01dH~ozvCH9dv7pozUPA3Uxj9QfRV-wsMbGvI1YV7l3sLpMvn3YmQhHOIgYh5mE9evJA6AumiRzMGkfsnQdecLW92C0hQAIqV6mrVuNhue3kAUDQbEDQDRNi27HfLzZe~LfpJD0leCcZ067yKXUlbze8A~1vpFTfwag__&Key-Pair-Id=K38HBHX5LX3X2H
