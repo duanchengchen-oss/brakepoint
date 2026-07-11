@@ -3,7 +3,7 @@
 **North star:** by ~T+12h, a **polished, submission-ready package** for Built with Claude: Life Sciences (research track, hero = **IL2RB**), with everything done except the two hard walls only Sam can clear.
 
 ## Definition of done (drive toward all of these)
-1. **3-min video** — real, tool-made (HeyGen HyperFrames project `29939a8d-a6ab-47a8-82ab-e521034f5189`; Canva mp4 fallback). MP4 URL saved to `deliverables/VIDEO_URL.txt` + `pipeline/WAR_LOG.md`. Iterate on it if the first cut is weak.
+1. **3-min video** — real, tool-made. **Two verified HeyGen HyperFrames cuts** exist: `29939a8d…` (this-session 6-beat, primary) + `60cf1164…` (earlier watcher cut, alternate); tool-verified MP4 URLs live in `deliverables/VIDEO_URL.txt` (source of truth). Canva mp4 fallback. Iterate if the first cut is weak.
 2. **Infographic** — Canva design `DAHPEnceXZE` (PNG exported); refine and reference it in the landing page.
 3. **Direction-axis method upgrade** — author `pipeline/direction.py` (per-cell cytotoxic-vs-exhaustion module scoring → signed `direction_score` + tier), unit-test the pure logic, wire into `run_pipeline.py`, add the 2-axis figure spec. (Regenerating the CSV needs a Claude Science re-run — flag it, don't fake it.)
 4. **Dossiers** — enrich IL2RB, VAV2, BLNK (+ CBLB) via Open Targets / ChEMBL / ClinicalTrials / PubMed (cached, backoff); keep `real-finding-genomescale.md` accurate.

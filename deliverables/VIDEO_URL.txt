@@ -1,17 +1,24 @@
-# HyperFrames demo video — IL2RB story (motion-graphics cut / b-roll)
-# Recorded by results-watcher scheduled task, 2026-07-11.
+# HyperFrames motion-graphics cut — IL2RB story (b-roll for the 3-min submission)
+# Two real, tool-VERIFIED renders exist. Both confirmed via HeyGen get_render_status
+# on 2026-07-11T13:40Z (renderStatus=COMPLETED, URLs returned by the tool verbatim).
 
-STATUS: render COMPLETED (HeyGen HyperFrames)
-PROJECT_ID: 60cf1164-eb0c-4332-a12a-81a5a857eeb8
-VIDEO_ID:   4327a9ea-4feb-4b39-8dba-ad102001c138
-DURATION:   65.7s (8 scene compositions)
+## PRIMARY — this session's full 6-beat script cut
+PROJECT_ID:  29939a8d-a6ab-47a8-82ab-e521034f5189
+VIDEO_ID:    8e3a4436-3f46-4649-a9c9-5ec7363bb65e
+PREVIEW_URL: https://api2.heygen.com/v1/magic_edit/sessions/29939a8d-a6ab-47a8-82ab-e521034f5189/preview
+# Presigned MP4 (expires ~2026-07-18):
+MP4_URL: https://files2.heygen.ai/aries/output/8e3a4436-3f46-4649-a9c9-5ec7363bb65e/video.mp4?Expires=1784381589&Signature=c~l0S4w4L3pLbDwW6LAM-auDc7ccLTdQ0erQ4VfTWqkTYjpmpGil4iEtJfoY5A2~INQYiQDi0SAt1D9nZmLJAHy~8e7-WV4v33iPAQO648GaOoT~vbdE55LOmctiiwOyO1kn06SWD3JCuf4505vWpUFUmGnixb3NueffDBYzk0XHmHY7l3B9Jk4mIufBE35M-3f1kRNFdpJfqLT6evyjucDR0dLqZhM64JhxEd5Yl9uXiP2mKYC-foP3uGwR2A4P3jO~OOsxDhqKHLDeVnVy5Db5yWd3X6guMBU-LbU96qWa4BhOxpA~291CLqSTTjPqMioZElu~mB5tP9OOpDC5Ew__&Key-Pair-Id=K38HBHX5LX3X2H
+
+## ALTERNATE — earlier autonomous watcher cut (65.7s, 8 scenes)
+PROJECT_ID:  60cf1164-eb0c-4332-a12a-81a5a857eeb8
+VIDEO_ID:    4327a9ea-4feb-4b39-8dba-ad102001c138
 PROJECT_URL: https://app.heygen.com/projects/60cf1164-eb0c-4332-a12a-81a5a857eeb8
-
-# Presigned MP4 (expires 2026-07-18T11:06:54Z — before this it is a live download):
+# Presigned MP4 (expires 2026-07-18T11:06:54Z):
 MP4_URL: https://files2.heygen.ai/aries/output/4327a9ea-4feb-4b39-8dba-ad102001c138/video.mp4?Expires=1784372814&Signature=c22oXu~Ov2TZkpvOWz~gijaabUDMomc8naCVkc2t6JHSOcnFvnE1ZUVWWc6vWSIY-EEXcj0ha-UuT3FAzczdqfhiaVcVey9r480VK6MOb-Y62uMTjFPd~pDEZOdc8kIdp-k-AL000fhvrZePzSJXQxH07I16g~Ra4AAXWrSeL5u3cfjBhOVam4P4CpRgCtNisUyOWXE8a4KNKRQXqLdTVyIyNYsUsmx-c92XahAgqra4lE6oUxhB~zaJHcJOV8RmoPkDNJC4RS8FI-aw43hqI7YHtmnK-LCE0eFNDqx4IWj2I5Vmz2qXzXPbWU7RVElSrbcMDPq4I98p8AkmO5zqaw__&Key-Pair-Id=K38HBHX5LX3X2H
 
-# NOTE: presigned URL expires. To regenerate a fresh link, call HeyGen get_render_status
-#   with the PROJECT_ID + VIDEO_ID above (no re-render needed).
-# NOTE: this HyperFrames cut is the animated/motion-graphics component. The full 3-min
-#   submission video adds single-voice VO + live Claude Science screen capture (beats 2 & 5)
-#   per deliverables/demo_storyboard.md — those require Sam (agent cannot drive the CS tab / VO).
+# HOW TO REFRESH: presigned URLs expire (~7 days). For a fresh link with NO re-render,
+#   call HeyGen get_render_status with a PROJECT_ID + VIDEO_ID pair above.
+#
+# SCOPE NOTE: these HyperFrames cuts are the animated/motion-graphics b-roll. The full 3-min
+#   submission video adds single-voice VO + a live Claude Science screen capture (storyboard
+#   beats 2 & 5) — those require Sam (the agent can't drive the CS browser tab or record VO).
