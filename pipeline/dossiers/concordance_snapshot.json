@@ -38,5 +38,25 @@
     "any_gwas": false,
     "genome_wide_sig": false,
     "direction": null
+  },
+  "CD3D": {
+    "any_gwas": false,
+    "genome_wide_sig": false,
+    "direction": null
+  },
+  "LCP2": {
+    "any_gwas": false,
+    "genome_wide_sig": false,
+    "direction": null
+  },
+  "CDKN1B": {
+    "any_gwas": false,
+    "genome_wide_sig": false,
+    "direction": null
+  },
+  "DGKA": {
+    "any_gwas": false,
+    "genome_wide_sig": false,
+    "direction": null
   }
 }

@@ -1,0 +1,96 @@
+{
+  "gene": "DGKA",
+  "aliases": [
+    "DAGK",
+    "DAGK1",
+    "DGK-alpha",
+    "diacylglycerol kinase alpha"
+  ],
+  "status": "REAL RESULT — rank #8 by E-distance (gate-passing). Interpreted as a DE-PRIORITIZED brake (weak effect + over-proliferation flag), but tractability UPGRADED: a clinical-stage DGKa inhibitor now exists.",
+  "pass_utc": "2026-07-10T00:00:00Z",
+  "modality_context": "KO (Shifrut/Marson primary human CD8 T-cell CRISPR-KO); concordance rule: concordant = protective_lof",
+  "real_result": {
+    "source_csv": "outputs/ranked_perturbations.csv",
+    "run_mtime_utc": "2026-07-09T07:25:41Z",
+    "rank": 8,
+    "e_distance": 0.6105,
+    "e_pval": 0.00999,
+    "e_qval": 0.028543,
+    "n_cells": 2289,
+    "n_donors": 2,
+    "viability_ratio": 2.297,
+    "target_fc": 0.9174,
+    "passes_gates": true,
+    "interpretation": "Statistically significant but SMALL causal footprint (E=0.61 — ~7x below the RASA2/CBLB brake tier and the weakest gate-passing hit). Highest viability_ratio in the panel (2.30) = KO drives OVER-proliferation, so its signature is a fitness/expansion effect more than a clean effector-program shift. Gate-passing but low-priority."
+  },
+  "ensembl_expected": "ENSG00000065357 (literature; unverified — OT unavailable this run to confirm)",
+  "identifiers": {
+    "chembl_target_id": "CHEMBL4105787",
+    "chembl_target_note": "SINGLE PROTEIN target 'Diacylglycerol kinase alpha' (P23743; PDB 1TUZ, 6IIE). ChEMBL also lists PROTEIN FAMILY target CHEMBL4630754 (DGKalpha/zeta) — the dual-isozyme node most IO drug-discovery programs pursue (DGKa and DGKz redundantly brake TCR-DAG signaling).",
+    "uniprot": "P23743"
+  },
+  "io_rationale": "DGKa phosphorylates diacylglycerol (DAG) to phosphatidic acid, TERMINATING DAG-driven RasGRP/PKC signaling downstream of the TCR — a metabolic BRAKE on T-cell activation. KO/inhibition sustains DAG signaling and enhances effector function and anti-tumor immunity (well-established IO rationale; DGKa/z double-KO is a strong CAR-T potency enhancer). Direction here is enhancement-consistent, but the effect size in this screen is weak and the readout is proliferative.",
+  "tractability": {
+    "chembl_target_exists": true,
+    "chembl_target_type": "SINGLE PROTEIN (+ PROTEIN FAMILY DGKa/z)",
+    "structures_available": true,
+    "assessment": "tractable_small_molecule (clinical-stage as of 2025)",
+    "evidence": "ChEMBL target CHEMBL4105787 (PDB 1TUZ, 6IIE) + Pharos listing. Historically drugged only by tool compounds (R59022, R59949, ritanserin-class), but a purpose-built oral DGKa inhibitor has now reached the clinic (see known_drugs / active_trials).",
+    "ot_tractability": "unavailable_rate_limited"
+  },
+  "genetic_evidence": {
+    "any_gwas": false,
+    "genome_wide_sig": false,
+    "direction": null,
+    "anchor_disease": "none with a usable common-variant direction of effect",
+    "rationale": "No genome-wide-significant immune disease-risk variant with an interpretable LoF direction was established for DGKA; carried as any_gwas=false / no_direction in the concordance funnel. Mechanistic direction (brake) is textbook, but the human-genetics directional axis is absent (pending OT).",
+    "direction_confidence": "n/a (no common-variant GWAS direction)",
+    "source": "literature_expectation (OT confirmation pending)"
+  },
+  "known_drugs": {
+    "chembl_mechanisms_count": 0,
+    "action_types": "INHIBITOR (tool compounds historically; oral clinical inhibitor now in trials)",
+    "examples": [
+      "BAY 2862789 — Bayer oral DGKa inhibitor (clinical; see active_trials)",
+      "ritanserin / R59022 / R59949 — historical DGKa tool inhibitors (preclinical, non-selective)"
+    ],
+    "note": "0 mechanisms in ChEMBL v34 (the clinical DGKa inhibitor post-dates the release); the clinical program was confirmed live via ClinicalTrials.gov.",
+    "max_clinical_phase": 1
+  },
+  "active_trials": {
+    "direct_target_trials_found": 1,
+    "examples": [
+      "NCT05858164"
+    ],
+    "detail": {
+      "nct_id": "NCT05858164",
+      "drug": "BAY 2862789 (Diacylglycerol Kinase Alpha inhibitor, DGKai)",
+      "sponsor": "Bayer",
+      "phase": "PHASE1",
+      "design": "Open-label, first-in-human dose escalation (safety/tolerability/MTD/PK/PD/tumor response)",
+      "conditions": ["Advanced Solid Tumors", "Non-small Cell Lung Cancer"],
+      "status": "COMPLETED",
+      "enrollment": 45,
+      "start_date": "2023-08-07",
+      "primary_completion_date": "2025-09-26",
+      "locations_count": 18
+    },
+    "note": "REAL clinical validation of DGKa as a druggable IO target — a completed first-in-human Phase 1 (Bayer). Upgrades DGKA from 'preclinical IO' to clinical-stage tractability. Does NOT change its de-prioritization here, which rests on the weak screen effect + over-proliferation flag."
+  },
+  "essentiality": {
+    "pan_essential": false,
+    "note": "Not pan-essential; isozyme redundancy with DGKz (dual inhibition is the usual strategy). Immune/lipid-signaling restricted.",
+    "source": "literature_expectation"
+  },
+  "safety_flags": [
+    "In-screen viability_ratio 2.30 (highest in panel) — KO drives over-proliferation; monitor for uncontrolled expansion / exhaustion-independent growth in a cell product.",
+    "DAG signaling is broad — on-target inhibition could carry pleiotropic (e.g., platelet, neuronal) effects; the clinical Phase 1 will inform the human safety profile."
+  ],
+  "call": "DE-PRIORITIZE as a lead (weakest gate-passing effect + over-proliferation), but flag as the most CLINICALLY DE-RISKED of the de-prioritized tier — a completed Phase 1 DGKa inhibitor exists. Better pursued as combination/CAR-T-enhancer (with DGKz) than as a standalone KO hero here.",
+  "provenance": {
+    "effect_size": "outputs/ranked_perturbations.csv (REAL; Claude Science run, seed=0, mtime 2026-07-09T07:25:41Z)",
+    "chembl": "ChEMBL v34 via bio-research MCP, 2026-07-10 (REAL query: target_search gene_symbol=DGKA, Homo sapiens)",
+    "c_trials": "ClinicalTrials.gov API v2 via bio-research MCP, 2026-07-10 (REAL query: intervention='DGKA OR diacylglycerol kinase alpha', total=1, NCT05858164)",
+    "open_targets": "UNAVAILABLE 2026-07-10 — persistent global rate limit (4th consecutive run); genetic direction is literature expectation, OT direction-of-effect confirmation still pending"
+  }
+}

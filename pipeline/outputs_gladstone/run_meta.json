@@ -1,0 +1,26 @@
+{
+  "seed": 0,
+  "n_cells": 2436881,
+  "control": "control",
+  "modality": "CRISPRi",
+  "embedding": "X_scVI",
+  "n_perturbations": 12449,
+  "n_tested": 11438,
+  "top": [
+    "ZAP70",
+    "CD3E",
+    "CD3G",
+    "PLCG1",
+    "LAT",
+    "VAV1",
+    "CD3D",
+    "ZBED3",
+    "CFAP298",
+    "RB1CC1",
+    "SENP5",
+    "CD247",
+    "RASGRP1",
+    "ITK",
+    "UBE2E2"
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "gene": "CD3D",
+  "aliases": [
+    "T3D",
+    "CD3-DELTA",
+    "IMD19"
+  ],
+  "status": "REAL RESULT — rank #1 by E-distance. Interpreted as a POSITIVE CONTROL (TCR-essential accelerator), NOT a therapeutic KO nominee.",
+  "pass_utc": "2026-07-09T10:08:11Z",
+  "modality_context": "KO (Shifrut/Marson primary human CD8 T-cell CRISPR-KO); concordance rule: concordant = protective_lof",
+  "real_result": {
+    "source_csv": "outputs/ranked_perturbations.csv",
+    "run_mtime_utc": "2026-07-09T07:25:41Z",
+    "rank": 1,
+    "e_distance": 9.4168,
+    "e_pval": 0.000999,
+    "e_qval": 0.00333,
+    "n_cells": 855,
+    "n_donors": 2,
+    "viability_ratio": 0.858,
+    "passes_gates": true,
+    "interpretation": "Largest causal transcriptional footprint in the screen — exactly as expected for ablating a core TCR-CD3 subunit. Validates that the power-equalized E-distance recovers the strongest bona fide perturbation unsupervised."
+  },
+  "ensembl_expected": "ENSG00000167286 (literature; unverified — OT unavailable this run to confirm)",
+  "identifiers": {
+    "chembl_target_id": "CHEMBL2364168",
+    "chembl_target_note": "ChEMBL target is the CD3 PROTEIN COMPLEX (subunits CD3E/P07766, CD3G/P09693, CD3D/P04234); no CD3D-delta-only ChEMBL target record.",
+    "uniprot": "P04234"
+  },
+  "io_rationale": "CD3 delta chain of the TCR-CD3 complex; required for TCR surface assembly and proximal signaling. KO collapses TCR signaling, producing the largest state shift in the panel. Loss-of-function IMPAIRS effector function (it is the accelerator, not a brake) — so despite the top effect size it is a control, not an enhancement target.",
+  "tractability": {
+    "chembl_target_exists": true,
+    "chembl_target_type": "PROTEIN COMPLEX",
+    "structures_available": true,
+    "assessment": "target_class_heavily_drugged_but_wrong_modality",
+    "evidence": "ChEMBL complex CHEMBL2364168 with 30+ PDB structures and 16 drug mechanisms (max_phase 4). BUT approved agents are CD3 T-cell engagers / cross-linkers that AGONIZE / redirect the TCR — orthogonal-to-opposite of the loss-of-function-to-enhance-persistence hypothesis a KO hit implies.",
+    "ot_tractability": "unavailable_rate_limited"
+  },
+  "genetic_evidence": {
+    "any_gwas": false,
+    "genome_wide_sig": false,
+    "direction": null,
+    "anchor_disease": "T-B+ SCID (immunodeficiency 19, biallelic LoF) — Mendelian, not common-variant GWAS",
+    "rationale": "Rare biallelic CD3D LoF causes severe combined immunodeficiency: loss ablates immunity. This is the signature of an IMMUNE ACCELERATOR, the opposite of a protective_lof brake — not concordant under the KO rule and not a disease-risk GWAS direction. Excluded from the common-variant directional funnel (any_gwas=false).",
+    "direction_confidence": "high (mechanism), n/a (GWAS direction)",
+    "source": "literature_expectation (ClinVar/OMIM; OT confirmation pending)"
+  },
+  "known_drugs": {
+    "chembl_mechanisms_count": 16,
+    "action_types": "BINDING AGENT (8), CROSS-LINKING AGENT (5), INHIBITOR (2)",
+    "examples": [
+      "muromonab-CD3 / OKT3-class (CHEMBL1201608, approved)",
+      "catumaxomab (CHEMBL2108581, EpCAMxCD3, approved)",
+      "odronextamab (CHEMBL4298084, CD20xCD3, Ph3)",
+      "flotetuzumab (CHEMBL3990038, CD123xCD3, Ph2)"
+    ],
+    "note": "All engage/redirect T cells via the CD3 complex — a validated APPROVED target class, but the modality is agonistic/redirective, NOT knockdown-to-enhance.",
+    "max_clinical_phase": 4
+  },
+  "active_trials": {
+    "target_class_active_trials": 243,
+    "query": "intervention = CD3 bispecific OR T-cell engager OR blinatumomab; status RECRUITING/ACTIVE_NOT_RECRUITING",
+    "examples": [
+      "NCT06091254 (odronextamab, Ph3, follicular lymphoma)",
+      "NCT06672705 (epcoritamab, Ph1b, PTLD)"
+    ],
+    "note": "Large active CD3-engager landscape confirms the class is clinically validated — but as a T-cell-redirection modality, not as a persistence-enhancing KO."
+  },
+  "essentiality": {
+    "pan_essential": false,
+    "note": "Immune-restricted but FUNCTIONALLY essential for TCR signaling in T cells; KO is a loss of the core effector machinery.",
+    "source": "literature_expectation"
+  },
+  "safety_flags": [
+    "KO abolishes T-cell antigen recognition (immunodeficiency phenotype). Not a viable enhancement-KO target; role here is method validation / positive control."
+  ],
+  "provenance": {
+    "effect_size": "outputs/ranked_perturbations.csv (REAL; Claude Science run, seed=0, mtime 2026-07-09T07:25:41Z)",
+    "chembl": "ChEMBL v34 via bio-research MCP, 2026-07-09 (REAL query: target_search + get_mechanism)",
+    "c_trials": "ClinicalTrials.gov API v2 via bio-research MCP, 2026-07-09 (REAL query)",
+    "open_targets": "UNAVAILABLE 2026-07-09 — persistent global rate limit (3rd run); genetic direction is literature/ClinVar expectation, OT direction-of-effect confirmation still pending"
+  }
+}

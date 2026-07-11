@@ -1,0 +1,18 @@
+{
+  "seed": 0,
+  "n_cells": 24998,
+  "control": "control",
+  "n_perturbations": 20,
+  "top": [
+    "CD3D",
+    "LCP2",
+    "RASA2",
+    "CBLB",
+    "CD5",
+    "TCEB2",
+    "CDKN1B",
+    "DGKA",
+    "ARID1A",
+    "LAG3"
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "gene": "CDKN1B",
+  "aliases": [
+    "KIP1",
+    "p27Kip1",
+    "CDKN4",
+    "MEN4",
+    "MEN1B"
+  ],
+  "status": "REAL RESULT — rank #7 by E-distance (gate-passing). Interpreted as a DE-PRIORITIZED brake (tumor-suppressor transformation risk), NOT a lead nominee.",
+  "pass_utc": "2026-07-10T00:00:00Z",
+  "modality_context": "KO (Shifrut/Marson primary human CD8 T-cell CRISPR-KO); concordance rule: concordant = protective_lof",
+  "real_result": {
+    "source_csv": "outputs/ranked_perturbations.csv",
+    "run_mtime_utc": "2026-07-09T07:25:41Z",
+    "rank": 7,
+    "e_distance": 1.7932,
+    "e_pval": 0.012987,
+    "e_qval": 0.032468,
+    "n_cells": 747,
+    "n_donors": 2,
+    "viability_ratio": 0.7496,
+    "passes_gates": true,
+    "interpretation": "Modest causal transcriptional footprint (E=1.79, ~4x below the RASA2/CBLB brake tier). Passes the significance + viability gates but viability_ratio 0.75 shows KO REDUCES recovered cell number — consistent with p27 loss deregulating the cell cycle rather than cleanly enhancing effector fitness."
+  },
+  "ensembl_expected": "ENSG00000111276 (literature; unverified — OT unavailable this run to confirm)",
+  "identifiers": {
+    "chembl_target_id": "CHEMBL3758070",
+    "chembl_target_note": "SINGLE PROTEIN target 'Cyclin-dependent kinase inhibitor 1B' (P46527). ChEMBL also lists PROTEIN-PROTEIN INTERACTION target CHEMBL3885557 (CDKN1B/SKP2) — the SCF(Skp2) degradation node, not CDKN1B itself.",
+    "uniprot": "P46527"
+  },
+  "io_rationale": "p27Kip1 is a CDK inhibitor and a G1/S cell-cycle BRAKE; in T cells it restrains proliferative expansion, so KO can lower the threshold for clonal expansion. But p27 is a canonical TUMOR SUPPRESSOR — germline LoF causes MEN4 (multiple endocrine neoplasia type 4). Removing it from an engineered cell product trades effector expansion against oncogenic-transformation and genomic-instability risk. Effect size here is modest and its readout looks proliferative rather than a clean effector-program shift.",
+  "tractability": {
+    "chembl_target_exists": true,
+    "chembl_target_type": "SINGLE PROTEIN (+ PROTEIN-PROTEIN INTERACTION)",
+    "structures_available": true,
+    "assessment": "low_direct_tractability",
+    "evidence": "ChEMBL target CHEMBL3758070 with ~20 PDB structures and Pharos listing, BUT CDKN1B is a largely intrinsically-disordered endogenous CDK inhibitor — direct small-molecule inhibition is classically hard, and the therapeutic goal (release the brake) means REDUCING p27, not inhibiting a pocket. The tractable node is its degradation machinery (SKP2/SCF, CHEMBL3885557), not CDKN1B itself.",
+    "ot_tractability": "unavailable_rate_limited"
+  },
+  "genetic_evidence": {
+    "any_gwas": false,
+    "genome_wide_sig": false,
+    "direction": null,
+    "anchor_disease": "Multiple endocrine neoplasia type 4 (MEN4) — rare germline CDKN1B LoF, tumor-predisposition; Mendelian, not common-variant immune GWAS",
+    "rationale": "Human CDKN1B LoF is a cancer-predisposition (tumor-suppressor) signature, not an immune disease-risk GWAS direction. Excluded from the common-variant directional funnel (any_gwas=false) and reinforces the transformation-risk flag rather than supporting an enhancement KO.",
+    "direction_confidence": "n/a (no common-variant GWAS direction)",
+    "source": "literature_expectation (OMIM/MEN4; OT confirmation pending)"
+  },
+  "known_drugs": {
+    "chembl_mechanisms_count": 0,
+    "action_types": "none (no approved/clinical drug directly inhibits CDKN1B)",
+    "examples": [],
+    "note": "No drug directly targets p27 as an inhibitable enzyme; modulation is indirect via the SCF(Skp2) degradation axis. No CDKN1B-directed clinical program.",
+    "max_clinical_phase": 0
+  },
+  "active_trials": {
+    "direct_target_trials_found": 0,
+    "query": "intervention = 'CDKN1B OR p27Kip1' (ClinicalTrials.gov v2, count_total) -> total 0",
+    "examples": [],
+    "note": "Zero interventional programs naming CDKN1B/p27 as the agent — consistent with an undruggable tumor-suppressor node."
+  },
+  "essentiality": {
+    "pan_essential": false,
+    "note": "Not pan-essential; a cell-cycle regulator / tumor suppressor. Loss deregulates proliferation.",
+    "source": "literature_expectation"
+  },
+  "safety_flags": [
+    "TUMOR-SUPPRESSOR KO — oncogenic-transformation and genomic-instability risk in an engineered T-cell product (MEN4 germline precedent).",
+    "In-screen viability_ratio 0.75 (reduced recovery) — readout looks proliferative/fitness-linked rather than a clean effector enhancement."
+  ],
+  "call": "DE-PRIORITIZE — modest effect size + tumor-suppressor transformation risk + no direct tractability. Not a lead; retained for funnel completeness (gate-passing hit #7).",
+  "provenance": {
+    "effect_size": "outputs/ranked_perturbations.csv (REAL; Claude Science run, seed=0, mtime 2026-07-09T07:25:41Z)",
+    "chembl": "ChEMBL v34 via bio-research MCP, 2026-07-10 (REAL query: target_search gene_symbol=CDKN1B, Homo sapiens)",
+    "c_trials": "ClinicalTrials.gov API v2 via bio-research MCP, 2026-07-10 (REAL query: intervention='CDKN1B OR p27Kip1', total=0)",
+    "open_targets": "UNAVAILABLE 2026-07-10 — persistent global rate limit (4th consecutive run); genetic direction is literature/OMIM expectation, OT direction-of-effect confirmation still pending"
+  }
+}

@@ -20,7 +20,7 @@
     "structures_available": true,
     "assessment": "tractable_small_molecule (clinically validated)",
     "evidence": "ChEMBL target CHEMBL4879459; >20 PDB structures; Pharos-listed. Oral CBL-B inhibitors already in the clinic (see known_drugs).",
-    "ot_tractability": "unavailable_rate_limited"
+    "ot_tractability": "OT-CONFIRMED 2026-07-11 (see open_targets_live): small-molecule Structure-with-Ligand=true, High-Quality-Ligand=true; OT Approved/Advanced/Phase-1 SM buckets still false (OT snapshot predates the CBL-B inhibitor trials, same lag as ChEMBL v34)."
   },
   "genetic_evidence": {
     "any_gwas": true,
@@ -52,9 +52,19 @@
         "phase": "PHASE1/2",
         "status": "ACTIVE_NOT_RECRUITING",
         "enrollment": 77
+      },
+      {
+        "name": "APN401",
+        "sponsor": "invIOs GmbH (formerly Apeiron Biologics)",
+        "modality": "ex vivo autologous immune cells transfected with CBL-B-silencing siRNA (RNAi cell therapy)",
+        "nct": "NCT06172894",
+        "phase": "PHASE1",
+        "status": "COMPLETED",
+        "enrollment": 10,
+        "note": "COMPLETED 2024-10-01 (advanced solid tumors); a SECOND modality drugging CBL-B (cell therapy vs small molecule). Found live via ClinicalTrials.gov 2026-07-11."
       }
     ],
-    "note": "0 mechanisms in ChEMBL v34 (inhibitors post-date the release); confirmed via ClinicalTrials.gov.",
+    "note": "0 mechanisms in ChEMBL v34 (inhibitors post-date the release); confirmed via ClinicalTrials.gov. CBL-B is now clinically drugged across TWO modalities: oral small-molecule inhibitors (NX-1607, HST-1011) + ex vivo RNAi cell therapy (APN401).",
     "max_clinical_phase": 2
   },
   "active_trials": {
@@ -73,9 +83,31 @@
   "safety_flags": [
     "Immune-related adverse events plausible (mechanism-based, as with checkpoint blockade)."
   ],
+  "open_targets_live": {
+    "pulled_utc": "2026-07-11T10:34Z",
+    "ensembl_id": "ENSG00000114423",
+    "status": "REAL \u2014 first successful OT query in 5 watcher runs (OT recovered briefly, then re-throttled globally)",
+    "tractability_SM": {
+      "Structure with Ligand": true,
+      "High-Quality Ligand": true,
+      "High-Quality Pocket": false,
+      "Druggable Family": false,
+      "Approved/Advanced/Phase1 SM buckets": false
+    },
+    "tractability_note": "OT confirms small-molecule tractability via structure + high-quality ligand; clinical-bucket flags still false because the OT data snapshot predates the CBL-B inhibitor trials (same lag as ChEMBL v34).",
+    "genetic_association_top": [
+      {"disease": "hypothyroidism", "genetic_association_score": 0.814},
+      {"disease": "urticaria", "genetic_association_score": 0.741},
+      {"disease": "myxedema", "genetic_association_score": 0.687},
+      {"disease": "multiple sclerosis", "genetic_association_score": 0.649}
+    ],
+    "associated_diseases_total": 414,
+    "interpretation": "OT-CONFIRMS genome-wide-significant genetic association of CBLB to autoimmune/immune diseases (hypothyroidism, urticaria, MS) \u2014 the human-genetic signature of a real T-cell brake. Association strength is OT-native; the protective-vs-risk DIRECTION (risk_lof) stays mechanism/PubMed-grounded because the OT association endpoint returns strength, not signed effect. Upgrades CBLB genetic_evidence from 'literature_expectation' to OT-corroborated at the association level.",
+    "concordance_impact": "No change to funnel counts \u2014 CBLB was already any_gwas=true / genome_wide_sig=true / risk_lof in concordance_snapshot.json; OT corroborates those values (funnel stays 8/2/1/1/0)."
+  },
   "provenance": {
     "chembl": "ChEMBL v34 via bio-research MCP, 2026-07-09 (REAL query)",
-    "c_trials": "ClinicalTrials.gov API v2 via bio-research MCP, 2026-07-09 (REAL query)",
-    "open_targets": "UNAVAILABLE 2026-07-09 \u2014 persistent global rate limit despite exponential backoff; genetic/tractability direction below is LITERATURE EXPECTATION to be confirmed via OT on a future run"
+    "c_trials": "ClinicalTrials.gov API v2 via bio-research MCP, 2026-07-09; re-verified + APN401 added 2026-07-11 (REAL query)",
+    "open_targets": "REAL 2026-07-11 \u2014 OT recovered after 5 rate-limited runs; tractability + autoimmune genetic association pulled live for CBLB (see open_targets_live). Direction-of-effect (risk_lof) remains mechanism/PubMed-grounded; OT association endpoint returns strength, not sign."
   }
 }

@@ -1,0 +1,71 @@
+{
+  "gene": "LCP2",
+  "aliases": [
+    "SLP76",
+    "SLP-76"
+  ],
+  "status": "REAL RESULT — rank #2 by E-distance. Interpreted as a POSITIVE CONTROL (proximal TCR adaptor), NOT a therapeutic KO nominee.",
+  "pass_utc": "2026-07-09T10:08:11Z",
+  "modality_context": "KO (Shifrut/Marson primary human CD8 T-cell CRISPR-KO); concordance rule: concordant = protective_lof",
+  "real_result": {
+    "source_csv": "outputs/ranked_perturbations.csv",
+    "run_mtime_utc": "2026-07-09T07:25:41Z",
+    "rank": 2,
+    "e_distance": 6.6452,
+    "e_pval": 0.000999,
+    "e_qval": 0.00333,
+    "n_cells": 977,
+    "n_donors": 2,
+    "viability_ratio": 0.9804,
+    "passes_gates": true,
+    "interpretation": "Second-largest causal footprint — knocking out the SLP-76 signalosome adaptor collapses proximal TCR signaling. Together with CD3D this is the internal positive-control pair that shows the ranking recovers TCR biology unsupervised."
+  },
+  "ensembl_expected": "ENSG00000043462 (literature; unverified — OT unavailable this run to confirm)",
+  "identifiers": {
+    "chembl_target_id": "CHEMBL6196086",
+    "uniprot": "Q13094"
+  },
+  "io_rationale": "SLP-76 cytosolic adaptor that nucleates the TCR signalosome (LAT–SLP-76–PLCγ1/Vav/ITK). KO abrogates proximal TCR signal transduction. Like CD3D, its loss IMPAIRS activation — an accelerator, not a brake — so it is a control, not an enhancement target, despite the large effect size.",
+  "tractability": {
+    "chembl_target_exists": true,
+    "chembl_target_type": "SINGLE PROTEIN",
+    "structures_available": true,
+    "assessment": "hard_to_drug_intracellular_adaptor",
+    "evidence": "ChEMBL target CHEMBL6196086 (SH2 + SAM domains); only ~5 PDB structures and 0 drug mechanisms in ChEMBL v34. No small-molecule chemical matter — an undruggable scaffold like RASA2; realistic handle is engineered-cell KO (but KO is deleterious to function here).",
+    "ot_tractability": "unavailable_rate_limited"
+  },
+  "genetic_evidence": {
+    "any_gwas": false,
+    "genome_wide_sig": false,
+    "direction": null,
+    "anchor_disease": null,
+    "rationale": "No robust common-variant disease-risk GWAS with a usable direction; SLP-76 loss impairs immunity (accelerator, not protective_lof brake). Excluded from the directional funnel (any_gwas=false).",
+    "direction_confidence": "n/a",
+    "source": "literature_expectation (OT confirmation pending)"
+  },
+  "known_drugs": {
+    "chembl_mechanisms_count": 0,
+    "clinical_programs_direct": [],
+    "note": "No drug mechanisms in ChEMBL v34; intracellular adaptor with no chemical matter.",
+    "max_clinical_phase": null
+  },
+  "active_trials": {
+    "direct_target_trials": 0,
+    "query": "intervention = SLP-76 OR LCP2 (ClinicalTrials.gov v2)",
+    "note": "Zero direct LCP2/SLP-76-directed trials — undruggable adaptor."
+  },
+  "essentiality": {
+    "pan_essential": false,
+    "note": "Immune-restricted but functionally essential for the TCR signalosome; KO removes core proximal signaling.",
+    "source": "literature_expectation"
+  },
+  "safety_flags": [
+    "KO abrogates TCR signaling (activation-defective phenotype). Role here is method validation / positive control, not a therapeutic enhancement KO."
+  ],
+  "provenance": {
+    "effect_size": "outputs/ranked_perturbations.csv (REAL; Claude Science run, seed=0, mtime 2026-07-09T07:25:41Z)",
+    "chembl": "ChEMBL v34 via bio-research MCP, 2026-07-09 (REAL query: target_search + get_mechanism)",
+    "c_trials": "ClinicalTrials.gov API v2 via bio-research MCP, 2026-07-09 (REAL query)",
+    "open_targets": "UNAVAILABLE 2026-07-09 — persistent global rate limit (3rd run); OT confirmation pending"
+  }
+}
