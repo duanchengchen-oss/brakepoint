@@ -210,6 +210,11 @@ def main():
                     help="obsm key for E-distance; pass e.g. X_scVI to use the scvi-tools skill output")
     ap.add_argument("--max-cells-per-group", type=int, default=0,
                     help="cap cells per perturbation/control before analysis (0=off); use for genome-scale")
+    ap.add_argument("--direction", action="store_true",
+                    help="add the signed direction-of-effect axis (direction.py): per-cell "
+                         "cytotoxic-vs-exhaustion score_genes -> direction_score + tier + "
+                         "per-donor sign-agreement. Needs scanpy (Claude Science), so it is a "
+                         "gated add-on; the E-distance ranking is unchanged without it.")
     ap.add_argument("--outdir", default="outputs"); ap.add_argument("--synthetic", action="store_true")
     a = ap.parse_args()
     np.random.seed(SEED)
@@ -225,13 +230,31 @@ def main():
     df = knockdown_check(adata, df, a.control, modality=a.modality)
     df = score_and_rank(df)
 
+    # --direction: signed direction-of-effect axis (direction.py). This is the #1
+    # method upgrade — the E-distance ranking above is magnitude-only, so it cannot
+    # separate a therapeutic BRAKE (KO enhances effector function) from ACTIVATION-
+    # REQUIRED machinery (KO cripples the cell). direction.py adds a per-(perturbation
+    # x donor) cytotoxic-minus-exhaustion score_genes column + tier + sign-agreement,
+    # reusing this df's viability_ratio for the required-machinery split. Needs scanpy,
+    # so it is opt-in and guarded; score_genes wants log-normalized input (adata.raw on
+    # the X_pca path). Regenerating the REAL CSV with this column needs a Claude Science
+    # re-run (scanpy is absent in the Cowork sandbox where make smoke runs).
+    if a.direction:
+        try:
+            from direction import run_direction
+            df = run_direction(adata, df, control=a.control)
+            log("direction axis added (direction_score / direction_tier columns)")
+        except Exception as exc:  # never let the add-on break the core ranking
+            log(f"--direction skipped ({type(exc).__name__}: {exc}); need scanpy + symbols")
+
     df.to_csv(out / "ranked_perturbations.csv", index=False)
     (out / "run_meta.json").write_text(json.dumps(
         {"seed": SEED, "n_cells": int(adata.n_obs), "control": a.control,
          "n_perturbations": int(len(df)), "top": df.head(10)["perturbation"].tolist()}, indent=2))
     log(f"wrote {out/'ranked_perturbations.csv'}")
     print(df.head(12).to_string(index=False))
-    # NEXT (in Claude Science): pseudobulk DE per (perturbation x donor) w/ pydeseq2;
+    # NEXT (in Claude Science): run with --direction to emit the signed axis (direction.py,
+    # authored 2026-07-11); pseudobulk DE per (perturbation x donor) w/ pydeseq2;
     # mixscape as a sensitivity analysis; Open Targets direction-of-effect funnel on top hits.
 
 
