@@ -14,7 +14,7 @@ const OFF: Record<string, [number, number, string]> = {
   ZAP70: [16, 4, 'start'], LCP2: [16, 16, 'start'], CD3E: [0, 34, 'middle'], CD3G: [6, -22, 'start'],
   PLCG1: [-10, 34, 'end'], LAT: [0, 36, 'middle'], VAV1: [-8, -20, 'end'], CD3D: [-12, 34, 'end'],
   CD247: [18, 26, 'start'], ITK: [-16, 26, 'end'],
-  SMAD3: [18, 16, 'start'], LAT2: [18, 8, 'start'], CBLB: [-18, -18, 'end'], CD5: [16, 16, 'start'], DGKA: [-14, 24, 'end'],
+  SMAD3: [18, 16, 'start'], LAT2: [18, 8, 'start'], CBLB: [-14, -26, 'end'], CD5: [20, 12, 'start'], DGKA: [8, 30, 'start'],
 };
 
 export const MapScene: React.FC = () => {
@@ -51,10 +51,19 @@ export const MapScene: React.FC = () => {
         </g>
         {/* y=0 sign line */}
         <line x1={PL} y1={y0} x2={PL + (PR - PL) * zeroW} y2={y0} stroke="#52514e" strokeWidth={2} />
+        {/* axis ticks */}
+        <g opacity={axisP} fill={C.mut} fontFamily={sans} fontSize={18}>
+          {[-0.8, -0.4, 0, 0.4].map((v) => (
+            <text key={v} x={PL - 14} y={yS(v) + 6} textAnchor="end">{v.toFixed(1)}</text>
+          ))}
+          {[0, 20, 40, 60].map((e) => (
+            <text key={e} x={xS(e)} y={PB + 30} textAnchor="middle">{e}</text>
+          ))}
+        </g>
         {/* axis labels */}
         <g opacity={axisP} fill={C.mut} fontFamily={sans} fontSize={22}>
-          <text x={(PL + PR) / 2} y={1045} textAnchor="middle">Causal effect size  ·  E-distance</text>
-          <text x={150} y={(PT + PB) / 2} textAnchor="middle" transform={`rotate(-90 150 ${(PT + PB) / 2})`}>Direction of effect  ·  effector − dysfunction</text>
+          <text x={(PL + PR) / 2} y={1050} textAnchor="middle">Causal effect size  ·  E-distance</text>
+          <text x={148} y={(PT + PB) / 2} textAnchor="middle" transform={`rotate(-90 148 ${(PT + PB) / 2})`}>Direction of effect  ·  effector − dysfunction</text>
         </g>
         {/* machinery (teal) */}
         {mach.map((p, i) => {
@@ -95,7 +104,7 @@ export const MapScene: React.FC = () => {
       </div>
 
       {/* headline callout */}
-      <div style={{position: 'absolute', left: 830, top: 360, opacity: calloutS, transform: `translateY(${(1 - calloutS) * 20}px)`,
+      <div style={{position: 'absolute', left: 820, top: 296, opacity: calloutS, transform: `translateY(${(1 - calloutS) * 20}px)`,
         background: 'rgba(252,252,251,0.97)', borderRadius: 20, padding: '26px 32px', maxWidth: 560, boxShadow: '0 20px 60px rgba(0,0,0,0.4)'}}>
         <div style={{fontFamily: disp, fontWeight: 700, fontSize: 30, color: '#0b1220'}}>14 of the 15 largest-effect knockdowns</div>
         <div style={{fontSize: 24, color: '#39424e', marginTop: 8, lineHeight: 1.35}}>impair effector function — magnitude alone would nominate the cell's own machinery.</div>
