@@ -10,10 +10,12 @@ items under **NEEDS SAM** are the human-only steps.
       axis + figure) is green.
 - [x] **Hero figure** — `deliverables/figures/causal_map.png` (+ .svg), rendered
       from real data by `pipeline/figure_causal_map.py`. Donor-consistency encoded.
-- [x] **Demo video (silent 1080p cut)** — `deliverables/demo.mp4` (2:36, 8 beats,
-      keynote-grade slides from `_video/slides.html`).
-- [x] **Narration deck** — `deliverables/demo_deck.pptx` (verbatim VO in speaker
-      notes) + script `deliverables/demo_script.md` (with the live-capture shot list).
+- [x] **Demo video — narrated, 1080p** — `deliverables/demo.mp4` (2:45, 8 beats,
+      keynote-grade slides + a **real voiceover** generated with edge-tts
+      `en-GB-SoniaNeural`, synced). Regenerates from `_video/gen_tts.py` +
+      `_video/build_narrated.py`.
+- [x] **Narration deck + script** — `deliverables/demo_deck.pptx` (VO in speaker
+      notes) + `deliverables/demo_script.md` (matches the narrated audio).
 - [x] **Landing page** — `deliverables/index.html` (premium rebuild, real figure,
       honest data framing).
 - [x] **Written summary (100–200 words)** — `deliverables/summary.md` Version A
@@ -25,20 +27,16 @@ items under **NEEDS SAM** are the human-only steps.
 - [x] **Public repo pushed** — REPO_URL + DEMO_URL filled; fresh-clone `make smoke`
       verified.
 
-## NEEDS SAM (human-only — hard walls)
-- [ ] **Record the 3-min narrated video.** Open `deliverables/demo_deck.pptx`,
-      record the voiceover from the speaker notes (one take, ~2:40), and overlay a
-      short **live Claude Science screen-capture** for slide 2 (provenance +
-      reviewer) and slide 5 (the run behind the figure) — the shot list is in
-      `demo_script.md`. Export and replace `deliverables/demo.mp4` (the silent cut
-      is the backup / b-roll).
-- [ ] **Publish the final video** where the CV platform wants it (or rely on the
-      GitHub Pages landing page, already the DEMO_URL) and update the link if needed.
-- [ ] **Enable GitHub Pages** on the repo (Settings → Pages → main branch) if it
-      isn't auto-enabled, so the landing-page DEMO_URL is live.
-- [ ] **Submit on the CV platform** before the deadline.
+## NEEDS SAM (the one human-only step)
+- [ ] **Submit on the CV platform** before Mon 21:00 ET — attach `demo.mp4`
+      (or the DEMO_URL landing page), the repo URL, and the summary
+      (`deliverables/summary.md`, Version A). This is the only step an agent can't
+      do (no platform credentials).
 
-## Optional polish (nice-to-have)
-- [ ] Fetch the provided **DESeq2 DE result** (CZI VCP) and corroborate the
-      E-distance ranking against it — a further "used the provided data" win.
-- [ ] Run the full **4-donor / Stim-48 h** cohort to firm up the donor-split brakes.
+## Optional (the video already stands on its own)
+- [ ] Re-record the voiceover in **your own voice** if you prefer it to the TTS
+      narration — the deck (`demo_deck.pptx`) has the verbatim script in the notes.
+- [ ] Overlay a short **live Claude Science screen-capture** on slides 2 and 5 for
+      extra provenance punch (shot list in `demo_script.md`).
+- [ ] Fetch the provided **DESeq2 DE result** (CZI VCP) to corroborate the ranking;
+      run the full **4-donor / Stim-48 h** cohort to firm up the donor-split brakes.

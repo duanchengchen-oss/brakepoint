@@ -1,4 +1,6 @@
-# A signed causal map of CD4⁺ T-cell function — Built with Claude Science
+# Brakepoint · a signed causal map of CD4⁺ T-cell function — Built with Claude Science
+
+*The largest effect is rarely the right target. Brakepoint finds the **brakes** — the knockdowns that make a T&nbsp;cell a better effector — and tells them apart from the machinery it just needs to survive.*
 
 **Built with Claude: Life Sciences · research track (solo).** A reproducible
 pipeline that ranks CRISPR perturbations in **primary human T cells** by **causal
@@ -89,4 +91,4 @@ substitutes for it. Provenance and licenses in
 bundled (no DrugBank).
 
 ---
-*Repository: https://github.com/duanchengchen-oss/tcell-causal-map · Demo video: https://duanchengchen-oss.github.io/tcell-causal-map/deliverables/index.html*
+*Repository: https://github.com/duanchengchen-oss/brakepoint · Demo video: https://duanchengchen-oss.github.io/brakepoint/deliverables/index.html*
