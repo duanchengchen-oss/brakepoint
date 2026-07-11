@@ -1,6 +1,18 @@
 # Using the Gladstone-provided datasets (deep-research + integration plan)
 
-The hackathon provides three real Gladstone datasets: **immune T-cell sequencing · DNA regulatory-activity prediction · protein-interaction network** ([Cerebral Valley](https://cerebralvalley.ai/e/built-with-claude-life-sciences)). Below is what each most likely is and how to use all three together — this is the Gladstone-aligned, novelty-capable submission.
+> **STATUS — corrected 2026-07-12 (read first).** This is a **pre-event planning
+> doc**. It assumed, from the event page, three provided datasets (T-cell
+> sequencing · regulatory-activity model · protein-interaction network). In
+> reality the Gladstone data share delivered **only §1** — the Perturb-seq screen,
+> plus a genome-wide DESeq2 DE result and supplementary signature/validation
+> tables (see `pipeline/_dgx_recon/…/data_sharing_readme.md`). **There is no
+> provided regulatory model and no provided interaction network.** §2 (Decima/
+> Performer) and §3 (PPI) below therefore describe **public substitutes we layered
+> on** (STRING v12 for the network; Open Targets human genetics in place of a
+> regulatory model) — not provided data. The submission is honest about this: see
+> `pipeline/real-finding-genomescale.md`.
+
+The event page advertised three Gladstone datasets: **immune T-cell sequencing · DNA regulatory-activity prediction · protein-interaction network** ([Cerebral Valley](https://cerebralvalley.ai/e/built-with-claude-life-sciences)). Below is what each most likely is and how to use them — with the correction above in mind (only §1 was actually provided).
 
 ## 1. Immune T-cell sequencing ≈ genome-scale CRISPRi Perturb-seq (primary human CD4⁺ T) — ~85% confidence
 Marson lab (Gladstone–UCSF Institute of Genomic Immunology), Zhu/Dann/…/Pritchard/Marson, **bioRxiv 10.64898/2025.12.23.696273**, public on **CZI Virtual Cells Platform** (`genome-scale-tcell-perturb-seq`, MIT). **~22M cells, 4 donors, 3 conditions (Rest / Stim 8h / Stim 48h)**, all expressed genes knocked down. **This is a perturbation screen → our `run_pipeline.py` E-distance method applies directly.**

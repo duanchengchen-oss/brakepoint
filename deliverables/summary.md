@@ -1,9 +1,36 @@
 # Written summary (submission)
 
-## Version A — genome-scale headline (IL2RB; ~165 words) — PRIMARY
-Using Claude Science on an NVIDIA DGX Spark, we built a reproducible pipeline that ranks CRISPR perturbations in **primary human CD4⁺ T cells** by **causal effect size** — power-equalized energy distance with a permutation test — gated on viability, author-provided knockdown efficiency, and donor replication. On the **genome-scale Gladstone CRISPRi Perturb-seq** (2.44M cells, 12,449 perturbations, scVI donor-integration), it recovers the entire TCR-signaling module unsupervised — ZAP70, CD3D/E/G, PLCG1, LAT, VAV1 — strong evidence the method measures real biology. Diffusing the causal signal over the human interactome then re-discovers **IL2RB**, the IL-2/IL-15 receptor β: never a direct hit, yet network-central among causal nodes, carrying multiple-sclerosis and broader autoimmune genetics, and drug-adjacent via IL-2-pathway agonists. Genuinely undrugged candidates **VAV2** and **BLNK** mark the novel frontier. Every result carries Claude Science provenance and a reviewer trail — which helped surface a real statistical bug before any figure — and one command reproduces the ranking, figures, and nomination.
+## Version A — the signed causal map (PRIMARY) — ~180 words
+Using **Claude Science**, we built a reproducible pipeline that turns a
+genome-scale CRISPRi Perturb-seq screen into a **signed causal map** of human
+CD4⁺ T-cell function. On **2,638,736 primary human T cells** (12,449 knockdowns,
+scVI donor-integrated, run on an NVIDIA DGX Spark), we rank perturbations by
+**causal effect size** — power-equalized energy distance with a permutation test —
+then add the axis magnitude cannot supply: a per-cell **direction-of-effect**
+score (an effector program versus a dysfunction program). The map validates itself
+in both axes. Unsupervised, the largest effects are the entire TCR-signalling
+module; the direction axis then correctly flags **14 of the top 15 as required
+machinery** whose knockdown *cripples* the cell — not drug targets. The
+therapeutic signal is the opposite quadrant, where the map recovers canonical
+immune **brakes** (CD5, DGKA, CBLB) whose knockdown *enhances* effector function.
+We report donor consistency honestly (2 donors). Every artifact carries Claude
+Science provenance and a reviewer trail — which caught a real statistical bug
+before any figure. One command reproduces the map.
 
-## Version B — Shifrut-only fallback (safe now; ~150 words)
-Using Claude Science, we built a reproducible pipeline that ranks CRISPR-KO perturbations in **primary human CD8⁺ T cells** (Shifrut/Marson, ~25,000 cells) by **causal effect size** — power-equalized energy distance with a permutation test — gated on viability, on-target effect, and donor replication, with a human-genetics **direction-of-effect** funnel as the differentiator. Unsupervised, the ranking recovers the TCR-signaling core (CD3D, LCP2) and re-nominates **RASA2**, a Nature-2022-validated CAR-T potency enhancer, purely from effect size. The lead druggable target, **CBLB**, is a genome-wide-significant immune brake with two oral inhibitors already in clinical trials — its genetics are concordant once read against the immune-activation anchor. The concordance funnel is deliberately honest: strict novelty is rare in a panel of known regulators, surfacing that direction depends on disease anchor. Every artifact carries Claude Science provenance and a reviewer trail; one command reproduces the ranking and figures.
+_(167 words — inside the 100–200 window.)_
 
-_Word counts: A ≈ 155, B ≈ 150 — both inside the 100–200 window. Pick A if the genome-scale hero is final, else B._
+## Version B — public-data fallback (Shifrut CD8; ~150 words)
+Using Claude Science, we built a reproducible pipeline that ranks CRISPR-KO
+perturbations in **primary human CD8⁺ T cells** (Shifrut/Marson, ~25,000 cells) by
+**causal effect size** — power-equalized energy distance with a permutation test —
+gated on viability, on-target effect, and donor replication, with a
+direction-of-effect axis as the differentiator. Unsupervised, the ranking recovers
+the TCR-signalling core (CD3D, LCP2) and re-nominates **RASA2**, a
+Nature-2022-validated CAR-T potency enhancer, purely from effect size. The
+direction axis separates the essential machinery from the therapeutic **brake**
+class, where the lead is **CBLB** — an immune brake with two oral inhibitors
+already in clinical trials. Every artifact carries Claude Science provenance and a
+reviewer trail; one command reproduces the ranking and figures.
+
+_Pick A (genome-scale signed map — the strongest, self-validating result). B is a
+safe public-data fallback._

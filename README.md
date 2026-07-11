@@ -1,41 +1,92 @@
-# Causal T-cell Target Discovery — Built with Claude Science
+# A signed causal map of CD4⁺ T-cell function — Built with Claude Science
 
-**Built with Claude: Life Sciences · research track (solo).** A reproducible pipeline that ranks CRISPR perturbations in **primary human T cells** by **causal effect size**, validates itself against known biology, and nominates a novel, genetically-concordant, **druggable** target — every step carrying Claude Science provenance.
+**Built with Claude: Life Sciences · research track (solo).** A reproducible
+pipeline that ranks CRISPR perturbations in **primary human T cells** by **causal
+effect size**, then adds the axis magnitude can't supply — the **direction of
+effect** — to separate drug-relevant *brakes* from the cell's essential
+*machinery*. Every step carries Claude Science provenance.
 
-> **Demo (≤3 min):** [`deliverables/IL2RB_demo.mp4`](deliverables/IL2RB_demo.mp4) — 1080p 6-beat cut (2:24) · narration deck with verbatim VO in the speaker notes: [`IL2RB_demo_deck.pptx`](deliverables/IL2RB_demo_deck.pptx) · **Landing page:** `deliverables/index.html` · **Written summary:** `deliverables/summary.md`
+> **Demo (≤3 min):** [`deliverables/IL2RB_demo.mp4`](deliverables/IL2RB_demo.mp4) · narration deck with verbatim VO in the speaker notes: [`deliverables/demo_deck.pptx`](deliverables/) · **Landing page:** [`deliverables/index.html`](deliverables/index.html) · **Written summary:** [`deliverables/summary.md`](deliverables/summary.md)
+
+![The signed causal map](deliverables/figures/causal_map.png)
 
 ## The finding
-On the **genome-scale Gladstone CRISPRi Perturb-seq** (2.44M primary human CD4⁺ T cells, 12,449 perturbations, scVI-integrated, knockdown-gated), the pipeline — **unsupervised** — recovers the entire TCR-signaling module (ZAP70, CD3D/E/G, PLCG1, LAT, VAV1). Diffusing the causal signal over the human interactome then re-discovers **IL2RB** (the IL-2/IL-15 receptor β): never a direct hit, yet network-central among causal nodes, carrying multiple-sclerosis and broader autoimmune genetics, and drug-adjacent via IL-2-pathway agonists — a real, actionable immune node surfaced from raw data. Genuinely undrugged **VAV2** and **BLNK** mark the novel frontier. (Public-data validation first re-nominated **RASA2**, a *Nature*-2022 CAR-T enhancer, and lead **CBLB**, an immune brake already in trials.) Full write-ups: [`pipeline/real-finding-genomescale.md`](pipeline/real-finding-genomescale.md) · [`pipeline/real-finding.md`](pipeline/real-finding.md).
+On the **genome-scale Gladstone CRISPRi Perturb-seq** — **2,638,736 primary human
+CD4⁺ T cells**, **12,449 knockdowns**, scVI donor-integrated — ranking by causal
+effect size alone is not enough: the nine largest effects are the entire **TCR
+signalling module** (ZAP70, CD3D/E/G, CD247, PLCG1, LAT, LCP2, VAV1, ITK),
+recovered **unsupervised**. Adding a per-cell **signed direction-of-effect axis**
+(effector − dysfunction program, scored on all 2.64 M cells) reveals that **14 of
+the 15 largest-effect knockdowns are strongly negative** — knocking them down
+*cripples* the effector program. They are **required machinery, not drug
+targets.** The therapeutically useful signal is the sparse **positive quadrant**,
+where the map recovers canonical immune **brakes** (CD5, DGKA, CBLB) whose
+knockdown *enhances* effector function.
+
+The machinery axis is unanimous across both donors; the brake side is where
+**2 donors shows its limits** — so the brake list is a prioritized shortlist for
+the full 4-donor cohort, presented honestly (see the donor-consistency marks in
+the figure). Full write-up:
+[`pipeline/real-finding-genomescale.md`](pipeline/real-finding-genomescale.md).
 
 ## Why it's trustworthy
-- **Ranks by causal effect size** (power-equalized energy distance + permutation E-test), not p-values — significance inflates with cell count.
-- **Gated:** viability (catches toxic knockouts), modality-aware on-target, **donors as replicates**.
-- **Differentiator:** human-genetics **direction-of-effect concordance** — reported as an honest coverage funnel, not a cherry-picked hit.
-- **Self-checking:** we found and fixed a real statistical bug (an n-dependent bias in the effect-size metric) that Claude Science's reviewer helped surface — see [`pipeline/WAR_LOG.md`](pipeline/WAR_LOG.md).
+- **Ranks by causal effect size** — power-equalized energy distance + a
+  permutation E-test — not p-values, which inflate with cell count.
+- **Adds the missing sign.** Magnitude can't tell an activation-*required* gene
+  from a therapeutic *brake* — both land far from control. The signed axis does,
+  and it self-validates: the TCR machinery is correctly flagged negative,
+  donor-consistently.
+- **Gated + honest:** viability (catches toxic knockdowns), author-provided
+  knockdown efficiency, **donors as replicates** with a per-donor sign-agreement
+  flag surfaced (not hidden).
+- **Self-checking:** a real statistical bug — an n-dependent bias in the
+  effect-size metric — was found and fixed with the Claude Science reviewer's help
+  (see [`pipeline/WAR_LOG.md`](pipeline/WAR_LOG.md)).
 
 ## Reproduce
 ```bash
 cd pipeline
-make smoke                 # dependency-free unit test of the core statistic (runs anywhere)
-make hero DATA=<h5ad> CONTROL=<label> MODALITY=<KO|CRISPRi|CRISPRa>
+make smoke      # dependency-free unit tests: E-distance core + signed axis + figure (runs anywhere)
+make figure     # re-render the hero signed-causal-map figure from the merged leaderboard
+# genome-scale (needs scanpy + the built h5ad on a GPU workstation):
+make direction  DATA=<built.h5ad> LIB=<sgrna_library_metadata.csv> CONTROL=control
 ```
-Fixed seeds, pinned `environment.yml`, one-command regeneration. For genome-scale runs use `--embedding X_scVI --max-cells-per-group 300`.
+Fixed seeds, pinned `environment.yml`, one-command regeneration.
 
 ## How Claude Science got us there
-Every result is a versioned artifact carrying its exact code, environment, and conversation trail; a background reviewer checks claims against what actually ran. The heavy genome-scale analysis runs on an **NVIDIA DGX Spark** over Claude Science's SSH remote-compute ([`dgx-spark-claude-science.md`](dgx-spark-claude-science.md)).
+Every result is a versioned artifact carrying its exact code, environment, and
+conversation trail; a background reviewer checks claims against what actually ran.
+The heavy genome-scale analysis runs on an **NVIDIA DGX Spark** over Claude
+Science's SSH remote-compute; the signed direction axis over 2.64 M cells
+completes in ~40 s.
 
-## Repository
+## Repository layout
 ```
-pipeline/            edistance_core.py · run_pipeline.py · concordance.py · SKILL.md · Makefile · environment.yml · LICENSE (MIT) · SOURCES.md
-pipeline/outputs*/   ranked_perturbations.csv + figures (real runs)
-pipeline/real-finding.md   the finding, with real numbers
-deliverables/        IL2RB_demo.mp4 · IL2RB_demo_deck.pptx (VO in notes) · IL2RB_demo_slides.pdf · video_slides/
-                     index.html · summary.md · demo_storyboard.md · hero_convergence.svg · direction_axis.svg · VIDEO_URL.txt
-CONTEXT.md           full project handoff · gladstone-datasets-integration.md · research-track-target-discovery-plan.md · target-assessment-framework.md
+pipeline/
+  edistance_core.py        power-equalized E-distance + permutation E-test (unbiased U-statistic)
+  run_pipeline.py          QC → scVI embedding → E-distance ranking → viability + knockdown gates
+  direction.py             signed effector-vs-dysfunction axis (CD4 + CD8 modules; unit-tested)
+  direction_genomescale.py per-cell scoring on the 2.64M-cell build (row-chunked; runs on the DGX)
+  merge_direction.py       merge the signed score + tier into the leaderboard
+  figure_causal_map.py     the hero figure (signed causal map)
+  Makefile · environment.yml · LICENSE (MIT) · SOURCES.md
+  outputs_gladstone/       ranked_perturbations.csv (+ direction_*), direction_meta.json, figures
+  real-finding-genomescale.md   the finding, with real numbers + honest caveats
+deliverables/
+  IL2RB_demo.mp4 · demo deck (VO in notes) · index.html · summary.md · figures/
 ```
 
 ## Data & license
-Code: **MIT** ([`pipeline/LICENSE`](pipeline/LICENSE)). Datasets: Gladstone-provided immune T-cell Perturb-seq, protein-interaction network, and regulatory-activity model; public validation sets (Shifrut/Marson, Datlinger) via scPerturb. Provenance and licenses in [`pipeline/SOURCES.md`](pipeline/SOURCES.md). Only openly-licensed evidence sources are bundled (no DrugBank).
+Code: **MIT** ([`pipeline/LICENSE`](pipeline/LICENSE)). Primary data: the
+Gladstone genome-scale CD4⁺ T-cell CRISPRi Perturb-seq (Marson lab; CZI Virtual
+Cells Platform) — expression + DESeq2 DE + supplementary signature tables.
+Public evidence layers: **STRING v12** (interactome) and **Open Targets** (human
+genetics); public validation sets (Shifrut/Marson, Datlinger) via scPerturb. There
+is **no Gladstone-provided interaction network or regulatory model** — STRING and
+Open Targets are public layers on top of the provided Perturb-seq data, not
+substitutes for it. Provenance and licenses in
+[`pipeline/SOURCES.md`](pipeline/SOURCES.md); only openly-licensed evidence is
+bundled (no DrugBank).
 
 ---
-*Replace `REPO_URL` and `DEMO_URL` before submission.*
+*Repository: REPO_URL · Demo video: DEMO_URL*

@@ -1,5 +1,15 @@
 # Novel drug-target dossier — genome-scale CD4⁺ T-cell CRISPRi Perturb-seq
 
+> **Superseded framing — read `pipeline/real-finding-genomescale.md` first.** The
+> headline is now the **signed causal map** (magnitude × direction-of-effect), not
+> the STRING→IL2RB network nomination. The signed axis (computed on all 2.64 M
+> cells; `direction.py` / `direction_genomescale.py`) shows the top-magnitude hits
+> below are all **required machinery** (knockdown *impairs* effector function,
+> donor-consistently) and reframes IL2RB as a drug-*adjacent* convergence node
+> whose knockdown is lethal → the therapeutic is an IL-2/CD122 **agonist**, not an
+> inhibitor. This dossier's causal-ranking and network sections remain valid; its
+> druggability wording is corrected inline below.
+
 **Dataset:** Genome-scale CRISPRi Perturb-seq in primary human CD4⁺ T cells (Marson lab; CZI Virtual Cells Platform; bioRxiv 10.64898/2025.12.23.696273).
 **Question:** *Look for new drug targets in the CD4⁺ T-cell Perturb-seq data.*
 **Compute:** NVIDIA GB10 (DGX Spark), scVI donor-integrated latent; causal ranking + PPI network propagation + Open Targets druggability.
@@ -64,8 +74,8 @@ Top causal hits are the known machinery — not new targets. To find genuinely n
 | **VAV2** | 3.5 | SYK, PLCG1, ZAP70, ITK, VAV1 | undrugged (GEF) |
 | **NCR1** | 2.6 | CD247, CD244, BCL11B, PTPRC, CD3E | antibody-only |
 | **FCGR1A** | 2.3 | SYK, CD247, CD3G, PTPRC | SM structure |
-| **IL2RB** | 1.7 | CD247, STAT3, ITK, PTPRC, CD3D | **antibody + SM, clinically validated** |
-| **PIK3R3** | 1.5 | PTEN, SYK, VAV1, PLCG1, ZAP70, ITK (8) | **advanced-clinical SM** |
+| **IL2RB** | 1.7 | CD247, STAT3, ITK, PTPRC, CD3D | IL-2/CD122 **agonists only** (aldesleukin, N-803); no selective inhibitor — see §4 |
+| **PIK3R3** | 1.5 | PTEN, SYK, VAV1, PLCG1, ZAP70, ITK (8) | PI3K-family small-molecule-tractable (genetics point to cancer, not immunity) |
 
 *Full table:* `ppi_propagation.csv` (diffusion enrichment, seed-neighbour list, degree) + `ppi_propagation_full.csv` (all 16,201 nodes).
 
@@ -92,7 +102,8 @@ Top causal hits are the known machinery — not new targets. To find genuinely n
 - **Ranking metric** is E-distance magnitude; the permutation q-value is a gate, not the rank.
 - **Knockdown gate** uses the authors' own per-guide `signif_knockdown` sidecar (Stim8hr).
 - **Mitochondrial QC** was inactive (var names are Ensembl IDs, so the `MT-` symbol filter matched nothing); total-counts and gene-count MAD filters were applied (kept 2.59 M / 2.64 M cells).
-- **PPI and regulatory data were public substitutes** (STRING v12; Open Targets human-genetics scores), as the Gladstone-provided protein-interaction network and Decima/Performer regulatory model were not in the workspace.
+- **STRING v12 and Open Targets are public *layers*, not substitutes for withheld provided data.** The Gladstone data share is Perturb-seq expression + a genome-wide DESeq2 DE result + supplementary signature/validation tables (`data_sharing_readme.md`); it contains **no interaction network and no regulatory-activity model** — those were never provided. The network-propagation section above therefore uses the public STRING interactome; treat it as a convergence layer, not a provided-data result. (Corrects an earlier caveat that called these "substitutes for a provided PPI/regulatory model.")
+- **The signed direction-of-effect axis is now computed on all 2.64 M cells** (`direction.py` + `direction_genomescale.py`; effector − dysfunction program per cell, per perturbation × donor). It reclassifies the top-magnitude hits above as required machinery and supplies the brake shortlist — see `real-finding-genomescale.md` and `deliverables/figures/causal_map.png`.
 
 ## Output files (`pipeline/outputs_gladstone/`)
 - `ranked_perturbations.csv` — full causal ranking, gated + kd-annotated
