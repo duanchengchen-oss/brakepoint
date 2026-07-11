@@ -6,7 +6,7 @@ effect size**, then adds the axis magnitude can't supply — the **direction of
 effect** — to separate drug-relevant *brakes* from the cell's essential
 *machinery*. Every step carries Claude Science provenance.
 
-> **Demo (≤3 min):** [`deliverables/IL2RB_demo.mp4`](deliverables/IL2RB_demo.mp4) · narration deck with verbatim VO in the speaker notes: [`deliverables/demo_deck.pptx`](deliverables/) · **Landing page:** [`deliverables/index.html`](deliverables/index.html) · **Written summary:** [`deliverables/summary.md`](deliverables/summary.md)
+> **Demo (≤3 min):** [`deliverables/demo.mp4`](deliverables/demo.mp4) · narration deck with verbatim VO in the speaker notes: [`deliverables/demo_deck.pptx`](deliverables/demo_deck.pptx) · script: [`deliverables/demo_script.md`](deliverables/demo_script.md) · **Landing page:** [`deliverables/index.html`](deliverables/index.html) · **Written summary:** [`deliverables/summary.md`](deliverables/summary.md)
 
 ![The signed causal map](deliverables/figures/causal_map.png)
 
@@ -73,7 +73,7 @@ pipeline/
   outputs_gladstone/       ranked_perturbations.csv (+ direction_*), direction_meta.json, figures
   real-finding-genomescale.md   the finding, with real numbers + honest caveats
 deliverables/
-  IL2RB_demo.mp4 · demo deck (VO in notes) · index.html · summary.md · figures/
+  demo.mp4 · demo_deck.pptx (VO in notes) · demo_script.md · index.html · summary.md · figures/causal_map.*
 ```
 
 ## Data & license
@@ -89,4 +89,4 @@ substitutes for it. Provenance and licenses in
 bundled (no DrugBank).
 
 ---
-*Repository: REPO_URL · Demo video: DEMO_URL*
+*Repository: https://github.com/duanchengchen-oss/tcell-causal-map · Demo video: https://duanchengchen-oss.github.io/tcell-causal-map/deliverables/index.html*

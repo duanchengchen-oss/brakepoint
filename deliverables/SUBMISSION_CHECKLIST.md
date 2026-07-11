@@ -1,22 +1,44 @@
 # Submission checklist — Built with Claude: Life Sciences (research track)
-Deadline: **Mon 2026-07-13 21:00 ET**. Everything an agent could finish is done; the items below need Sam.
+Deadline: **Mon 2026-07-13 21:00 ET.** Everything an agent can finish is done; the
+items under **NEEDS SAM** are the human-only steps.
 
 ## Done (in this repo)
-- [x] **Demo video (silent 1080p cut):** `deliverables/IL2RB_demo.mp4` — 6 beats, 2:24, real numbers.
-- [x] **Narration deck:** `deliverables/IL2RB_demo_deck.pptx` — verbatim voiceover in the speaker notes.
-- [x] **One-page infographic:** `deliverables/IL2RB_infographic.png` (+ Canva source linked).
-- [x] **Landing page:** `deliverables/index.html` (video embedded).
-- [x] **Written summary:** `deliverables/summary.md` — Version A (IL2RB, 155 words) is the submission text; B is the fallback.
-- [x] **Open-source pipeline:** `pipeline/` — MIT license, `make smoke` green, real outputs tracked.
-- [x] Local git history current (commits through the video rebuild).
+- [x] **The science is real.** Signed direction-of-effect axis computed on the full
+      **2,638,736-cell** Gladstone CD4⁺ build (DGX Spark), merged into the E-distance
+      leaderboard. `pipeline/outputs_gladstone/ranked_perturbations.csv` carries
+      `direction_score` + `direction_tier`; `make smoke` (E-distance core + signed
+      axis + figure) is green.
+- [x] **Hero figure** — `deliverables/figures/causal_map.png` (+ .svg), rendered
+      from real data by `pipeline/figure_causal_map.py`. Donor-consistency encoded.
+- [x] **Demo video (silent 1080p cut)** — `deliverables/demo.mp4` (2:36, 8 beats,
+      keynote-grade slides from `_video/slides.html`).
+- [x] **Narration deck** — `deliverables/demo_deck.pptx` (verbatim VO in speaker
+      notes) + script `deliverables/demo_script.md` (with the live-capture shot list).
+- [x] **Landing page** — `deliverables/index.html` (premium rebuild, real figure,
+      honest data framing).
+- [x] **Written summary (100–200 words)** — `deliverables/summary.md` Version A
+      (167 words) is the submission text.
+- [x] **Open-source pipeline** — `pipeline/` (MIT), one-command reproduce.
+- [x] **Honesty pass** — the "Gladstone-provided PPI/regulatory model" claim was
+      false and is corrected everywhere; the IL2RB druggability wording is corrected;
+      donor-split brakes are flagged, not hidden.
+- [x] **Public repo pushed** — REPO_URL + DEMO_URL filled; fresh-clone `make smoke`
+      verified.
 
-## Needs Sam (hard walls — an agent can't do these)
-- [ ] **Record the 3-min narrated video.** Open `IL2RB_demo_deck.pptx`, record the voiceover from the speaker notes (one take), and screen-capture the **live Claude Science** run for beat 2 (provenance + reviewer) and beat 5 (hero) — that "how Claude Science got you there" moment is the scored differentiator. Cut to ≤3:00. (`IL2RB_demo.mp4` works as the silent version / b-roll.)
-- [ ] **Create the public GitHub repo and push.** Then replace `REPO_URL` in `README.md` and `deliverables/index.html` (3 occurrences: hero button, clone command, footer).
-- [ ] **Set the hosted `DEMO_URL`** (upload the final video) if the platform wants a link rather than a file.
+## NEEDS SAM (human-only — hard walls)
+- [ ] **Record the 3-min narrated video.** Open `deliverables/demo_deck.pptx`,
+      record the voiceover from the speaker notes (one take, ~2:40), and overlay a
+      short **live Claude Science screen-capture** for slide 2 (provenance +
+      reviewer) and slide 5 (the run behind the figure) — the shot list is in
+      `demo_script.md`. Export and replace `deliverables/demo.mp4` (the silent cut
+      is the backup / b-roll).
+- [ ] **Publish the final video** where the CV platform wants it (or rely on the
+      GitHub Pages landing page, already the DEMO_URL) and update the link if needed.
+- [ ] **Enable GitHub Pages** on the repo (Settings → Pages → main branch) if it
+      isn't auto-enabled, so the landing-page DEMO_URL is live.
 - [ ] **Submit on the CV platform** before the deadline.
 
-## Optional polish (nice-to-have, not blocking)
-- [ ] Claude Science `run_pipeline.py --direction` re-run to populate the **real** 2-axis figure — `pipeline/direction.py` is authored + unit-tested; `deliverables/direction_axis.svg` is a labeled schematic until then.
-- [ ] Authorize BioRender (currently 401) if you want the scientific-figure styling.
-- [ ] Swap `deliverables/IL2RB_infographic.png` for the Canva `DAHPEnceXZE` PNG export if you prefer that layout (the sandbox couldn't download it).
+## Optional polish (nice-to-have)
+- [ ] Fetch the provided **DESeq2 DE result** (CZI VCP) and corroborate the
+      E-distance ranking against it — a further "used the provided data" win.
+- [ ] Run the full **4-donor / Stim-48 h** cohort to firm up the donor-split brakes.

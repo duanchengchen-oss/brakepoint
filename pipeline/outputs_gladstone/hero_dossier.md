@@ -64,7 +64,8 @@ The TCR complex (CD3D/E/G, CD247), the LAT signalosome (LAT, LCP2/SLP-76, PLCG1,
 Top causal hits are the known machinery — not new targets. To find genuinely novel candidates we diffused the **causal signal over the human protein–protein interaction network** (STRING v12, 16,201 proteins, 236,930 high-confidence edges, score ≥ 700):
 
 - **Personalised PageRank** (restart α = 0.5) seeded by the top-200 kd-gated hits, weighted by their E-distance effect sizes.
-- **Novel candidate** = high diffusion score, **≥ 3 distinct causal-hit neighbours**, **not itself a significant causal hit**, ranked by degree-corrected diffusion enrichment (guilt-by-multiple-association, which rejects hub artefacts).
+- **Novel candidate** = high diffusion score, **≥ 3 distinct causal-hit neighbours**, **not itself a significant causal hit**, ranked by summed causal-neighbour edge weight with a degree-normalized enrichment as secondary sort.
+- **Caveat (honest):** raw personalized-PageRank is degree-biased — the *unfiltered* `top_novel` in `ppi_meta.json` is dominated by histones / TAF-complex / ribosomal hubs (GAPDH, H4C6, WDR5…). The immune shortlist below is the multi-seed-connected, degree-considered subset; treat this whole network layer as **secondary convergence evidence**, not a hub-free ranking. The headline result is the signed causal map (`real-finding-genomescale.md`), which needs no interactome.
 
 **203 novel candidates** were nominated. The immune-signalling-specific top of the list:
 
