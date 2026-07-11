@@ -10,10 +10,12 @@ items under **NEEDS SAM** are the human-only steps.
       axis + figure) is green.
 - [x] **Hero figure** — `deliverables/figures/causal_map.png` (+ .svg), rendered
       from real data by `pipeline/figure_causal_map.py`. Donor-consistency encoded.
-- [x] **Demo video — narrated, 1080p** — `deliverables/demo.mp4` (2:45, 8 beats,
-      keynote-grade slides + a **real voiceover** generated with edge-tts
-      `en-GB-SoniaNeural`, synced). Regenerates from `_video/gen_tts.py` +
-      `_video/build_narrated.py`.
+- [x] **Demo video — narrated motion-graphics, 1080p** — `deliverables/demo.mp4`
+      (2:48, built with **Remotion**): an **animated data map** (points fly in, the
+      14/15 callout, quadrant reveals), count-up KPIs, kinetic type, spring
+      transitions, and a synced **real voiceover** (edge-tts `en-GB-SoniaNeural`).
+      Source + reproducible render in `deliverables/_remotion/` (`npm i && npm run
+      render`); narration from `_video/gen_tts.py`.
 - [x] **Narration deck + script** — `deliverables/demo_deck.pptx` (VO in speaker
       notes) + `deliverables/demo_script.md` (matches the narrated audio).
 - [x] **Landing page** — `deliverables/index.html` (premium rebuild, real figure,

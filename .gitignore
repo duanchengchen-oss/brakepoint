@@ -22,3 +22,8 @@ deliverables/_qa/
 deliverables/_video_build/
 CONTEXT.md
 deliverables/_video/audio/
+deliverables/_remotion/node_modules/
+deliverables/_remotion/out/
+deliverables/_remotion/.remotion/
+deliverables/_remotion/public/audio/
+deliverables/_remotion/public/causal_map.png

@@ -1,10 +1,11 @@
 # Demo video — narration script + optional enhancements
 
 **The submission video is complete and narrated:** `deliverables/demo.mp4`
-(1920×1080, ~2:45, 8 beats, real voiceover generated with edge-tts
-`en-GB-SoniaNeural`). The script below is exactly what is narrated (also in each
-slide's speaker notes in `demo_deck.pptx`). Everything here regenerates from
-`_video/`: `gen_tts.py` (voiceover) → `build_narrated.py` (assembles the cut).
+(1920×1080, ~2:48, a **Remotion motion-graphics build** — animated data map,
+count-up KPIs, kinetic type — with a real voiceover generated with edge-tts
+`en-GB-SoniaNeural`). The script below is exactly what is narrated (also in the
+speaker notes of `demo_deck.pptx`). Reproduce: `deliverables/_remotion/` (`npm i &&
+npm run render`); voiceover from `_video/gen_tts.py`.
 
 ---
 
