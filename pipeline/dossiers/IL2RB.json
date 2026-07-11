@@ -1,0 +1,60 @@
+{
+  "gene": "IL2RB",
+  "aliases": ["CD122", "IL-2Rbeta", "IL15RB", "p70-75"],
+  "status": "REAL - enriched from live Open Targets + ClinicalTrials.gov + PubMed, 2026-07-11. HERO (genome-scale CD4 network nomination).",
+  "pass_utc": "2026-07-11T12:35Z",
+  "role_context": "Genome-scale CD4+ T-cell CRISPRi (Gladstone/Marson) causal->PPI network nomination. IL2RB is NEVER a direct causal hit; it sits amid five causal hits (CD247/CD3zeta, STAT3, ITK, PTPRC/CD45, CD3D) with 1.7x diffusion enrichment from the TCR/cytokine-signalling seeds.",
+  "ensembl_id": "ENSG00000100385",
+  "identifiers": {"uniprot": "P14784"},
+  "biology": "Beta subunit shared by the IL-2 and IL-15 receptors (CD122). Transduces the mitogenic IL-2/IL-15 signal (JAK1/JAK3 -> STAT5) that governs CD4+ effector expansion, CD8+ cytotoxic/effector programs, Treg homeostasis and memory maintenance. gnomAD LoF-constrained. Human biallelic IL2RB loss-of-function causes an inborn error of immunity with immune dysregulation/autoimmunity.",
+  "tractability": {
+    "assessment": "pathway-validated, DRUG-ADJACENT (not a clean selective approved target)",
+    "ot_tractability_SM": {"Structure with Ligand": true, "High-Quality Ligand": false, "High-Quality Pocket": false, "Druggable Family": false, "Approved/Advanced/Phase1 SM": false},
+    "ot_tractability_AB": {"Phase 1 Clinical": true, "UniProt loc high conf": true, "GO CC high conf": true},
+    "ot_tractability_OC": {"Approved Drug (other clinical modality)": true},
+    "interpretation": "OT shows a structural ligand exists but NO druggable-family or clinical small molecule selective for IL2RB, Phase-1-level antibody tractability, and an approved drug only in the 'other clinical modality' bucket - i.e. the receptor is engaged by IL-2/IL-15 cytokine-agonist biologics, not by a selective IL2RB drug."
+  },
+  "known_drugs": {
+    "engaged_by_pathway_agonists": [
+      {"name": "aldesleukin (recombinant IL-2, Proleukin)", "status": "APPROVED (oncology: metastatic melanoma, RCC)", "note": "Agonist of the IL-2 receptor complex (IL2RA/IL2RB/IL2RG); also in low-dose form for autoimmunity, e.g. type-1-diabetes trial ITAD NCT03782636 (Univ. Oxford, Phase 2). 554 IL-2/aldesleukin trials on ClinicalTrials.gov."},
+      {"name": "bempegaldesleukin (NKTR-214)", "modality": "CD122-biased pegylated IL-2 agonist", "status": "DISCONTINUED - 22 trials; the Nektar/BMS PIVOT + PROPEL programs were TERMINATED in 2022 after the pivotal Phase 3 melanoma readout failed (e.g. PROPEL-36 NCT04969861 terminated 2022).", "note": "Directly biases signalling through IL2RB/IL2RG over IL2RA - the clearest example of drugging the CD122 axis, but the program did not succeed."},
+      {"name": "AMG 714 (anti-IL-15)", "status": "Phase 2a", "note": "Targets the IL-15 arm of the shared CD122 axis (vitiligo TRM biology); PMID 40791580."}
+    ],
+    "CORRECTION_do_not_repeat": "The approved anti-IL-2R antibodies BASILIXIMAB and DACLIZUMAB target IL2RA / CD25, NOT IL2RB. Daclizumab (Zinbryta) was WITHDRAWN from marketing in 2018 for safety (autoimmune hepatitis / encephalitis). Source: Perez-Miralles, Rev Neurol 2018 (PMID 29645071): 'Daclizumab is a monoclonal antibody directed against the CD25 subunit of the interleukin-2 receptor ... its withdrawn from marketing.' Any dossier that lists basiliximab/daclizumab as IL2RB drugs is WRONG.",
+    "max_clinical_phase_selective_IL2RB": 0
+  },
+  "genetic_evidence": {
+    "ot_overall_association_top": [
+      {"disease": "immunodeficiency syndrome with autoimmunity", "association_score": 0.670},
+      {"disease": "primary cutaneous T-cell non-Hodgkin lymphoma", "association_score": 0.543},
+      {"disease": "multiple sclerosis", "association_score": 0.529},
+      {"disease": "kidney transplant", "association_score": 0.528},
+      {"disease": "renal cell carcinoma", "association_score": 0.523}
+    ],
+    "associated_diseases_total": 684,
+    "score_caveat": "Scores are OT OVERALL association (genetic + other datatypes aggregated), not a purely genetic score, and OT returns association strength, not signed direction. The theme is autoimmune / immune-dysregulation (immunodeficiency-with-autoimmunity, MS) plus IL-2-pathway oncology - consistent with a real CD4+ effector/Treg node.",
+    "direction": "not signed by OT; mechanism = IL-2 signalling agonism enhances effector T cells, so pathway AGONISM is the IO/cell-therapy direction and DAMPENING is the autoimmune direction."
+  },
+  "effector_biology_support": "IL2RB/IL-2Rbeta is central to CD8+ tumour-infiltrating-lymphocyte expansion and IL-2 sensing; PGE2 impairs TIL expansion by downregulating IL2RG and disrupting IL2RB-IL2RG dimer assembly (Morotti et al., Nature 2024, PMID 38658764). Direct cell-therapy relevance for the effector axis this pipeline scores.",
+  "honest_caveats": [
+    "IL2RB is a clinically PRECEDENTED pathway node, not a de-novo discovery. Its emergence validates that the causal->network->druggability pipeline recovers a real, actionable CD4+ T-cell node from raw Perturb-seq.",
+    "It is drug-ADJACENT: engaged by IL-2/IL-15 agonist biologics, with no selective approved IL2RB small molecule or antibody, and the flagship CD122-biased agonist (bempegaldesleukin) failed in the clinic.",
+    "The PPI network step used STRING v12 as a public substitute for the Gladstone-provided interaction network; IL2RB's diffusion enrichment (1.7x) is modest relative to VAV2/BLNK."
+  ],
+  "open_targets_live": {
+    "pulled_utc": "2026-07-11T12:33Z",
+    "ensembl_id": "ENSG00000100385",
+    "status": "REAL - single batched OT GraphQL query succeeded (OT recovered on retry after global rate-limit)."
+  },
+  "references": [
+    {"pmid": "29645071", "citation": "Perez-Miralles FC. Daclizumab in multiple sclerosis. Rev Neurol. 2018;66(8):271-282.", "use": "daclizumab targets CD25/IL2RA and was withdrawn for safety - the drug correction."},
+    {"pmid": "38658764", "doi": "10.1038/s41586-024-07352-w", "citation": "Morotti et al. PGE2 inhibits TIL expansion by disrupting IL-2 signalling and mitochondrial function. Nature. 2024;629:426-434.", "use": "IL2RB centrality to CD8 TIL / IL-2 sensing (effector biology)."},
+    {"pmid": "40791580", "doi": "10.3389/fimmu.2025.1639732", "citation": "Su & Liu. Targeting the IL-15/CD122 signaling pathway ... in vitiligo. Front Immunol. 2025;16:1639732.", "use": "CD122 = IL2RB shared IL-2/IL-15 receptor beta; AMG 714 anti-IL-15 program."}
+  ],
+  "provenance": {
+    "open_targets": "REAL 2026-07-11T12:33Z via bio-research ot MCP (tractability + associatedDiseases, batched GraphQL).",
+    "c_trials": "REAL 2026-07-11 via bio-research c-trials MCP (aldesleukin n=554; bempegaldesleukin/NKTR-214 n=22, PIVOT/PROPEL terminated 2022).",
+    "pubmed": "REAL 2026-07-11 via bio-research pubmed MCP (PMIDs 29645071, 38658764, 40791580). Attribution: based on articles retrieved from PubMed; DOIs included above.",
+    "note": "Supersedes outputs_gladstone/hero_dossier.md where it lists basiliximab/daclizumab as IL2RB drugs (that claim is corrected here and in real-finding-genomescale.md)."
+  }
+}

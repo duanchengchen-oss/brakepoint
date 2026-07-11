@@ -19,8 +19,8 @@ Causal signal diffused over the human interactome (personalized PageRank, degree
 - Read: the causal→network funnel **re-discovers the IL-2 signaling axis** as an actionable CD4⁺ node purely from raw Perturb-seq — strong validation that the method finds real, drug-relevant biology.
 
 **Novel frontier (genuinely undrugged — higher risk/reward):**
-- **VAV2** — Rho-family GEF, **VAV1 paralog** sitting in the exact TCR-proximal module (SYK, PLCG1, ZAP70, ITK, VAV1); top network enrichment; **no existing drug** (GEFs are a hard but emerging target class). The most biologically coherent *novel* immune nomination.
-- **BLNK** — SYK-pathway adaptor, highest raw enrichment; antibody-only tractability.
+- **VAV2** — Rho-family GEF, **VAV1 paralog** sitting in the exact TCR-proximal module (SYK, PLCG1, ZAP70, ITK, VAV1); top network enrichment; **no existing drug** (GEFs are a hard but emerging target class). The most biologically coherent *novel* immune nomination on **network/paralog** grounds — though its **human genetics are non-immune** (live OT: glaucoma/hypertension; T1D only 0.26), so the immune rationale is mechanistic, not genetic. See `dossiers/VAV2.json`.
+- **BLNK** — highest raw network enrichment via shared SYK/PLCG1/ZAP70/LAT neighbours, **but honestly caveated:** BLNK/SLP-65 is canonically the **B-cell** adaptor (the SLP-76/LCP2 analog) and its human genetics are **agammaglobulinemia** (live OT 0.72; PMID 24582315), off-axis from a CD4⁺ T-cell effector program; as an **intracellular adaptor it is poorly tractable** (no small molecule, not a practical antibody target — "antibody-only" overstates it). Best read as target-biology, not a near-term program. See `dossiers/BLNK.json`.
 - *De-prioritized:* PIK3R3 (most small-molecule-tractable, but human genetics point to cancer, not immunity).
 
 **Proposed experiment (hero):** arrayed CRISPR in primary CD4⁺/CD8⁺ T cells with a cytokine/effector readout, plus **opposite-modality replication** (CRISPRa should move the program the other way); for IL2RB, a CD122-agonist tool-compound counter-test.

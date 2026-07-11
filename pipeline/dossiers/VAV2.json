@@ -1,0 +1,51 @@
+{
+  "gene": "VAV2",
+  "aliases": ["VAV-2"],
+  "status": "REAL - enriched from live Open Targets + PubMed, 2026-07-11. NOVEL FRONTIER (genome-scale CD4 network nomination).",
+  "pass_utc": "2026-07-11T12:35Z",
+  "role_context": "Genome-scale CD4+ T-cell CRISPRi (Gladstone/Marson) causal->PPI network nomination. VAV2 enrichment 3.5; causal-hit neighbours SYK, PLCG1, ZAP70, ITK, VAV1 - it sits in the exact TCR-proximal module as a VAV1 paralog. The most biologically coherent NOVEL immune nomination on network grounds.",
+  "ensembl_id": "ENSG00000160293",
+  "identifiers": {"uniprot": "P52735"},
+  "biology": "Guanine-nucleotide exchange factor (GEF) for Rho-family GTPases (Rac1/RhoA/Cdc42), a paralog of the hematopoietic VAV1. Downstream of antigen receptors the VAV proteins couple SYK/ZAP70 to actin remodelling, NFAT and SRF-dependent transcription. VAV2 also enhances SRF via Rho GTPases in lymphocytes (Charvet et al., J Biol Chem 2002, PMID 11859076) and cooperates with 3BP2 to activate NFAT (Foucault et al., Blood 2004, PMID 15345594). VAV2/VAV3 are more broadly expressed than VAV1, so there is partial paralog redundancy in T cells.",
+  "tractability": {
+    "assessment": "UNDRUGGED - hard/emerging target class (Rho-GEF)",
+    "ot_tractability_SM": {"Structure with Ligand": false, "High-Quality Ligand": false, "High-Quality Pocket": false, "Druggable Family": false, "Approved/Advanced/Phase1 SM": false},
+    "ot_tractability_AB": {"any high-conf localization flag": false, "note": "only GO-CC med-conf; intracellular signalling protein, not a surface antibody target"},
+    "known_drugs": [],
+    "max_clinical_phase": 0,
+    "interpretation": "OT shows NO small-molecule tractability of any kind (no structural ligand, no druggable family) and no antibody target-quality - consistent with the known difficulty of drugging guanine-nucleotide exchange factors. Highest novelty, highest risk."
+  },
+  "genetic_evidence": {
+    "ot_overall_association_top": [
+      {"disease": "cutaneous leishmaniasis", "association_score": 0.503},
+      {"disease": "open-angle glaucoma", "association_score": 0.396},
+      {"disease": "glaucoma", "association_score": 0.369},
+      {"disease": "hypertensive disorder", "association_score": 0.330},
+      {"disease": "thromboembolism", "association_score": 0.288},
+      {"disease": "type 1 diabetes mellitus", "association_score": 0.256}
+    ],
+    "associated_diseases_total": 1487,
+    "IMPORTANT_caveat": "VAV2's human genetics are NOT autoimmune - the top OT associations are glaucoma / hypertension / vascular (VAV2 has a known role in vascular/renal biology), with type-1-diabetes only weak (0.26). So VAV2's nomination rests on NETWORK/paralog coherence (VAV1 paralog inside the TCR module), NOT on human-genetic support for an immune indication. State this honestly.",
+    "direction": "no signed disease-direction; nomination is mechanistic/network, not genetic."
+  },
+  "honest_caveats": [
+    "Genetics are non-immune (glaucoma/hypertension) - the immune rationale is paralog/network, not genetic.",
+    "Partial functional redundancy with VAV1 (and VAV3) in T cells could blunt a single-gene therapeutic effect.",
+    "Undrugged GEF target class - no chemical starting point; a genuine high-risk/high-reward discovery, not a near-term program.",
+    "Nominated via STRING v12 (public substitute for the Gladstone PPI network)."
+  ],
+  "open_targets_live": {
+    "pulled_utc": "2026-07-11T12:33Z",
+    "ensembl_id": "ENSG00000160293",
+    "status": "REAL - batched OT GraphQL query succeeded."
+  },
+  "references": [
+    {"pmid": "11859076", "doi": "10.1074/jbc.M111627200", "citation": "Charvet et al. Vav1 couples TCR to SRF-dependent transcription via a MEK-dependent pathway. J Biol Chem. 2002;277:15376-84.", "use": "VAV2 also enhances SRF via Rho GTPases in lymphocytes (VAV proteins as general TCR-signalling regulators)."},
+    {"pmid": "15345594", "doi": "10.1182/blood-2003-08-2965", "citation": "Foucault et al. The adaptor 3BP2 associates with VAV GEFs to regulate NFAT activation. Blood. 2004;105:1106-13.", "use": "VAV proteins cooperate with 3BP2/Rho GTPases to activate NFAT downstream of antigen receptors."}
+  ],
+  "provenance": {
+    "open_targets": "REAL 2026-07-11T12:33Z via bio-research ot MCP (tractability + associatedDiseases, batched GraphQL).",
+    "pubmed": "REAL 2026-07-11 via bio-research pubmed MCP (PMIDs 11859076, 15345594). Attribution: based on articles retrieved from PubMed; DOIs included above.",
+    "c_trials": "Not queried - OT shows zero clinical tractability (no drug program expected)."
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "gene": "BLNK",
+  "aliases": ["SLP-65", "SLP65", "BASH", "LY57", "B-cell linker"],
+  "status": "REAL - enriched from live Open Targets + PubMed, 2026-07-11. NOVEL FRONTIER (genome-scale CD4 network nomination).",
+  "pass_utc": "2026-07-11T12:35Z",
+  "role_context": "Genome-scale CD4+ T-cell CRISPRi (Gladstone/Marson) causal->PPI network nomination. BLNK has the HIGHEST raw network enrichment (5.5); causal-hit neighbours VAV1, SYK, ZAP70, PLCG1, LAT.",
+  "ensembl_id": "ENSG00000095585",
+  "identifiers": {"uniprot": "Q8WV28"},
+  "biology": "Cytoplasmic scaffolding adaptor that nucleates the proximal signalosome downstream of the B-cell receptor - the B-cell counterpart of the T-cell adaptor SLP-76 (LCP2). It links SYK to BTK, PLCgamma2, VAV and GRB2, driving Ca2+/NFAT and MAPK signalling and pre-B-cell differentiation.",
+  "tractability": {
+    "assessment": "POORLY tractable - intracellular scaffolding adaptor (no catalytic site; not a practical antibody target)",
+    "ot_tractability_SM": {"Structure with Ligand": false, "High-Quality Ligand": false, "High-Quality Pocket": false, "Druggable Family": false, "Approved/Advanced/Phase1 SM": false},
+    "ot_tractability_AB": {"UniProt loc high conf": true, "GO CC high conf": true, "Human Protein Atlas loc": true, "Phase 1 Clinical": false},
+    "known_drugs": [],
+    "max_clinical_phase": 0,
+    "interpretation": "OT's antibody flags are LOCALIZATION-based only; BLNK is an INTRACELLULAR adaptor, so a therapeutic antibody is not realistic, and there is no small-molecule tractability (adaptors lack an enzymatic pocket). The 'antibody-only' shorthand overstates druggability - treat BLNK as a mechanistic/target-biology nomination, not a near-term drug target."
+  },
+  "genetic_evidence": {
+    "ot_overall_association_top": [
+      {"disease": "isolated agammaglobulinemia", "association_score": 0.720},
+      {"disease": "autosomal agammaglobulinemia", "association_score": 0.469},
+      {"disease": "agammaglobulinemia", "association_score": 0.467},
+      {"disease": "alcohol drinking", "association_score": 0.288},
+      {"disease": "neuroendocrine neoplasm", "association_score": 0.259}
+    ],
+    "associated_diseases_total": 264,
+    "IMPORTANT_caveat": "BLNK's human genetics are B-CELL, not T-cell: biallelic BLNK loss causes AGAMMAGLOBULINEMIA (absent circulating B cells) - Lagresle-Peyrou et al., J Allergy Clin Immunol 2014 (PMID 24582315); SLP-65/BLNK loss also drives pre-B-cell ALL (Jumaa et al., Nature 2003, PMID 12761551). The genome-scale screen is CD4+ T cells, where BLNK is not the canonical adaptor (that is SLP-76/LCP2).",
+    "direction": "loss-of-function -> B-cell immunodeficiency; no signed T-cell-effector direction."
+  },
+  "honest_caveats": [
+    "BLNK/SLP-65 is canonically a B-CELL adaptor; it surfaces in a CD4+ T-cell screen via SHARED proximal-signalling neighbours (SYK, PLCG1, ZAP70, LAT), not via an established T-cell role - the network enrichment likely reflects guilt-by-association with machinery it shares with its T-cell analog SLP-76.",
+    "Human genetics (agammaglobulinemia) are B-cell immunodeficiency, off-axis from a T-cell-effector program.",
+    "Intracellular adaptor with no catalytic pocket - poorly tractable by either small molecule or antibody.",
+    "Nominated via STRING v12 (public substitute for the Gladstone PPI network); highest raw enrichment but see degree-bias caveat in WAR_LOG."
+  ],
+  "open_targets_live": {
+    "pulled_utc": "2026-07-11T12:33Z",
+    "ensembl_id": "ENSG00000095585",
+    "status": "REAL - batched OT GraphQL query succeeded."
+  },
+  "references": [
+    {"pmid": "24582315", "doi": "10.1016/j.jaci.2013.12.1083", "citation": "Lagresle-Peyrou et al. The BLNK adaptor protein has a nonredundant role in human B-cell differentiation. J Allergy Clin Immunol. 2014;134:145-54.", "use": "BLNK deficiency -> agammaglobulinemia with absent circulating B cells (B-cell-centric genetics)."},
+    {"pmid": "12761551", "doi": "10.1038/nature01608", "citation": "Jumaa et al. Deficiency of the adaptor SLP-65 in pre-B-cell acute lymphoblastic leukaemia. Nature. 2003;423:452-6.", "use": "SLP-65/BLNK regulates pre-B-cell differentiation; its loss drives pre-B ALL."}
+  ],
+  "provenance": {
+    "open_targets": "REAL 2026-07-11T12:33Z via bio-research ot MCP (tractability + associatedDiseases, batched GraphQL).",
+    "pubmed": "REAL 2026-07-11 via bio-research pubmed MCP (PMIDs 24582315, 12761551). Attribution: based on articles retrieved from PubMed; DOIs included above.",
+    "c_trials": "Not queried - OT shows zero clinical tractability (no drug program expected)."
+  }
+}
