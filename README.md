@@ -12,8 +12,8 @@ back to versioned, Claude-Science-provenanced code.
 
 ![Target shortlist — convergent-evidence matrix](deliverables/figures/target_matrix.png)
 
-## The finding — a shortlist of druggable T-cell brakes
-A T-cell "brake" is a gene whose knockdown makes the cell a stronger effector.
+## The finding — a shortlist of candidate T-cell brakes
+A T-cell "brake" is a gene whose knockdown pushes the cell toward a stronger effector *transcriptional* state (functional validation is the next step).
 From the **genome-scale Gladstone CRISPRi Perturb-seq** (**2,638,736 CD4⁺ T cells,
 12,449 knockdowns**), Brakepoint prioritizes **five candidate targets for validation** by convergent
 evidence (causal effect · direction · donor consistency · druggability · immune
@@ -27,7 +27,7 @@ genetics · clinical precedent):
 of the 9 largest effects are the cell's own TCR machinery — activation-required,
 unsuitable inhibition targets for this objective. A per-cell **direction-of-effect** axis flips it — 14 of the top 15 largest
 effects are direction-negative (activation-required; knockdown impairs the effector
-program), donor-consistently — and the candidate brakes surface in the positive
+program) — and the TCR module among them is donor-consistent; the candidate brakes surface in the positive
 quadrant (mostly modest-effect, reported with their donor-consistency).
 
 The **positive quadrant** (knockdown *enhances* effector function) is the

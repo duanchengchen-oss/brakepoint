@@ -38,7 +38,7 @@ prioritized space for the full cohort, not a finished target list.
   TNF, CSF2, LTA, XCL1/2, CCL3/4, GZMB, TNFRSF9, CD69, MYC, IRF4, BATF, TBX21;
   dysfunction program = PDCD1, CTLA4, LAG3, HAVCR2, TIGIT, BTLA, CD160, VSIR,
   ENTPD1, TOX, NR4A1/2/3. `direction_score > 0` ⇒ knockdown pushes cells toward
-  the effector program (a brake); `< 0` ⇒ toward loss of effector function.
+  the effector program (a *candidate brake* — a transcriptional shift, not proven function); `< 0` ⇒ toward loss of that program.
   Code: `direction.py`, `direction_genomescale.py`, `merge_direction.py`.
 
 ## Validation — a strong internal consistency check (both axes)
@@ -47,8 +47,9 @@ prioritized space for the full cohort, not a finished target list.
    TCR-proximal genes — ZAP70, LCP2, CD3E, CD3G, PLCG1, LAT, VAV1, CD3D; the one
    exception (rank 8, **SMARCD3**, a SWI/SNF chromatin-remodeler) is a
    high-toxicity dropout (viability 0.16). The rest of the module — CD247, ITK,
-   RASGRP1 — sits just below (ranks ~15–17). This is a strong internal consistency check that the signed score tracks real
-   biology at 2.6 M-cell scale (a sanity check, not external validation).
+   RASGRP1 — sits just below (ranks ~15–17). Recovering known biology as the largest effects is one internal consistency check
+   (magnitude); that those same effects fall on the negative/machinery side is a
+   separate one (sign). Neither is external validation.
 2. **Sign (the key result):** **14 of the 15 largest-effect knockdowns have a
    negative direction score**, and every TCR-module gene is **donor-consistent**
    (both donors strongly negative: e.g. ZAP70 −0.63, LCP2 −0.76, CD3D −0.66, LAT
@@ -88,7 +89,7 @@ things must be stated plainly:
    highest-magnitude *coherent* brake, not the highest positive overall.
 
 **What this means.** The **load-bearing result is the machinery axis** (an internal consistency check)
-(14/15 largest effects negative, donor-consistent — magnitude alone would mislead).
+(14/15 largest effects negative; the TCR module among them is donor-consistent — magnitude alone would mislead).
 The **positive/brake side is a noisy hypothesis space at 2 donors / Stim-8 h**: the
 donor-consistent brakes (CD5, DGKA) are low-magnitude, the higher-magnitude ones
 (SMAD3, LAT2, CBLB) are donor-split, and the set as a whole isn't yet enriched. The
