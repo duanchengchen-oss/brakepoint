@@ -69,7 +69,11 @@ a useful consistency check:
 | **DGKA** | 2.5 | +0.08 | **yes** (+0.09 / +0.07) | DAG kinase brake; DGKα inhibitors are an IO strategy |
 | **CBLB** | 6.4 | +0.14 | no (+0.44 / −0.15) | E3-ligase brake; oral CBL-B inhibitors (NX-1607, HST-1011) in Ph1 |
 | **SMAD3** | 25.1 | +0.06 | no (−0.13 / +0.26) | TGF-β effector brake; the highest-E-distance *biologically-coherent* positive node |
-| **LAT2** | 23.0 | +0.20 | no (−0.09 / +0.49) | negative modulator of LAT signalling |
+| **UBASH3A** | 2.0 | +0.05 | no (−0.08 / +0.19) | autoimmune-GWAS (T1D/RA) phosphatase; tractable, no drug yet (genetics-led) |
+
+*(These five are the curated target shortlist scored in `figure_targets.py`. A
+further high-E-distance positive, **LAT2** (E 23.0, +0.20, donor-split), is a
+raw candidate but less druggable/characterized, so it is not in the shortlist.)*
 
 **The critical honest caveat — we do not overclaim the positive side.** Two
 things must be stated plainly:
@@ -123,7 +127,7 @@ headline.
    brake shortlist is caveated by donor consistency; the full cohort sharpens it.
 3. **Perturbations of the module genes themselves are excluded from brake
    nominations** — knocking down PDCD1/TOX/NR4A/etc. trivially shifts its own pole.
-   The featured brakes (CD5, DGKA, CBLB, SMAD3, LAT2) are not module genes.
+   The featured brakes (CD5, DGKA, CBLB, SMAD3, UBASH3A) are not module genes.
 4. **Ranking = E-distance magnitude**; permutation q is a gate. The
    required-vs-enhancer split uses viability as a *coarse* proxy (e.g. LAT is
    viable yet clearly required) — the figure encodes sign + donor consistency

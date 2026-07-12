@@ -57,7 +57,8 @@ for the full 4-donor cohort, not a finished target list**. Full write-up:
 ```bash
 cd pipeline
 make smoke      # dependency-free unit tests: E-distance core + signed axis + figure (runs anywhere)
-make figure     # re-render the hero signed-causal-map figure from the merged leaderboard
+make figure     # regenerate the target shortlist + all four figures
+python brake_enrichment.py  # the honest brake-enrichment null (p=0.56)
 # genome-scale (needs scanpy + the built h5ad on a GPU workstation):
 make direction  DATA=<built.h5ad> LIB=<sgrna_library_metadata.csv> CONTROL=control
 ```
@@ -78,12 +79,17 @@ pipeline/
   direction.py             signed effector-vs-dysfunction axis (CD4 + CD8 modules; unit-tested)
   direction_genomescale.py per-cell scoring on the 2.64M-cell build (row-chunked; runs on the DGX)
   merge_direction.py       merge the signed score + tier into the leaderboard
-  figure_causal_map.py     the hero figure (signed causal map)
+  figure_causal_map.py     the signed causal map (discovery engine)
+  figure_targets.py        the convergent-evidence TARGET matrix (centerpiece)
+  figure_evidence.py       donor-consistency scatter + direction distribution
+  brake_enrichment.py      honest brake-enrichment test (Mann-Whitney, p=0.56)
+  dossiers/                per-target evidence (Open Targets · ChEMBL · ClinicalTrials)
   Makefile · environment.yml · LICENSE (MIT) · SOURCES.md
   outputs_gladstone/       ranked_perturbations.csv (+ direction_*), direction_meta.json, figures
   real-finding-genomescale.md   the finding, with real numbers + honest caveats
 deliverables/
-  demo.mp4 · demo_deck.pptx (VO in notes) · demo_script.md · index.html · summary.md · figures/causal_map.*
+  demo.mp4 (Remotion, natural VO) · demo_deck.pptx · index.html · summary.md
+  figures/  target_matrix · causal_map · donor_consistency · direction_dist · brakepoint_onepager
 ```
 
 ## Data & license
