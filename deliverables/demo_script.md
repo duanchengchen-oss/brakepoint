@@ -1,68 +1,52 @@
-# Demo video — narration script + optional enhancements
+# Demo video — narration script (target discovery)
 
 **The submission video is complete and narrated:** `deliverables/demo.mp4`
-(1920×1080, ~2:48, a **Remotion motion-graphics build** — animated data map,
-count-up KPIs, kinetic type — with a real voiceover generated with edge-tts
-`en-GB-SoniaNeural`). The script below is exactly what is narrated (also in the
-speaker notes of `demo_deck.pptx`). Reproduce: `deliverables/_remotion/` (`npm i &&
-npm run render`); voiceover from `_video/gen_tts.py`.
+(1920×1080, ~2:10, a **Remotion motion-graphics build** — animated causal map +
+target-shortlist and donor-consistency plots) with a natural voiceover (edge-tts
+`en-US-AndrewMultilingualNeural`). The script below is exactly what is narrated
+(also in `demo_deck.pptx` speaker notes). Reproduce: `deliverables/_remotion/`
+(`npm i && npm run render`); voiceover from `_video/gen_tts.py`.
 
 ---
 
-### Slide 0 · Title (~10s)
-> What if the biggest hit in your screen is the worst drug target? This is
-> Brakepoint — a signed causal map of T-cell function, built with Claude Science.
+### 1 · Title (~11s)
+> A T cell's brakes are its best drug targets. This is Brakepoint — druggable-brake
+> discovery from a two-and-a-half-million-cell screen, built with Claude Science.
 
-### Slide 1 · The question (~17s)
-> Our question: in human T cells, which knockdowns make the cell a better
-> effector, and which just break it? The better-effector genes are the brakes —
-> release them, and you boost immunity. But they hide among twelve thousand
-> knockdowns, across two and a half million cells.
+### 2 · The thesis (~19s)
+> The most powerful immunotherapies — checkpoint blockade, CAR-T — all work by
+> releasing brakes on T cells. So we asked a simple question: across the entire
+> genome, which druggable genes are those brakes? Which knockdowns make a human
+> T cell a stronger effector?
 
-### Slide 2 · How Claude Science got us there (~27s)
-> Everything here was built with Claude Science, and every number carries its
-> provenance. Each result is a versioned artifact — its code, its environment, the
-> conversation behind it. A background reviewer checks every claim against what
-> actually ran; it caught a real statistical bug before it reached a figure. The
-> heavy compute runs on a DGX Spark — the map over two-point-six million cells, in
-> forty seconds.
+### 3 · The screen (~12s)
+> We started from a genome-scale CRISPR-interference screen — twelve thousand gene
+> knockdowns, across two and a half million primary human CD4 T cells, from the
+> Gladstone Institutes.
 
-### Slide 3 · The method — two axes (~25s)
-> The method has two axes. Effect size — an energy distance — tells you how much a
-> knockdown changes the cell. But magnitude can't separate a drug target from
-> essential machinery; both land far from control. So we add direction: a per-cell
-> score. Positive, the knockdown pushes cells toward the effector program — a
-> brake. Negative, it's required machinery.
+### 4 · The discovery engine — the signed causal map (~19s)
+> Ranking by effect size alone points at the wrong genes: the biggest hits are the
+> cell's own essential signaling machinery. So we added a direction-of-effect axis.
+> Now the machinery drops to the bottom, and the drug-relevant brakes rise to the
+> top. This map is our discovery engine.
 
-### Slide 4 · Validation (~23s)
-> And the map validates itself. Unsupervised, eight of the nine largest effects are
-> the T-cell-receptor module — ZAP70, the CD3 complex, LAT. The direction axis flags
-> fourteen of the top fifteen as machinery, not targets — and both donors agree,
-> every time. That machinery result is the load-bearing one.
+### 5 · The target shortlist (~14s)
+> From that map, a shortlist of five druggable brakes — each scored across seven
+> axes of convergent evidence: causal effect, direction, donor consistency,
+> druggability, human genetics, and clinical precedent.
 
-### Slide 5 · The signed causal map (~21s)
-> This is the map. Effect size across the bottom, direction up the side. In teal,
-> the largest, most consistent effects — the machinery: knock it down, you cripple
-> the cell. Up top, in amber, the sparse positive quadrant: knockdowns that enhance
-> effector function — the therapeutic hypothesis space a magnitude-only ranking
-> would never have looked at.
+### 6 · The lead — CBLB (~21s)
+> Our lead is CBLB — a brake that's already a drug. Two oral CBL-B inhibitors are
+> in trials, losing it causes autoimmunity in people, and it sits squarely in our
+> brake quadrant. CD5 and DGKA follow — both consistent across donors, both
+> clinically tractable.
 
-### Slide 6 · The positive quadrant, honestly (~25s)
-> And we report that quadrant honestly. Known brakes like CD5 and DGKA do land
-> there, donor-consistent — a consistency check. But at two donors it isn't yet
-> enriched for known brakes, and its strongest raw hits include likely artifacts.
-> So the positive side is a prioritized hypothesis space for the full cohort; the
-> validated result is the machinery axis.
+### 7 · Reported honestly (~19s)
+> And we report it honestly. With two donors, CD5 and DGKA hold up in both; CBLB
+> and the higher-effect candidates are driven by one donor, and known brakes aren't
+> yet enriched as a group. So this is a prioritized shortlist for the full cohort —
+> not a finished target list.
 
-### Slide 7 · Close (~10s)
-> Fully open source — fixed seeds, one command to reproduce. The whole map, from
-> raw cells to this figure, built with Claude Science.
-
----
-
-## Optional enhancement (only if you want it — the video is already complete)
-For an extra "how Claude Science got you there" punch, screen-capture ~15 s of the
-live Claude Science workspace and picture-in-picture it over **slide 2**
-(a versioned run artifact + the reviewer catching the bug) and **slide 5** (the run
-that produced `ranked_perturbations.csv`). The narrated cut stands on its own
-without this.
+### 8 · Close (~8s)
+> Every target traces back to code — open source, one command to reproduce, built
+> with Claude Science.

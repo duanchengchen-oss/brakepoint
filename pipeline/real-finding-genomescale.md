@@ -1,4 +1,12 @@
-# REAL FINDING — a genome-scale *signed* causal map of CD4⁺ T-cell function
+# REAL FINDING — druggable-brake target discovery in CD4⁺ T cells
+
+**Deliverable:** a shortlist of **five druggable brakes** on human CD4⁺ T-cell
+effector function (lead **CBLB**; also **CD5, DGKA, SMAD3, UBASH3A**), nominated by
+convergent evidence and scored in `figure_targets.py`. The signed causal map below
+is the *discovery engine*; the target shortlist is the *output*. Honesty caveats
+(2 donors; positive quadrant not yet enriched, p=0.56) are kept throughout.
+
+## The engine — a genome-scale *signed* causal map of CD4⁺ T-cell function
 
 Real Claude Science run on the DGX Spark (NVIDIA GB10), verified end-to-end. This
 supersedes the earlier IL2RB-centric framing and the auto-generated
