@@ -85,6 +85,13 @@
   .chip .k{width:7px;height:7px;border-radius:2px;background:var(--teal);flex:none}
   .chip.a .k{background:var(--amber)}
   .chip b{color:var(--ink);font-weight:600}
+  /* rigor list (divided, no cards) */
+  .rigor{margin-top:34px;border-top:1px solid var(--line)}
+  .rigor .row{display:grid;grid-template-columns:210px 1fr;gap:26px;padding:19px 2px;border-bottom:1px solid var(--line);align-items:baseline}
+  @media(max-width:760px){.rigor .row{grid-template-columns:1fr;gap:5px}}
+  .rigor .k2{font-family:var(--disp);font-weight:600;font-size:15.5px;color:var(--teal-dk);letter-spacing:-.01em}
+  .rigor .v{font-size:15px;color:var(--body);line-height:1.58}
+  .rigor .v b{color:var(--ink)}
   /* comparison table */
   .tblcard{margin-top:32px;border:1px solid var(--line);border-radius:20px;background:var(--card);overflow:hidden}
   .tblwrap{overflow-x:auto}
@@ -182,11 +189,12 @@
   <div class="frame reveal" style="margin-top:34px"><div class="core"><img src="figures/significance_wall.svg" alt="Scatter of E-distance vs significance: 97.5% of tested knockdowns clear q<0.05 in a ceiling band; effect size spreads them, machinery at high effect, brakes at modest-to-moderate effect"/></div></div>
   <p class="cap reveal">Step 1, honestly: at this scale nearly every tested knockdown clears significance — 9,802 of the 11,438 pile at the permutation floor. Only causal effect size spreads the biology, which is why we rank by it.</p>
 
-  <div class="chips reveal">
-    <span class="chip"><span class="k"></span><b>Effect-size ranking</b>, not p-value</span>
-    <span class="chip"><span class="k"></span><b>Power-equalized</b> E-distance — comparable across coverage</span>
-    <span class="chip"><span class="k"></span><b>Unbiased U-statistic</b> — an n-dependent bias caught by adversarial self-critique before any figure</span>
-    <span class="chip a"><span class="k"></span><b>2.6 M cells</b> signed in ~40 s on an NVIDIA DGX Spark</span>
+  <h3 class="reveal" style="font-family:var(--disp);font-size:20px;color:var(--ink);margin-top:52px;letter-spacing:-.01em">The computational work behind it</h3>
+  <div class="rigor reveal">
+    <div class="row"><div class="k2">Effect size, not p-value</div><div class="v">97.5% of the 11,438 tested knockdowns clear q&lt;0.05, so significance can't rank them. We rank by <b>power-equalized energy distance</b> (E-distance) and use the 1,000-permutation test only as a gate.</div></div>
+    <div class="row"><div class="k2">We caught our own bug</div><div class="v">Our first E-distance used the biased V-statistic — a pure null scored <b>E ≈ 5 at n = 40</b> instead of ~0, an n-dependent offset that would have corrupted the whole ranking. An adversarial self-critique reproduced it in-sandbox; we switched to the off-diagonal <b>U-statistic</b>, and the null is now ≈ 0 and n-invariant (asserted in <span class="mono">make smoke</span>).</div></div>
+    <div class="row"><div class="k2">Genome-scale, fast</div><div class="v">The signed direction axis scored all <b>2,638,736 cells</b> on an NVIDIA DGX Spark (GB10) in <b>~40 s</b>; the E-distance ranking ran on 2.44 M post-QC cells, with scVI donor integration.</div></div>
+    <div class="row"><div class="k2">Reproducible</div><div class="v"><span class="mono">make smoke</span> reproduces the dependency-free core anywhere; <span class="mono">make figure</span> regenerates every figure and the interactive dataset. Fixed seeds, version-pinned environment.</div></div>
   </div>
 </div></section>
 

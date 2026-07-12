@@ -1,31 +1,31 @@
 WEBVTT
 
-00:00:00.400 --> 00:00:11.536
+00:00:00.400 --> 00:00:11.488
 Checkpoint immunotherapy works by releasing the brakes on a T cell. So we went looking for those brakes — genome-wide. This is Brakepoint, built with Claude Science.
 
-00:00:12.567 --> 00:00:27.039
+00:00:12.500 --> 00:00:26.036
 Those brakes matter beyond checkpoint therapy — they also throttle engineered CAR-T. So across the genome, which genes are the brakes — which knockdowns push a human T cell toward a stronger effector state?
 
-00:00:28.067 --> 00:00:43.499
+00:00:27.067 --> 00:00:42.451
 We started from a genome-scale CRISPR-interference screen: over twelve thousand gene knockdowns, across 2.6 million primary human CD4 T cells, from the Gladstone Institutes. Two donors, out of an intended four.
 
-00:00:44.500 --> 00:01:00.748
+00:00:43.467 --> 00:00:59.475
 How do you find the brakes in twelve thousand knockdowns? The reflex is to rank by significance — but at two million cells that breaks down: over 97% of the tested knockdowns clear the bar. So we rank by causal effect size instead.
 
-00:01:01.767 --> 00:01:21.399
+00:01:00.500 --> 00:01:20.564
 But effect size alone still points at the wrong genes — the biggest hits are the cell's own signaling machinery. So we add what a magnitude ranking leaves out: direction — toward the effector program, or away. Now the machinery falls away, and the candidate brakes rise into view.
 
-00:01:22.400 --> 00:01:39.080
+00:01:21.567 --> 00:01:37.815
 And that's the edge. Differential expression finds correlations — not what to drug. Genetics points to a locus, rarely a direction. We measure what a knockdown actually does, and which way it pushes — then weigh it against genetics and the clinic.
 
-00:01:40.100 --> 00:01:58.076
+00:01:38.833 --> 00:01:56.401
 From that map, five prior-informed candidates: CBLB, CD5, DGKA, SMAD3, and UBASH3A — each scored across seven lines of evidence, from causal effect and direction to human genetics and clinical precedent.
 
-00:01:59.100 --> 00:02:18.276
+00:01:57.433 --> 00:02:16.585
 Our lead is CBLB. It's a natural off-switch for T-cell activation, and inhibitors are already in early-phase trials. Its genetics point the same way, and it lands in our brake quadrant. CD5 and DGKA come next — and both hold up across donors.
 
-00:02:19.300 --> 00:02:40.372
+00:02:17.600 --> 00:02:37.592
 And we're honest about what two donors can support. CD5 and DGKA hold up in both; the other three ride on one donor. As a group, known brakes aren't significantly enriched — so this is a ranked shortlist for the full cohort, a hypothesis to test, not a finished answer.
 
-00:02:41.400 --> 00:02:57.888
+00:02:38.600 --> 00:02:55.040
 Every number here traces back to versioned code — and to a self-check that caught a real bias in our effect-size code before it reached a figure. Open source; every figure regenerates with one command. This is Brakepoint, built with Claude Science.
