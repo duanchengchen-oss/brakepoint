@@ -37,10 +37,10 @@ target-shortlist and donor-consistency plots) with a natural voiceover (edge-tts
 > consistency, viability, druggability, human genetics, and clinical precedent.
 
 ### 6 · The lead — CBLB
-> Our lead is CBLB. Its inhibitors are already in early-phase trials, its human
-> genetics are directionally consistent with a T-cell brake, and it sits squarely in
-> our brake quadrant. CD5 and DGKA follow — consistent across both donors, with
-> external tractability evidence.
+> Our lead is CBLB. Its inhibitors are already in early-phase trials, it carries an
+> autoimmune genetic association consistent with a T-cell brake role, and it sits
+> squarely in our brake quadrant. CD5 and DGKA follow — consistent across both
+> donors, with external tractability evidence.
 
 ### 7 · Reported honestly
 > And we report it honestly. With just two donors, CD5 and DGKA hold up in both;

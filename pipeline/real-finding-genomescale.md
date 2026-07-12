@@ -59,7 +59,7 @@ prioritized space for the full cohort, not a finished target list.
    This machinery→negative direction is the load-bearing internal consistency check.
 
 ## The therapeutic signal — the positive (brake) quadrant, reported honestly
-Knockdowns that *raise* the effector program are the drug-relevant class. Several
+Knockdowns that *raise* the effector program are the candidate class. Several
 literature-known immune **brakes** land in this quadrant and are donor-consistent —
 a useful consistency check:
 
