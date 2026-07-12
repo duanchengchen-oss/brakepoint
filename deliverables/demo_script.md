@@ -29,7 +29,7 @@ target-shortlist and donor-consistency plots) with a natural voiceover (edge-tts
 > Ranking by effect size alone points at the wrong genes: the biggest hits are the
 > cell's own essential signaling machinery. So we added a direction-of-effect axis —
 > an 8-hour transcriptional readout. Now the machinery drops to the bottom, and the
-> drug-relevant brakes rise to the top.
+> candidate brakes rise to the top.
 
 ### 5 · The target shortlist
 > From that map, five candidate brakes — CBLB, CD5, DGKA, SMAD3, and UBASH3A — each
