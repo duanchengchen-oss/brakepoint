@@ -21,6 +21,8 @@ direction:        ## genome-scale signed direction axis (needs scanpy + the buil
 
 figure:           ## render the hero signed-causal-map figure from the merged leaderboard
 	$(PY) figure_causal_map.py --ranked $(RANKED)
+	$(PY) figure_targets.py
+	$(PY) figure_evidence.py
 
 hero:             ## full pipeline on real data -> outputs/ranked_perturbations.csv
 	$(PY) run_pipeline.py --data $(DATA) --control $(CONTROL) --outdir outputs
