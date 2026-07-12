@@ -60,6 +60,4 @@ script below is what is narrated. Reproduce: `deliverables/_remotion/`
 > not a finished answer.
 
 ### 10 · Close
-> Every number here traces back to versioned code — and to a self-check that caught a
-> real bias in our effect-size code before it reached a figure. Open source; every
-> figure regenerates with one command. This is Brakepoint, built with Claude Science.
+> Every number traces back to versioned code — and to a self-check that caught a real bias in our energy-distance statistic: a null scoring five instead of zero. Open source; every figure regenerates with one command. Brakepoint, built with Claude Science.

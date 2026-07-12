@@ -45,7 +45,7 @@ The screen itself is the Marson lab's genome-scale Perturb-seq
 ([bioRxiv 10.64898/2025.12.23.696273](https://doi.org/10.64898/2025.12.23.696273);
 CZI Virtual Cells Platform) — **we generated no data**. Brakepoint is the
 downstream analysis, and it contributes three things that dataset paper does not
-set out to do: (1) a **signed effector-vs-checkpoint direction axis** — an 8-hour
+set out to do: (1) a **signed effector-vs-dysfunction direction axis** — an 8-hour
 transcriptional read-out — that separates a candidate brake from essential
 machinery; (2) ranking by **effect size** (power-equalized E-distance, as in
 scPerturb) rather than by significance; (3) a **five-candidate, prior-informed

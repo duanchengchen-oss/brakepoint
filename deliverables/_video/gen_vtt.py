@@ -12,7 +12,7 @@ CAPS = [
  "From that map, five prior-informed candidates: CBLB, CD5, DGKA, SMAD3, and UBASH3A — each scored across seven lines of evidence, from causal effect and direction to human genetics and clinical precedent.",
  "Our lead is CBLB. It's a natural off-switch for T-cell activation, and inhibitors are already in early-phase trials. Its genetics point the same way, and it lands in our brake quadrant. CD5 and DGKA come next — and both hold up across donors.",
  "And we're honest about what two donors can support. CD5 and DGKA hold up in both; the other three ride on one donor. As a group, known brakes aren't significantly enriched — so this is a ranked shortlist for the full cohort, a hypothesis to test, not a finished answer.",
- "Every number here traces back to versioned code — and to a self-check that caught a real bias in our effect-size code before it reached a figure. Open source; every figure regenerates with one command. This is Brakepoint, built with Claude Science.",
+ "Every number traces back to versioned code — and to a self-check that caught a real bias in our energy-distance statistic: a null scoring five instead of zero. Open source; every figure regenerates with one command. Brakepoint, built with Claude Science.",
 ]
 def adur(i):
     o=subprocess.run(["ffprobe","-v","error","-show_entries","format=duration","-of","default=nk=1:nw=1",f"_remotion/public/audio/slide_{i}.mp3"],capture_output=True,text=True).stdout.strip()

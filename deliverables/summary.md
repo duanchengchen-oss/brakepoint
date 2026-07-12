@@ -11,8 +11,8 @@ statistical significance — so we rank by **causal effect size** (power-equaliz
 energy distance), not p-value, then add the axis a magnitude ranking omits: a
 per-cell **direction-of-effect** score (an 8-hour transcriptional read-out, not a
 functional assay). Magnitude alone nominates the cell's own signaling machinery;
-the signed axis reclassifies it — 14 of the 15 largest effects are required
-machinery — and surfaces **candidate brakes**.
+the signed axis reclassifies it — 14 of the 15 largest effects are
+direction-negative required machinery — and surfaces **candidate brakes**.
 
 We put forward five prior-informed candidates — CBLB, CD5, DGKA, SMAD3, UBASH3A —
 by convergent evidence; lead **CBLB** has oral inhibitors in early-phase trials.
