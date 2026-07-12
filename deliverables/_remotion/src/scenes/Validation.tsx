@@ -1,22 +1,21 @@
 import React from 'react';
-import {Bg, Eyebrow, Words, CountUp, useEnter, Spacer} from '../lib/anim';
+import {Bg, Eyebrow, Bullet, useEnter, Spacer} from '../lib/anim';
 import {C, disp} from '../theme';
 export const Validation: React.FC = () => {
-  const para = useEnter(40, 26);
+  const name = useEnter(10, 26);
   return (
     <Bg>
-      <Eyebrow>Validation · it recovers ground truth</Eyebrow>
-      <Spacer />
-      <div style={{display: 'flex', alignItems: 'center', gap: 80}}>
-        <div style={{flex: 'none', textAlign: 'center'}}>
-          <div style={{fontFamily: disp, fontWeight: 700, fontSize: 150, color: '#fff', lineHeight: 1, letterSpacing: '-0.03em'}}>
-            <CountUp to={14} dur={40} /><span style={{fontSize: 80, color: C.mut}}>/15</span>
-          </div>
-          <div style={{fontSize: 26, color: C.mut, marginTop: 14, maxWidth: 260, marginInline: 'auto'}}>largest effects are machinery, not targets</div>
+      <Eyebrow>The lead · CBLB</Eyebrow>
+      <Spacer f={0.4} />
+      <div style={{display: 'flex', alignItems: 'center', gap: 70}}>
+        <div style={{...name, flex: 'none'}}>
+          <div style={{fontFamily: disp, fontWeight: 700, fontSize: 150, color: '#fff', letterSpacing: '-0.03em', lineHeight: 1}}>CBLB</div>
+          <div style={{fontSize: 26, color: C.amber, marginTop: 10, fontWeight: 600}}>a brake that's already a drug</div>
         </div>
-        <div>
-          <Words size={62} delay={10} maxWidth={780} parts={[{t: 'Unsupervised, the biggest effects are the '}, {t: 'TCR module.', color: C.teal}]} />
-          <div style={{...para, fontSize: 34, color: C.body, marginTop: 28, maxWidth: 800, lineHeight: 1.4}}>ZAP70, the CD3 complex, LAT — and the direction axis flags every one as machinery, <b style={{color: C.ink}}>donor-consistently</b>. That machinery result is the load-bearing one.</div>
+        <div style={{display: 'flex', flexDirection: 'column', gap: 26, maxWidth: 940}}>
+          <Bullet color={C.amber} delay={40}>Two oral CBL-B inhibitors already in trials — <b style={{color: C.ink}}>NX-1607 (Ph1), HST-1011 (Ph1/2)</b>.</Bullet>
+          <Bullet color={C.teal} delay={70}>Genome-wide-significant <b style={{color: C.ink}}>autoimmune</b> loss-of-function — losing it drives autoimmunity, so inhibiting it boosts immunity.</Bullet>
+          <Bullet color={C.teal} delay={100}>Top-decile causal effect in the brake quadrant. <b style={{color: C.ink}}>CD5</b> and <b style={{color: C.ink}}>DGKA</b> follow — donor-consistent and druggable.</Bullet>
         </div>
       </div>
       <Spacer />

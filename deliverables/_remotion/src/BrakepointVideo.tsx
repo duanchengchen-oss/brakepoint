@@ -12,7 +12,7 @@ import {MapScene} from './scenes/MapScene';
 import {Brakes} from './scenes/Brakes';
 import {Close} from './scenes/Close';
 
-const SCENES = [Title, Question, Provenance, Method, Validation, MapScene, Brakes, Close];
+const SCENES = [Title, Question, Provenance, MapScene, Method, Validation, Brakes, Close];
 
 export const BrakepointVideo: React.FC = () => (
   <AbsoluteFill style={{backgroundColor: '#0a1211'}}>
