@@ -1,11 +1,12 @@
-"""gen_tts.py — voiceover clips via Azure AI Speech (SSML expression) with edge-tts fallback.
+"""gen_tts.py — voiceover clips via Azure "Dragon HD" TTS, with an edge-tts fallback.
 
-Azure Neural TTS is the SAME voice family as edge-tts BUT adds expression styles
-(`mstts:express-as style='narration-professional'`) + prosody control — which makes
-it read like a documentary narrator instead of a flat, "AI-sounding" clip. Auth is
-the Azure AI Services key in $ANTHROPIC_FOUNDRY_API_KEY against the resource's
-`/tts/cognitiveservices/v1` endpoint. If the key is absent, we fall back to edge-tts
-so the repo still builds.
+The narration uses Azure's SOTA **Dragon HD** voice (`en-US-Andrew:DragonHDLatestNeural`)
+— an LLM-based, human-parity model with far more natural prosody than the standard
+neural / edge-tts endpoint (a 2024+ upgrade of the same Andrew timbre). Auth is the
+Azure AI Services key in $ANTHROPIC_FOUNDRY_API_KEY against the resource's
+`/tts/cognitiveservices/v1` endpoint. If the key is absent we fall back to edge-tts
+(en-US-AndrewMultilingualNeural) so the repo still builds. Voice choice was A/B'd
+across 11 edge/Azure/HD configs by DNSMOS before settling here.
 
 Gene/acronym names are respelled so the neural voice says them correctly (verified
 by round-tripping each clip through Whisper):
@@ -29,8 +30,9 @@ OUT.mkdir(exist_ok=True)
 # --- Azure AI Speech config (preferred) ---
 AZ_KEY = os.environ.get("ANTHROPIC_FOUNDRY_API_KEY", "")
 AZ_ENDPOINT = "https://aif-hk-bioinfo-research.cognitiveservices.azure.com/tts/cognitiveservices/v1"
-VOICE = "en-US-AndrewMultilingualNeural"   # warm, natural; supports expression styles
-STYLE = "narration-professional"           # documentary-narrator delivery (the "not AI" fix)
+VOICE = "en-US-Andrew:DragonHDLatestNeural"  # Azure's SOTA "Dragon HD" voice — LLM prosody, human-parity
+STYLE = ""                                   # HD voices are natively expressive; express-as not supported
+EDGE_VOICE = "en-US-AndrewMultilingualNeural"  # fallback voice (edge-tts) if no key
 RATE = "-3%"                                # a touch measured
 FMT = "audio-48khz-192kbitrate-mono-mp3"   # high quality
 EDGE_RATE = "-4%"                           # fallback only
@@ -66,10 +68,11 @@ def _norm(s: str) -> str:
 
 
 def _ssml(text: str) -> str:
+    body = f"<prosody rate='{RATE}'>{html.escape(text)}</prosody>"
+    if STYLE:
+        body = f"<mstts:express-as style='{STYLE}'>{body}</mstts:express-as>"
     return (f"<speak version='1.0' xml:lang='en-US' xmlns:mstts='http://www.w3.org/2001/mstts'>"
-            f"<voice name='{VOICE}'><mstts:express-as style='{STYLE}'>"
-            f"<prosody rate='{RATE}'>{html.escape(text)}</prosody>"
-            f"</mstts:express-as></voice></speak>")
+            f"<voice name='{VOICE}'>{body}</voice></speak>")
 
 
 def _azure(text: str, path: pathlib.Path) -> None:
@@ -89,7 +92,7 @@ async def _synth() -> None:
     else:
         import edge_tts
         for i, text in enumerate(VO):
-            await edge_tts.Communicate(text, VOICE, rate=EDGE_RATE).save(str(OUT / f"slide_{i}.mp3"))
+            await edge_tts.Communicate(text, EDGE_VOICE, rate=EDGE_RATE).save(str(OUT / f"slide_{i}.mp3"))
             print("wrote (edge fallback)", f"slide_{i}.mp3")
 
 
