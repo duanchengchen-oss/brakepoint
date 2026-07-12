@@ -22,29 +22,30 @@ REMOTION_PUB = pathlib.Path(__file__).parent.parent / "_remotion" / "public" / "
 OUT.mkdir(exist_ok=True)
 
 # Spoken narration (respelled for correct pronunciation). Scene order:
-# 0 Title · 1 Question · 2 Provenance · 3 MapScene · 4 Method · 5 Validation(CBLB) · 6 Brakes(honesty) · 7 Close
+# 0 Title · 1 Question · 2 Provenance · 3 Significance · 4 MapScene · 5 VsTraditional
+# 6 Method · 7 Validation(CBLB) · 8 Brakes(honesty) · 9 Close
 VO = [
  "Checkpoint immunotherapy works by releasing the brakes on a T cell. So we went looking for those brakes — genome-wide. This is Brakepoint, built with Claude Science.",
- "Those brakes matter beyond checkpoint therapy — they also throttle engineered CAR-T cells, so taking them off could help there too. So here's the question we asked: across the genome, which genes are the brakes? Which knockdowns push a human T cell toward a stronger effector state?",
+ "Those brakes matter beyond checkpoint therapy — they also throttle engineered CAR-T. So across the genome, which genes are the brakes — which knockdowns push a human T cell toward a stronger effector state?",
  "We started from a genome-scale CRISPR interference screen: over twelve thousand gene knockdowns, across two-point-six million primary human CD four T cells, from the Gladstone Institutes. Two donors, out of an intended four.",
- "Now, the usual way to rank a screen is by p-value. But at two million cells, the statistics call almost everything significant — so instead, we rank by causal effect size. There's a catch: the biggest effects are the cell's own signaling machinery. Knock those down, and you cripple the very response you're trying to boost. So we added a second axis the magnitude ranking leaves out — direction. It asks whether a knockdown lifts the cell's effector program, or drops it. And with that, the machinery drops to the bottom, and the candidate brakes we're after come into view.",
- "From there, we put forward five prior-informed candidates: C B L B, CD five, DGK-alpha, SMAD three, and UBASH three A. Each one is scored across seven lines of evidence — the causal effect, its direction, whether it holds across donors, viability, druggability, human genetics, and whether anyone has taken it into clinical trials.",
+ "How do you find the brakes in twelve thousand knockdowns? The reflex is to rank by significance — but at two million cells that breaks down: over ninety-seven percent of the tested knockdowns clear the bar. So we rank by causal effect size instead.",
+ "But effect size alone still points at the wrong genes — the biggest hits are the cell's own signaling machinery. So we add what a magnitude ranking leaves out: direction — toward the effector program, or away. Now the machinery falls away, and the candidate brakes rise into view.",
+ "And that's the edge. Differential expression finds correlations — not what to drug. Genetics points to a locus, rarely a direction. We measure what a knockdown actually does, and which way it pushes — then weigh it against genetics and the clinic.",
+ "From that map, five prior-informed candidates: C B L B, CD five, DGK-alpha, SMAD three, and UBASH three A — each scored across seven lines of evidence, from causal effect and direction to human genetics and clinical precedent.",
  "Our lead is C B L B. It's a natural off-switch for T-cell activation, and inhibitors are already in early-phase trials. Its genetics point the same way, and it lands in our brake quadrant. CD five and DGK-alpha come next — and both hold up across donors.",
- "And we're honest about what two donors can support. CD five and DGK-alpha are consistent in both. The other three ride on a single donor — and as a group, known brakes aren't significantly enriched yet. So this is a ranked shortlist for the full four-donor cohort — a hypothesis to test, not a finished answer.",
- "Every number here traces back to versioned code — and to an adversarial self-check that caught a real bias in how we computed the effect size, before it ever reached a figure. Open source — every figure regenerates with one command. This is Brakepoint, built with Claude Science.",
+ "And we're honest about what two donors can support. CD five and DGK-alpha hold up in both; the other three ride on one donor. As a group, known brakes aren't significantly enriched — so this is a ranked shortlist for the full cohort, a hypothesis to test, not a finished answer.",
+ "Every number here traces back to versioned code — and to a self-check that caught a real bias in our effect-size code before it reached a figure. Open source; every figure regenerates with one command. This is Brakepoint, built with Claude Science.",
 ]
 
-# Keywords each clip MUST contain (post-STT, case-insensitive, whitespace/punct-stripped)
-# to confirm the neural voice pronounced the term as intended.
+# Keywords each clip MUST contain (post-STT, homophone/number artifacts tolerated).
 CHECKS = {
- 0: ["brakes", "genome", "brakepoint"],
- 1: ["cart", "brakes", "effector"],
- 2: ["twelve thousand", "cd4", "gladstone"],
- 3: ["pvalue", "effect size", "direction", "machinery"],
- 4: ["cblb", "cd5", "dgkalpha", "smad3", "ubash"],
- 5: ["cblb", "trials", "cd5", "dgkalpha"],
- 6: ["cd5", "dgkalpha", "shortlist"],
- 7: ["code", "bias", "figure", "brakepoint"],
+ 3: ["significance", "effect", "ninety"],
+ 4: ["machinery", "direction", "effector"],
+ 5: ["differential", "genetics", "direction"],
+ 6: ["cblb", "cd5", "dgkalpha", "smad3", "ubash"],
+ 7: ["cblb", "trials", "cd5", "dgkalpha"],
+ 8: ["cd5", "dgkalpha", "shortlist"],
+ 9: ["code", "bias", "figure"],
 }
 
 
@@ -90,6 +91,9 @@ def _verify_and_report() -> None:
 
 def _copy_out() -> None:
     REMOTION_PUB.mkdir(parents=True, exist_ok=True)
+    # clear stale clips first (scene count changed)
+    for old in REMOTION_PUB.glob("slide_*.mp3"):
+        old.unlink()
     for i in range(len(VO)):
         shutil.copy(OUT / f"slide_{i}.mp3", REMOTION_PUB / f"slide_{i}.mp3")
     print("copied", len(VO), "clips ->", REMOTION_PUB)

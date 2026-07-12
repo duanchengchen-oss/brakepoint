@@ -6,13 +6,15 @@ import {DUR, TR} from './timeline';
 import {Title} from './scenes/Title';
 import {Question} from './scenes/Question';
 import {Provenance} from './scenes/Provenance';
+import {Significance} from './scenes/Significance';
 import {Method} from './scenes/Method';
 import {Validation} from './scenes/Validation';
 import {MapScene} from './scenes/MapScene';
+import {VsTraditional} from './scenes/VsTraditional';
 import {Brakes} from './scenes/Brakes';
 import {Close} from './scenes/Close';
 
-const SCENES = [Title, Question, Provenance, MapScene, Method, Validation, Brakes, Close];
+const SCENES = [Title, Question, Provenance, Significance, MapScene, VsTraditional, Method, Validation, Brakes, Close];
 
 export const BrakepointVideo: React.FC = () => (
   <AbsoluteFill style={{backgroundColor: '#0a1211'}}>
