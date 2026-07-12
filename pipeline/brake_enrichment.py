@@ -34,18 +34,27 @@ KNOWN_BRAKES = [
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--ranked", default="outputs_gladstone/ranked_perturbations.csv")
+    ap.add_argument("--matched", action="store_true", default=True,
+                    help="restrict background to the same quality tier as the brakes "
+                         "(2-donor, kd-gated) so the comparison is fair (per code review)")
     a = ap.parse_args()
     m = pd.read_csv(a.ranked).set_index("perturbation")
     present = [g for g in KNOWN_BRAKES if g in m.index]
     brakes = m.loc[present, "direction_score"].dropna()
-    bg = m[~m.index.isin(MODULE) & ~m.index.isin(present)]["direction_score"].dropna()
+    # matched eligible universe: 2-donor + knockdown-gated (same quality as the brakes),
+    # excluding scoring-module genes and the brake set itself — a fair background.
+    elig = m[(m.get("direction_n_donors", 2) >= 2)]
+    if "kd_gated_hit" in m.columns:
+        elig = elig[elig["kd_gated_hit"] == True]  # noqa: E712
+    bg = elig[~elig.index.isin(MODULE) & ~elig.index.isin(present)]["direction_score"].dropna()
     u, p = mannwhitneyu(brakes, bg, alternative="greater")
-    print(f"known brakes present : {len(present)}/{len(KNOWN_BRAKES)}")
+    print(f"known brakes present : {len(present)}/{len(KNOWN_BRAKES)}  (curated literature set — EXPLORATORY, not pre-registered)")
+    print(f"matched background n : {len(bg)}  (2-donor, kd-gated; module + brakes excluded)")
     print(f"brake median / mean  : {brakes.median():+.3f} / {brakes.mean():+.3f}")
     print(f"background median/mean: {bg.median():+.3f} / {bg.mean():+.3f}")
     print(f"fraction positive    : brakes {(brakes > 0).mean():.1%} vs bg {(bg > 0).mean():.1%}")
-    print(f"Mann-Whitney (brakes > bg): U={u:.0f}  p={p:.3f}")
-    print("VERDICT:", "ENRICHED" if p < 0.05 else "NOT enriched — positive side is a noisy hypothesis space")
+    print(f"Mann-Whitney one-sided (brakes > bg): U={u:.0f}  p={p:.3f}")
+    print("VERDICT:", "ENRICHED" if p < 0.05 else "no significant evidence of enrichment — positive side is a noisy hypothesis space")
 
 
 if __name__ == "__main__":

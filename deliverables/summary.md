@@ -16,6 +16,6 @@ TCR machinery, correctly scored negative. From the positive region we prioritize
 convergent evidence (effect, direction, donor consistency, viability, druggability,
 genetics, clinical precedent). Lead **CBLB**: its inhibitors are in early-phase
 trials and its human genetics are autoimmune-associated. We report honestly that at
-two donors the region shows **no significant brake-enrichment** (p = 0.56), so this
+two donors the region shows **no significant brake-enrichment** (p = 0.70), so this
 is a prioritized hypothesis for the full cohort. Every candidate traces back to
 versioned, reproducible code.

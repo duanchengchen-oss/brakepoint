@@ -173,7 +173,13 @@ def assign_tier(
     E-distance remains the magnitude; this only encodes the sign and, on the
     loss-of-effector side, a viability split that separates a non-essential
     enhancer from essential machinery whose knockout kills the cell.
+
+    Direction performs the classification; viability is only a toxicity annotation
+    on the negative side. Non-finite scores are treated as neutral (never silently
+    mis-tiered).
     """
+    if not np.isfinite(direction_score):
+        return TIER_NEUTRAL
     if abs(direction_score) <= tau:
         return TIER_NEUTRAL
     if direction_score > 0:

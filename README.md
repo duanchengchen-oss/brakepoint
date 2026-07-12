@@ -31,7 +31,7 @@ effects are required machinery (knockdown *cripples* the cell), donor-consistent
 
 The **positive quadrant** (knockdown *enhances* effector function) is the
 therapeutic hypothesis space — and we report it honestly. At 2 donors it is noisy:
-a curated set of 29 known T-cell brakes shows **no significant evidence of enrichment** there (one-sided Mann–Whitney vs background, p = 0.56; `pipeline/brake_enrichment.py`), and the strongest raw
+a curated set of 29 known T-cell brakes shows **no significant evidence of enrichment** there (one-sided Mann–Whitney vs a matched 2-donor background, p = 0.70; `pipeline/brake_enrichment.py`), and the strongest raw
 positives include likely artifacts. Individual literature brakes — **CD5, DGKA**
 (donor-consistent), and the TGF-β node **SMAD3** (donor-split) — do land positive
 as a consistency check, but the positive side is a **prioritized hypothesis space
@@ -57,7 +57,7 @@ for the full 4-donor cohort, not a finished target list**. Full write-up:
 cd pipeline
 make smoke      # dependency-free unit tests: E-distance core + signed axis + figure (runs anywhere)
 make figure     # regenerate the target shortlist + all four figures
-python brake_enrichment.py  # the honest brake-enrichment null (p=0.56)
+python brake_enrichment.py  # the honest brake-enrichment null (p=0.70)
 # genome-scale (needs scanpy + the built h5ad on a GPU workstation):
 make direction  DATA=<built.h5ad> LIB=<sgrna_library_metadata.csv> CONTROL=control
 ```
@@ -81,7 +81,7 @@ pipeline/
   figure_causal_map.py     the signed causal map (discovery engine)
   figure_targets.py        the convergent-evidence TARGET matrix (centerpiece)
   figure_evidence.py       donor-consistency scatter + direction distribution
-  brake_enrichment.py      honest brake-enrichment test (Mann-Whitney, p=0.56)
+  brake_enrichment.py      honest brake-enrichment test (Mann-Whitney, p=0.70)
   dossiers/                per-target evidence (Open Targets · ChEMBL · ClinicalTrials)
   Makefile · environment.yml · LICENSE (MIT) · SOURCES.md
   outputs_gladstone/       ranked_perturbations.csv (+ direction_*), direction_meta.json, figures

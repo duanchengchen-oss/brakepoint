@@ -4,7 +4,7 @@
 effector function (lead **CBLB**; also **CD5, DGKA, SMAD3, UBASH3A**), nominated by
 convergent evidence and scored in `figure_targets.py`. The signed causal map below
 is the *discovery engine*; the target shortlist is the *output*. Honesty caveats
-(2 donors; positive quadrant not yet enriched, p=0.56) are kept throughout.
+(2 donors; positive quadrant not yet enriched, p=0.70) are kept throughout.
 
 ## The engine — a genome-scale *signed* causal map of CD4⁺ T-cell function
 
@@ -22,7 +22,7 @@ donor-consistently. That machinery→negative result is the **validated,
 load-bearing finding**, confirmed against ground-truth biology in both magnitude
 and sign. The **positive** quadrant (knockdown *enhances* effector function) is the
 therapeutic hypothesis space — presented honestly: at 2 donors it is noisy and
-**not yet enriched** for a curated known-brake set (p = 0.56), so it is a
+**not yet enriched** for a curated known-brake set (p = 0.70), so it is a
 prioritized space for the full cohort, not a finished target list.
 
 ## The run
@@ -81,7 +81,7 @@ things must be stated plainly:
    29 known T-cell negative regulators (CBLB, CBL, DGKA/Z, TNFAIP3, SOCS1/3, CISH,
    PTPN2/6, RASA2/3, UBASH3A, MAP4K1, TET2, …; scoring-module genes excluded to
    avoid circularity) shows **no significant evidence of a positive shift vs background** (one-sided
-   Mann–Whitney **p = 0.56**; 37.9% positive vs 35.5%).
+   Mann–Whitney **p = 0.70**; 37.9% vs 36.7% positive, against a matched 2-donor kd-gated background).
    The genes above were selected by prior biology and are a **consistency check,
    not a method-level enrichment result.**
 2. **The raw top of the positive quadrant is dominated by likely artifacts** — the
@@ -120,6 +120,18 @@ An independent network layer (STRING diffusion) flagged **IL2RB** (CD122), but i
    direction performs the required-vs-enhancer classification; viability is only a
    toxicity annotation/gate (a coarse proxy — e.g. LAT is viable yet clearly
    required — so the figure leans on sign + donor consistency, not viability).
+5. **The direction score is an 8-hour transcriptional readout, not a functional
+   assay.** It is `mean(log-norm effector) − mean(log-norm dysfunction)`; positive
+   nominees require protein/functional validation (cytokine, proliferation,
+   killing) before being called brakes. Normalization uses the 4,816-gene measured
+   HVG panel as the library size (not the full transcriptome), a known compositional
+   caveat; the effector−dysfunction *difference* partially cancels depth effects.
+6. **The brake-enrichment test is exploratory** — the 29-gene brake set is a
+   curated literature list (not pre-registered); it is used to report a *null*
+   (no significant enrichment, p=0.70 vs a matched 2-donor background), which
+   post-hoc curation does not inflate. The **target matrix is a curated evidence
+   summary, not a fitted model** — every score's basis is in
+   `target_matrix_provenance.md`.
 
 ## Provenance
 Every step is a versioned Claude Science artifact (code + environment +
