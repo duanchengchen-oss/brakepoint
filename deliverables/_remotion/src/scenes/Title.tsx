@@ -8,7 +8,7 @@ export const Title: React.FC = () => {
       <Eyebrow>Built with Claude · Life Sciences · Research track</Eyebrow>
       <Spacer />
       <Words size={112} delay={10} maxWidth={1320}
-        parts={[{t: "A T cell's "}, {t: 'brakes', color: C.amber}, {t: ' are its best drug targets.'}]} />
+        parts={[{t: 'The '}, {t: 'brakes', color: C.amber}, {t: " on a T cell are its drug targets."}]} />
       <div style={{...sub, fontSize: 40, color: C.mut, marginTop: 38, maxWidth: 1250, lineHeight: 1.4}}>
         Druggable-brake target discovery from a 2.6-million-cell CRISPRi screen — built with Claude Science.
       </div>

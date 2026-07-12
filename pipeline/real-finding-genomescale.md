@@ -12,7 +12,7 @@ Real Claude Science run on the DGX Spark (NVIDIA GB10), verified end-to-end. Ful
 methods and honest caveats below.
 
 ## The one-line finding
-On 2.64 M primary human CD4⁺ T cells, ranking CRISPRi knockdowns by **causal
+On this genome-scale screen, ranking CRISPRi knockdowns by **causal
 effect size alone cannot tell a drug target from the cell's own machinery** — 8 of
 the 9 largest effects are the TCR signalling module. Adding a **signed
 direction-of-effect axis** splits the map: those top effects are all strongly
@@ -68,8 +68,8 @@ a useful consistency check:
 | **CD5** | 5.6 | +0.15 | **yes** (+0.15 / +0.14) | inhibitory co-receptor; KD de-represses TCR signalling |
 | **DGKA** | 2.5 | +0.08 | **yes** (+0.09 / +0.07) | DAG kinase brake; DGKα inhibitors are an IO strategy |
 | **CBLB** | 6.4 | +0.14 | no (+0.44 / −0.15) | E3-ligase brake; investigational CBL-B inhibitors NX-1607 (Ph1), HST-1011 (Ph1/2) |
-| **SMAD3** | 25.1 | +0.06 | no (−0.13 / +0.26) | TGF-β effector brake; the highest-E-distance *biologically-coherent* positive node |
-| **UBASH3A** | 2.0 | +0.05 | no (−0.08 / +0.19) | autoimmune-GWAS (T1D/RA) phosphatase; tractable, no drug yet (genetics-led) |
+| **SMAD3** | 25.1 | +0.06 | no (−0.13 / +0.26) | TGF-β pathway node (pathway-level candidate); the highest-E-distance *biologically-coherent* positive node |
+| **UBASH3A** | 2.0 | +0.05 | no (−0.08 / +0.19) | autoimmune-GWAS (T1D/RA) phosphatase; putatively tractable, no drug yet (genetics-led) |
 
 *(These five are the curated target shortlist scored in `figure_targets.py`. A
 further high-E-distance positive, **LAT2** (E 23.0, +0.20, donor-split), is a
@@ -135,9 +135,9 @@ An independent network layer (STRING diffusion) flagged **IL2RB** (CD122), but i
 
 ## Provenance
 Every step is a versioned Claude Science artifact (code + environment +
-conversation), and a background reviewer checks claims against what actually ran —
-which surfaced a real diagonal-bias bug in the E-distance statistic before any
-figure. Heavy compute ran on the DGX Spark over SSH; `make smoke` reproduces the
+conversation), and a background reviewer checks claims against what actually ran.
+Separately, an adversarial self-critique pass reproduced and caught a real
+diagonal-bias bug in the E-distance implementation before any figure. Heavy compute ran on the DGX Spark over SSH; `make smoke` reproduces the
 pure-logic core anywhere; `make direction` + `make figure` regenerate the signed
 map and the hero figure. Outputs: `outputs_gladstone/ranked_perturbations.csv`
 (+ `direction_*`), `direction_meta.json`, `deliverables/figures/causal_map.png`.

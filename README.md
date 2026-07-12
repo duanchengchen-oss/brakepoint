@@ -1,6 +1,6 @@
 # Brakepoint · druggable-brake target discovery in human T cells — Built with Claude Science
 
-*Checkpoint-blockade therapy works by releasing **brakes** on T cells (CAR-T, separately, is engineered antigen recognition that brake-removal can enhance). Brakepoint screens the genome for the druggable brakes.*
+*Checkpoint-blockade therapy works by releasing **brakes** on T cells (CAR-T, separately, is engineered antigen recognition that brake-removal can enhance). Brakepoint screens the genome for candidate brakes — genes whose knockdown makes a stronger effector — and scores their druggability separately.*
 
 **Built with Claude: Life Sciences · research track (solo).** From a
 2.6-million-cell CRISPRi Perturb-seq screen, Brakepoint prioritizes a shortlist of
@@ -17,8 +17,8 @@ A T-cell "brake" is a gene whose knockdown pushes the cell toward a stronger eff
 From the **genome-scale Gladstone CRISPRi Perturb-seq** (**2,638,736 CD4⁺ T cells,
 12,449 knockdowns**), Brakepoint prioritizes **five candidate targets for validation** by convergent
 evidence — which varies by target (three of five are donor-split) — across causal
-effect, direction, donor consistency, druggability, immune genetics, and clinical
-precedent:
+effect, direction, donor consistency, viability, druggability, immune genetics, and
+clinical precedent:
 
 - **CBLB** *(lead)* — E3-ligase brake; its inhibitors are in early-phase trials (NX-1607 Ph1, HST-1011 Ph1/2); autoimmune genetic association.
 - **CD5, DGKA** — donor-consistent; DGKA is clinically tractable (Bayer oral DGKα inhibitor, Ph1), CD5 is biologically supported (deletion enhances CAR-T preclinically).
@@ -29,7 +29,7 @@ of the 9 largest effects are the cell's own TCR machinery — activation-require
 unsuitable inhibition targets for this objective. A per-cell **direction-of-effect** axis flips it — 14 of the top 15 largest
 effects are direction-negative (activation-required; knockdown impairs the effector
 program) — and the TCR module among them is donor-consistent; the candidate brakes surface in the positive
-quadrant (mostly modest-effect, reported with their donor-consistency).
+quadrant (mostly modest-to-moderate effect, reported with their donor-consistency).
 
 The **positive quadrant** (knockdown *enhances* the effector transcriptional program) is the
 therapeutic hypothesis space — and we report it honestly. At 2 donors it is noisy:
@@ -40,25 +40,31 @@ as a consistency check, but the positive side is a **prioritized hypothesis spac
 for the full 4-donor cohort, not a finished target list**. Full write-up:
 [`pipeline/real-finding-genomescale.md`](pipeline/real-finding-genomescale.md).
 
-## Why it's trustworthy
+## Why it's trustworthy — and how it differs from standard analysis
+A significance-first Perturb-seq analysis ranks perturbations by significance or DE-count.
+Brakepoint does two things that ranking can't:
 - **Ranks by causal effect size** — power-equalized energy distance + a
-  permutation E-test — not p-values, which shrink to significance for almost any perturbation at this cell count.
+  permutation E-test used only as a gate — not p-values, which shrink to
+  significance for almost any perturbation at this cell count (**97.5%** of the
+  11,438 tested knockdowns clear q < 0.05; see
+  [`figures/significance_wall.png`](deliverables/figures/significance_wall.png)).
 - **Adds the missing sign.** Magnitude can't tell an activation-*required* gene
   from a therapeutic *brake* — both land far from control. The signed axis does,
   and it self-validates: the TCR machinery is correctly flagged negative,
-  donor-consistently.
+  donor-consistently. This is the sign an unsigned effect-size ranking omits.
 - **Gated + honest:** viability (catches toxic knockdowns), author-provided
   knockdown efficiency, **donor-stratified** with a per-donor sign-agreement flag (two donors; no
   donor-level population inference).
-- **Self-checking:** a real statistical bug — an n-dependent bias in the
-  effect-size metric — was found and fixed with the Claude Science reviewer's help
-  (see [`pipeline/WAR_LOG.md`](pipeline/WAR_LOG.md)).
+- **Self-checking:** a real statistical bug — an n-dependent bias in our
+  effect-size computation — was surfaced and reproduced by an adversarial
+  self-critique pass, then fixed (the provenance reviewer separately checks claims
+  against what ran; see [`pipeline/WAR_LOG.md`](pipeline/WAR_LOG.md)).
 
 ## Reproduce
 ```bash
 cd pipeline
 make smoke      # dependency-free unit tests: E-distance core + signed axis + figure (runs anywhere)
-make figure     # regenerate the target shortlist + all four figures
+make figure     # regenerate the target shortlist + all figures
 python brake_enrichment.py  # the honest brake-enrichment null (p=0.70)
 # genome-scale (needs scanpy + the built h5ad on a GPU workstation):
 make direction  DATA=<built.h5ad> LIB=<sgrna_library_metadata.csv> CONTROL=control
@@ -83,6 +89,7 @@ pipeline/
   figure_causal_map.py     the signed causal map (discovery engine)
   figure_targets.py        the convergent-evidence TARGET matrix (centerpiece)
   figure_evidence.py       donor-consistency scatter + direction distribution
+  figure_significance.py   the "significance wall" — why we rank by effect size, not p-value
   brake_enrichment.py      honest brake-enrichment test (Mann-Whitney, p=0.70)
   dossiers/                per-target evidence (Open Targets · ChEMBL · ClinicalTrials)
   Makefile · environment.yml · LICENSE (MIT) · SOURCES.md
@@ -90,7 +97,7 @@ pipeline/
   real-finding-genomescale.md   the finding, with real numbers + honest caveats
 deliverables/
   demo.mp4 (Remotion, natural VO) · demo_deck.pptx · index.html · summary.md
-  figures/  target_matrix · causal_map · donor_consistency · direction_dist · brakepoint_onepager
+  figures/  target_matrix · causal_map · significance_wall · donor_consistency · direction_dist · brakepoint_onepager
 ```
 
 ## Data & license

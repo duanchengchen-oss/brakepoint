@@ -30,7 +30,13 @@
   .ev b{color:var(--ink)}
   .box.fig{padding:12px;background:rgba(11,18,32,.04)}
   .box.fig img{width:100%;border-radius:12px;background:#fcfcfb;display:block}
-  .foot{margin-top:30px;display:flex;justify-content:space-between;align-items:center;font-size:18px;color:var(--mut)}
+  .edge{margin-top:28px;border-top:1px solid var(--line);padding-top:22px}
+  .edge .eh{font-family:var(--disp);font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--teal-dk);margin-bottom:15px}
+  .edge .row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .edge .c{font-size:17px;line-height:1.42;color:var(--body)}
+  .edge .c b{color:var(--ink)}
+  .edge .c .k{font-family:var(--disp);font-weight:700;color:var(--teal-dk);font-size:14.5px;letter-spacing:.03em;display:block;margin-bottom:6px}
+  .foot{margin-top:26px;display:flex;justify-content:space-between;align-items:center;font-size:18px;color:var(--mut)}
   .foot .repo{font-family:var(--disp);color:var(--ink);font-weight:600}
   .code{font-family:ui-monospace,monospace;font-size:16px;color:var(--teal-dk);background:rgba(13,148,136,.07);padding:4px 10px;border-radius:8px}
 </style></head>
@@ -43,8 +49,8 @@
   <p class="sub">From a 2.6-million-cell CRISPRi Perturb-seq screen, Brakepoint nominates a shortlist of <b>candidate targets</b> whose knockdown shifts human CD4⁺ T cells toward a stronger effector transcriptional state — a brake-release strategy mechanistically analogous to checkpoint blockade — led by <b>CBLB</b>, whose inhibitors are in early-phase trials.</p>
   <div class="stats">
     <div class="stat"><div class="n">12,449</div><div class="l">gene knockdowns screened, genome-scale</div></div>
-    <div class="stat"><div class="n">5</div><div class="l">candidate brakes nominated by convergent evidence</div></div>
-    <div class="stat"><div class="n">CBLB</div><div class="l">lead — oral inhibitors already in Phase 1/2</div></div>
+    <div class="stat"><div class="n">5</div><div class="l">prior-informed candidate brakes, scored on convergent evidence</div></div>
+    <div class="stat"><div class="n">CBLB</div><div class="l">lead — oral CBL-B inhibitors in early-phase trials</div></div>
   </div>
   <div class="figwrap"><img src="../figures/target_matrix.png"/>
     <div class="figcap">Convergent-evidence matrix. Effect · direction · donor-consistency · viability from the genome-scale CD4⁺ leaderboard; druggability · immune-genetics · clinical from Open Targets · ChEMBL · ClinicalTrials.gov.</div>
@@ -52,15 +58,23 @@
   <div class="grid">
     <div class="box">
       <span class="tag">LEAD TARGET · CBLB</span>
-      <h3>A brake already in the clinic.</h3>
+      <h3>A brake in clinical testing.</h3>
       <div class="ev"><span class="d"></span><div>Two oral CBL-B inhibitors in trials — <b>NX-1607 (Ph1), HST-1011 (Ph1/2)</b>.</div></div>
       <div class="ev"><span class="d"></span><div>An <b>autoimmune-risk association</b>; Cbl-b loss enhances T-cell activation in preclinical models — the CBL-B inhibitor trial rationale.</div></div>
       <div class="ev"><span class="d" style="background:var(--amber)"></span><div>Donor-split at n=2 (right) — a prioritized nomination for the full cohort, reported honestly.</div></div>
     </div>
     <div class="box fig"><img src="../figures/donor_consistency.png"/></div>
   </div>
+  <div class="edge">
+    <div class="eh">Why it's different · vs standard analysis</div>
+    <div class="row">
+      <div class="c"><span class="k">EFFECT SIZE, NOT P-VALUE</span>At this scale <b>97.5%</b> of the 11,438 tested knockdowns clear significance — so we rank by power-equalized <b>E-distance</b>, not p-value.</div>
+      <div class="c"><span class="k">THE SIGNED AXIS</span>A direction-of-effect score separates a candidate <b>brake</b> from essential machinery — the sign an unsigned effect-size ranking omits.</div>
+      <div class="c"><span class="k">REPRODUCIBLE + CHECKED</span>The figures regenerate with one command; an adversarial self-check caught a real bias in the effect-size code before any figure.</div>
+    </div>
+  </div>
   <div class="foot">
-    <div>How: a signed causal map separates candidate brakes from essential machinery · every target traces back to code</div>
+    <div>Signed causal map · genome-scale · built with Claude Science</div>
     <div class="repo">github.com/duanchengchen-oss/brakepoint&nbsp;&nbsp;·&nbsp;&nbsp;<span class="code">make figure</span></div>
   </div>
 </div></body></html>

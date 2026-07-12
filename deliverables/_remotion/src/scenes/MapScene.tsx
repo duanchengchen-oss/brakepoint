@@ -31,6 +31,7 @@ export const MapScene: React.FC = () => {
   const upCap = interpolate(frame, [60, 90], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   const dnCap = interpolate(frame, [110, 145], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   const calloutS = spring({frame: frame - 250, fps, config: {damping: 200}});
+  const sig2 = interpolate(frame, [498, 540], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
 
   const y0 = yS(0);
   return (
@@ -103,11 +104,17 @@ export const MapScene: React.FC = () => {
         <div style={{fontSize: 24, color: '#5bbfb2', marginTop: 6, fontStyle: 'italic'}}>required machinery · not druggable</div>
       </div>
 
-      {/* headline callout */}
-      <div style={{position: 'absolute', left: 820, top: 296, opacity: calloutS, transform: `translateY(${(1 - calloutS) * 20}px)`,
-        background: 'rgba(252,252,251,0.97)', borderRadius: 20, padding: '26px 32px', maxWidth: 560, boxShadow: '0 20px 60px rgba(0,0,0,0.4)'}}>
-        <div style={{fontFamily: disp, fontWeight: 700, fontSize: 30, color: '#0b1220'}}>14 of the 15 largest-effect knockdowns</div>
-        <div style={{fontSize: 24, color: '#39424e', marginTop: 8, lineHeight: 1.35}}>impair effector function — magnitude alone would nominate the cell's own machinery.</div>
+      {/* headline callout — content crossfades in place (stays clear of both captions) */}
+      <div style={{position: 'absolute', left: 806, top: 300, width: 588, opacity: calloutS, transform: `translateY(${(1 - calloutS) * 20}px)`,
+        background: 'rgba(252,252,251,0.97)', borderRadius: 20, padding: '26px 32px', boxShadow: '0 20px 60px rgba(0,0,0,0.4)'}}>
+        <div style={{opacity: 1 - sig2}}>
+          <div style={{fontFamily: disp, fontWeight: 700, fontSize: 29, color: '#0b1220'}}>14 of the 15 largest-effect knockdowns</div>
+          <div style={{fontSize: 23, color: '#39424e', marginTop: 8, lineHeight: 1.34}}>impair effector function — magnitude alone would nominate the cell's own machinery.</div>
+        </div>
+        <div style={{position: 'absolute', left: 32, right: 32, top: 26, opacity: sig2}}>
+          <div style={{fontFamily: disp, fontWeight: 700, fontSize: 29, color: '#0b6b62'}}>97.5% of tested knockdowns clear significance</div>
+          <div style={{fontSize: 23, color: '#39424e', marginTop: 8, lineHeight: 1.34}}>at 2.6 M cells — so we rank by <b>effect size</b>, not p-value.</div>
+        </div>
       </div>
     </AbsoluteFill>
   );

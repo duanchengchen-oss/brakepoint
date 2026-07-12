@@ -10,7 +10,7 @@ export const Question: React.FC = () => {
       <Words size={82} delay={10} maxWidth={1560}
         parts={[{t: 'Which knockdowns make a T‑cell a '}, {t: 'stronger', color: C.amber}, {t: ' effector?'}]} />
       <div style={{...sub, fontSize: 38, color: C.mut, marginTop: 36, maxWidth: 1300, lineHeight: 1.42}}>
-        Checkpoint blockade and CAR-T both work by <b style={{color: C.body}}>releasing brakes</b> on T cells. We look for the druggable ones — genome-wide.
+        Checkpoint blockade works by <b style={{color: C.body}}>releasing brakes</b> on T cells; the same brakes throttle engineered CAR-T. We look for the druggable ones — genome-wide.
       </div>
       <Spacer />
     </Bg>
