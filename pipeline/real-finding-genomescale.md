@@ -4,7 +4,7 @@
 effector function (lead **CBLB**; also **CD5, DGKA, SMAD3, UBASH3A**), nominated by
 convergent evidence and scored in `figure_targets.py`. The signed causal map below
 is the *discovery engine*; the target shortlist is the *output*. Honesty caveats
-(2 donors; positive quadrant not yet enriched, p=0.70) are kept throughout.
+(2 donors; no significant enrichment of the positive quadrant, p=0.70) are kept throughout.
 
 ## The engine — a genome-scale *signed* causal map of CD4⁺ T-cell function
 
@@ -20,7 +20,7 @@ direction-of-effect axis** splits the map: those top effects are all strongly
 donor-consistently. That machinery→negative result is the **load-bearing internal
 consistency check** — in both magnitude and sign (a sanity check, not external validation). The **positive** quadrant (knockdown *enhances* the effector transcriptional program) is the
 therapeutic hypothesis space — presented honestly: at 2 donors it is noisy and
-**not yet enriched** for a curated known-brake set (p = 0.70), so it is a
+shows **no significant evidence of enrichment** for a curated known-brake set (p = 0.70), so it is a
 prioritized space for the full cohort, not a finished target list.
 
 ## The run
@@ -77,7 +77,7 @@ raw candidate but less druggable/characterized, so it is not in the shortlist.)*
 
 **The critical honest caveat — we do not overclaim the positive side.** Two
 things must be stated plainly:
-1. **The positive quadrant is not brake-enriched at this scale.** A curated set of
+1. **The positive quadrant shows no significant brake-enrichment at this scale.** A curated set of
    29 known T-cell negative regulators (CBLB, CBL, DGKA/Z, TNFAIP3, SOCS1/3, CISH,
    PTPN2/6, RASA2/3, UBASH3A, MAP4K1, TET2, …; scoring-module genes excluded to
    avoid circularity) shows **no significant evidence of a positive shift vs background** (one-sided
@@ -93,7 +93,7 @@ things must be stated plainly:
 (14/15 largest effects negative; the TCR module among them is donor-consistent — magnitude alone would mislead).
 The **positive/brake side is a noisy hypothesis space at 2 donors / Stim-8 h**: the
 donor-consistent brakes (CD5, DGKA) are low-magnitude, the higher-magnitude ones
-(SMAD3, LAT2, CBLB) are donor-split, and the set as a whole isn't yet enriched. The
+(SMAD3, LAT2, CBLB) are donor-split, and the set as a whole shows no significant enrichment. The
 honest deliverable is a **reproducible signed-map method + a prioritized hypothesis
 space** that the full 4-donor / Stim-48 h cohort will test for improved robustness
 and enrichment — not a finished target list. (Enrichment recomputes via `pipeline/brake_enrichment.py`.)
