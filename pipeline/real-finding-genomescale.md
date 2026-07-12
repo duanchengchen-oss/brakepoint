@@ -36,26 +36,26 @@ prioritized space for the full cohort, not a finished target list.
   authors' per-guide knockdown-efficiency sidecar.
 - **Axis 2 — sign:** per cell, `mean(log-norm effector genes) − mean(log-norm
   dysfunction genes)`, aggregated per (perturbation × donor) vs control (donors as
-  replicates, with a per-donor sign-agreement flag). Effector program = IFNG, IL2,
+  a per-donor sign-agreement flag; donor-stratified, no donor-level population inference). This is an 8-hour transcriptional readout, NOT a functional assay — functional validation is required before calling any nominee a brake. Effector program = IFNG, IL2,
   TNF, CSF2, LTA, XCL1/2, CCL3/4, GZMB, TNFRSF9, CD69, MYC, IRF4, BATF, TBX21;
   dysfunction program = PDCD1, CTLA4, LAG3, HAVCR2, TIGIT, BTLA, CD160, VSIR,
   ENTPD1, TOX, NR4A1/2/3. `direction_score > 0` ⇒ knockdown pushes cells toward
   the effector program (a brake); `< 0` ⇒ toward loss of effector function.
   Code: `direction.py`, `direction_genomescale.py`, `merge_direction.py`.
 
-## Validation — the map recovers ground truth in *both* axes
+## Validation — a strong internal consistency check (both axes)
 1. **Magnitude (unsupervised):** the top of the leaderboard is dominated by the
    canonical TCR proximal-signalling module. **8 of the 9 largest effects** are
    TCR-proximal genes — ZAP70, LCP2, CD3E, CD3G, PLCG1, LAT, VAV1, CD3D; the one
    exception (rank 8, **SMARCD3**, a SWI/SNF chromatin-remodeler) is a
    high-toxicity dropout (viability 0.16). The rest of the module — CD247, ITK,
-   RASGRP1 — sits just below (ranks ~15–17). This is the strongest possible
-   internal control that the method measures real biology at 2.6 M-cell scale.
+   RASGRP1 — sits just below (ranks ~15–17). This is a strong internal consistency check that the signed score tracks real
+   biology at 2.6 M-cell scale (a sanity check, not external validation).
 2. **Sign (the key result):** **14 of the 15 largest-effect knockdowns have a
    negative direction score**, and every TCR-module gene is **donor-consistent**
    (both donors strongly negative: e.g. ZAP70 −0.63, LCP2 −0.76, CD3D −0.66, LAT
    −0.64). Magnitude alone would headline the cell's own activation machinery; the
-   sign axis correctly reclassifies it as **required machinery, not druggable.**
+   sign axis correctly reclassifies it as **activation-required — unsuitable inhibition targets for this objective.**
    This machinery→negative direction is the validated, load-bearing result.
 
 ## The therapeutic signal — the positive (brake) quadrant, reported honestly
@@ -80,8 +80,8 @@ things must be stated plainly:
 1. **The positive quadrant is not brake-enriched at this scale.** A curated set of
    29 known T-cell negative regulators (CBLB, CBL, DGKA/Z, TNFAIP3, SOCS1/3, CISH,
    PTPN2/6, RASA2/3, UBASH3A, MAP4K1, TET2, …; scoring-module genes excluded to
-   avoid circularity) is **not significantly shifted toward positive direction vs
-   background** (Mann–Whitney one-sided **p = 0.56**; 37.9% positive vs 35.5%).
+   avoid circularity) shows **no significant evidence of a positive shift vs background** (one-sided
+   Mann–Whitney **p = 0.56**; 37.9% positive vs 35.5%).
    The genes above were selected by prior biology and are a **consistency check,
    not a method-level enrichment result.**
 2. **The raw top of the positive quadrant is dominated by likely artifacts** — the
@@ -95,24 +95,12 @@ The **positive/brake side is a noisy hypothesis space at 2 donors / Stim-8 h**: 
 donor-consistent brakes (CD5, DGKA) are low-magnitude, the higher-magnitude ones
 (SMAD3, LAT2, CBLB) are donor-split, and the set as a whole isn't yet enriched. The
 honest deliverable is a **validated signed-map method + a prioritized hypothesis
-space** that the full 4-donor / Stim-48 h cohort is expected to sharpen — not a
-finished target list. (Enrichment recomputes via `pipeline/brake_enrichment.py`.)
+space** that the full 4-donor / Stim-48 h cohort will test for improved robustness
+and enrichment — not a finished target list. (Enrichment recomputes via `pipeline/brake_enrichment.py`.)
 
-## IL2RB — a convergence node, reframed honestly
-An independent layer (personalized-PageRank diffusion of the causal signal over
-the STRING interactome) nominates **IL2RB (CD122, IL-2/IL-15 receptor β)**: never
-a direct hit, yet network-central among five causal hits, with multiple-sclerosis
-/ broader autoimmune genetics (Open Targets). The direction axis now *explains*
-it: **IL2RB knockdown is essentially lethal** (viability 0.13, direction −0.24) —
-it is required machinery for the pro-survival IL-2 signal. That is precisely why
-the drug is an **IL-2/CD122 agonist**, not an inhibitor: **aldesleukin** (approved
-IL-2) and the approved IL-15 superagonist **nogapendekin alfa / N-803 (Anktiva)**
-signal through CD122. **Correction (kept):** the approved anti-IL-2R antibodies
-**basiliximab / daclizumab target IL2RA (CD25), *not* IL2RB**, and **daclizumab was
-withdrawn (2018)** for safety (PMID 29645071); the CD122-biased
-**bempegaldesleukin (NKTR-214)** program was **terminated in 2022**. IL2RB is a
-pathway-validated, drug-*adjacent* convergence node — supporting evidence, not the
-headline.
+## IL2RB — a non-shortlisted note
+An independent network layer (STRING diffusion) flagged **IL2RB** (CD122), but its knockdown shows severe viability loss (0.13) and negative direction, so it is a pathway node, not a shortlisted brake; the therapeutic angle there would be IL-2/CD122 **agonism** (aldesleukin, N-803), not inhibition. It is excluded from the shortlist.
+
 
 ## Honest caveats (state these)
 1. **No Gladstone-provided interaction network or regulatory model exists.** The
@@ -129,9 +117,9 @@ headline.
    nominations** — knocking down PDCD1/TOX/NR4A/etc. trivially shifts its own pole.
    The featured brakes (CD5, DGKA, CBLB, SMAD3, UBASH3A) are not module genes.
 4. **Ranking = E-distance magnitude**; permutation q is a gate. The
-   required-vs-enhancer split uses viability as a *coarse* proxy (e.g. LAT is
-   viable yet clearly required) — the figure encodes sign + donor consistency
-   directly rather than leaning on that split.
+   direction performs the required-vs-enhancer classification; viability is only a
+   toxicity annotation/gate (a coarse proxy — e.g. LAT is viable yet clearly
+   required — so the figure leans on sign + donor consistency, not viability).
 
 ## Provenance
 Every step is a versioned Claude Science artifact (code + environment +

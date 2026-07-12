@@ -69,7 +69,7 @@ def build(out_png: str, out_svg: str) -> None:
 
     for i, (gene, call, ccol, scores, ev) in enumerate(TARGETS):
         # gene name
-        ax.text(-1.15, i, gene, ha="left", va="center", fontsize=17, color=INK, fontweight="bold", family="Helvetica Neue")
+        ax.text(-0.62, i, gene, ha="right", va="center", fontsize=16, color=INK, fontweight="bold", family="Helvetica Neue")
         # bubbles
         for j, s in enumerate(scores):
             ax.scatter(j, i, s=120 + s * 900, c=[CMAP(s)], edgecolors="white", linewidths=1.4, zorder=3)
@@ -94,13 +94,15 @@ def build(out_png: str, out_svg: str) -> None:
     ax.text(lx - 0.35, n_r - 0.35, "evidence", ha="right", va="center", fontsize=10, color=MUTED)
     ax.text(lx + 2.5, n_r - 0.35, "weak to strong  (0–1)", ha="left", va="center", fontsize=10, color=MUTED)
 
-    fig.text(0.045, 0.965, "A convergent-evidence shortlist of druggable T-cell brakes",
+    fig.text(0.045, 0.975, "A convergent-evidence shortlist of druggable T-cell brakes",
              fontsize=18, fontweight="bold", color=INK, va="top")
-    fig.text(0.045, 0.923,
-             "Release the brake, boost the effector program (an 8-h transcriptional signature). Candidates from the CD4⁺ signed causal map; "
-             "evidence curated 0–1 from Open Targets · ChEMBL · ClinicalTrials.gov — a summary, not a fitted model",
+    fig.text(0.045, 0.935,
+             "Release the brake, boost the effector program — an 8-hour transcriptional signature, not a functional assay.",
              fontsize=11, color=MUTED, va="top")
-    fig.subplots_adjust(left=0.10, right=0.995, top=0.86, bottom=0.05)
+    fig.text(0.045, 0.906,
+             "Evidence curated 0–1 from Open Targets · ChEMBL · ClinicalTrials.gov — a summary, not a fitted model.",
+             fontsize=11, color=MUTED, va="top")
+    fig.subplots_adjust(left=0.135, right=0.995, top=0.83, bottom=0.05)
     fig.savefig(out_png, dpi=210, facecolor=SURFACE); fig.savefig(out_svg, facecolor=SURFACE)
     plt.close(fig)
     print("wrote", out_png, "+", out_svg)

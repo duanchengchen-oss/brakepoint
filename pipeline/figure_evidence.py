@@ -49,10 +49,13 @@ def donor_plot(df: pd.DataFrame, out: str) -> None:
     for genes, col, edge in ((TCR, TEAL, TEAL_DK), (CAND, AMBER, AMBER_DK)):
         xs = [by[g][0] for g in genes if g in by]; ys = [by[g][1] for g in genes if g in by]
         ax.scatter(xs, ys, s=90, c=col, edgecolors="white", linewidths=1.3, zorder=4)
+        label_set = genes if col == AMBER else ["ZAP70", "LCP2", "CD3D", "ITK"]
         for g in genes:
-            if g in by:
-                ax.annotate(g, by[g], textcoords="offset points", xytext=(7, 4), fontsize=10,
+            if g in by and g in label_set:
+                ax.annotate(g, by[g], textcoords="offset points", xytext=(7, 4), fontsize=10.5,
                             fontweight="bold", color=edge, zorder=5)
+        if col == TEAL:
+            ax.annotate("(TCR module)", (-0.33, -0.66), fontsize=10, color=TEAL_DK, style="italic", zorder=5)
     ax.text(0.62, 1.02, "consistent brake\n(both donors +)", color=AMBER_DK, fontsize=11, fontweight="bold", ha="left")
     ax.text(-1.08, -1.0, "consistent machinery\n(both donors −)", color=TEAL_DK, fontsize=11, fontweight="bold", ha="left")
     ax.set_xlim(-lim, lim); ax.set_ylim(-lim, lim)
@@ -89,10 +92,10 @@ def dist_plot(df: pd.DataFrame, out: str) -> None:
     ax.set_xlabel("Direction of effect  ·  effector − dysfunction (vs control)", fontsize=12.5, color=INK)
     ax.set_ylabel("knockdowns", fontsize=12.5, color=INK)
     _style(ax)
-    fig.suptitle("The signed axis splits 12,449 knockdowns", x=0.055, ha="left", fontsize=17, fontweight="bold", color=INK)
-    fig.text(0.055, 0.925, "Most sit near zero; the negative tail is required machinery, the positive tail is the brake search space.",
+    fig.suptitle("The signed axis splits 12,449 knockdowns", x=0.055, y=0.97, ha="left", fontsize=17, fontweight="bold", color=INK)
+    fig.text(0.055, 0.895, "Most sit near zero; the negative tail is required machinery, the positive tail is the brake search space.",
              fontsize=11, color=MUTED)
-    fig.subplots_adjust(left=0.075, right=0.975, top=0.86, bottom=0.13)
+    fig.subplots_adjust(left=0.075, right=0.975, top=0.80, bottom=0.13)
     fig.savefig(out, dpi=210, facecolor=SURFACE); plt.close(fig); print("wrote", out)
 
 

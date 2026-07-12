@@ -4,20 +4,20 @@ import pathlib
 
 import edge_tts
 
-VOICE = "en-US-AndrewMultilingualNeural"  # warm, confident, natural — replaces robotic Sonia
+VOICE = "en-US-AndrewMultilingualNeural"  # warm, confident, natural
 RATE = "-3%"
 OUT = pathlib.Path(__file__).parent / "audio"
 OUT.mkdir(exist_ok=True)
 
 VO = [
- "A T cell's brakes are its best drug targets. This is Brakepoint — druggable-brake discovery from a two-and-a-half-million-cell screen, built with Claude Science.",
- "The most powerful immunotherapies — checkpoint blockade, CAR-T — all work by releasing brakes on T cells. So we asked a simple question: across the entire genome, which druggable genes are those brakes? Which knockdowns make a human T cell a stronger effector?",
- "We started from a genome-scale CRISPR-interference screen — twelve thousand gene knockdowns, across two and a half million primary human CD4 T cells, from the Gladstone Institutes.",
- "Ranking by effect size alone points at the wrong genes: the biggest hits are the cell's own essential signaling machinery. So we added a direction-of-effect axis. Now the machinery drops to the bottom, and the drug-relevant brakes rise to the top. This map is our discovery engine.",
- "From that map, a shortlist of five druggable brakes — each scored across seven axes of convergent evidence: causal effect, direction, donor consistency, druggability, human genetics, and clinical precedent.",
- "Our lead is CBLB — a brake that's already a drug. Two oral CBL-B inhibitors are in trials, losing it causes autoimmunity in people, and it sits squarely in our brake quadrant. CD5 and DGKA follow — both consistent across donors, both clinically tractable.",
- "And we report it honestly. With two donors, CD5 and DGKA hold up in both; CBLB and the higher-effect candidates are driven by one donor, and known brakes aren't yet enriched as a group. So this is a prioritized shortlist for the full cohort — not a finished target list.",
- "Every target traces back to code — open source, one command to reproduce, built with Claude Science.",
+ "A T cell's brakes are its best drug targets. This is Brakepoint — druggable-brake discovery from a 2.6-million-cell screen, built with Claude Science.",
+ "Checkpoint blockade works by releasing the brakes on T cells; CAR-T engineers T cells to attack. Both point to the same prize. So we asked: across the genome, which druggable genes are the brakes — which knockdowns push a human T cell toward a stronger effector state?",
+ "We started from a genome-scale CRISPR-interference screen — over twelve thousand gene knockdowns, across 2.6 million primary human CD4 T cells, from the Gladstone Institutes. Two donors, of an intended four.",
+ "Ranking by effect size alone points at the wrong genes: the biggest hits are the cell's own essential signaling machinery. So we added a direction-of-effect axis — an 8-hour transcriptional readout. Now the machinery drops to the bottom, and the drug-relevant brakes rise to the top.",
+ "From that map, five candidate brakes — CBLB, CD5, DGKA, SMAD3, and UBASH3A — each scored across seven axes of convergent evidence: causal effect, direction, donor consistency, viability, druggability, human genetics, and clinical precedent.",
+ "Our lead is CBLB. Its inhibitors are already in early-phase trials, its human genetics are directionally consistent with a T-cell brake, and it sits squarely in our brake quadrant. CD5 and DGKA follow — consistent across both donors, with external tractability evidence.",
+ "And we report it honestly. With just two donors, CD5 and DGKA hold up in both; CBLB and the higher-effect candidates are driven by one, and known brakes aren't yet enriched as a group. So this is a prioritized shortlist for the full four-donor cohort — a hypothesis to validate, not a finished target list.",
+ "Every candidate traces back to code — open source, one command to reproduce, built with Claude Science.",
 ]
 
 

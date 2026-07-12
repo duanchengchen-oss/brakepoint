@@ -1,7 +1,7 @@
 # Demo video — narration script (target discovery)
 
 **The submission video is complete and narrated:** `deliverables/demo.mp4`
-(1920×1080, ~2:10, a **Remotion motion-graphics build** — animated causal map +
+(1920×1080, ~2:28, a **Remotion motion-graphics build** — animated causal map +
 target-shortlist and donor-consistency plots) with a natural voiceover (edge-tts
 `en-US-AndrewMultilingualNeural`). The script below is exactly what is narrated
 (also in `demo_deck.pptx` speaker notes). Reproduce: `deliverables/_remotion/`
@@ -9,44 +9,44 @@ target-shortlist and donor-consistency plots) with a natural voiceover (edge-tts
 
 ---
 
-### 1 · Title (~11s)
+### 1 · Title
 > A T cell's brakes are its best drug targets. This is Brakepoint — druggable-brake
-> discovery from a two-and-a-half-million-cell screen, built with Claude Science.
+> discovery from a 2.6-million-cell screen, built with Claude Science.
 
-### 2 · The thesis (~19s)
-> The most powerful immunotherapies — checkpoint blockade, CAR-T — all work by
-> releasing brakes on T cells. So we asked a simple question: across the entire
-> genome, which druggable genes are those brakes? Which knockdowns make a human
-> T cell a stronger effector?
+### 2 · The thesis
+> Checkpoint blockade works by releasing the brakes on T cells; CAR-T engineers
+> T cells to attack. Both point to the same prize. So we asked: across the genome,
+> which druggable genes are the brakes — which knockdowns push a human T cell
+> toward a stronger effector state?
 
-### 3 · The screen (~12s)
-> We started from a genome-scale CRISPR-interference screen — twelve thousand gene
-> knockdowns, across two and a half million primary human CD4 T cells, from the
-> Gladstone Institutes.
+### 3 · The screen
+> We started from a genome-scale CRISPR-interference screen — over twelve thousand
+> gene knockdowns, across 2.6 million primary human CD4 T cells, from the Gladstone
+> Institutes. Two donors, of an intended four.
 
-### 4 · The discovery engine — the signed causal map (~19s)
+### 4 · The discovery engine — the signed causal map
 > Ranking by effect size alone points at the wrong genes: the biggest hits are the
-> cell's own essential signaling machinery. So we added a direction-of-effect axis.
-> Now the machinery drops to the bottom, and the drug-relevant brakes rise to the
-> top. This map is our discovery engine.
+> cell's own essential signaling machinery. So we added a direction-of-effect axis —
+> an 8-hour transcriptional readout. Now the machinery drops to the bottom, and the
+> drug-relevant brakes rise to the top.
 
-### 5 · The target shortlist (~14s)
-> From that map, a shortlist of five druggable brakes — each scored across seven
-> axes of convergent evidence: causal effect, direction, donor consistency,
-> druggability, human genetics, and clinical precedent.
+### 5 · The target shortlist
+> From that map, five candidate brakes — CBLB, CD5, DGKA, SMAD3, and UBASH3A — each
+> scored across seven axes of convergent evidence: causal effect, direction, donor
+> consistency, viability, druggability, human genetics, and clinical precedent.
 
-### 6 · The lead — CBLB (~21s)
-> Our lead is CBLB — a brake that's already a drug. Two oral CBL-B inhibitors are
-> in trials, losing it causes autoimmunity in people, and it sits squarely in our
-> brake quadrant. CD5 and DGKA follow — both consistent across donors, both
-> clinically tractable.
+### 6 · The lead — CBLB
+> Our lead is CBLB. Its inhibitors are already in early-phase trials, its human
+> genetics are directionally consistent with a T-cell brake, and it sits squarely in
+> our brake quadrant. CD5 and DGKA follow — consistent across both donors, with
+> external tractability evidence.
 
-### 7 · Reported honestly (~19s)
-> And we report it honestly. With two donors, CD5 and DGKA hold up in both; CBLB
-> and the higher-effect candidates are driven by one donor, and known brakes aren't
-> yet enriched as a group. So this is a prioritized shortlist for the full cohort —
-> not a finished target list.
+### 7 · Reported honestly
+> And we report it honestly. With just two donors, CD5 and DGKA hold up in both;
+> CBLB and the higher-effect candidates are driven by one, and known brakes aren't
+> yet enriched as a group. So this is a prioritized shortlist for the full
+> four-donor cohort — a hypothesis to validate, not a finished target list.
 
-### 8 · Close (~8s)
-> Every target traces back to code — open source, one command to reproduce, built
+### 8 · Close
+> Every candidate traces back to code — open source, one command to reproduce, built
 > with Claude Science.

@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Brakepoint — druggable brakes on human T-cell function</title>
-<meta name="description" content="From a 2.6-million-cell CRISPRi Perturb-seq screen, Brakepoint nominates a shortlist of druggable targets whose knockdown releases the brakes on human CD4+ T-cell effector function — led by CBLB, already in the clinic. Built with Claude Science."/>
+<meta name="description" content="From a 2.6-million-cell CRISPRi Perturb-seq screen, Brakepoint nominates a shortlist of druggable targets whose knockdown releases the brakes on human CD4+ T-cell effector function — led by CBLB, whose inhibitors are in early-phase trials. Built with Claude Science."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
 <style>
@@ -85,10 +85,10 @@
 <section class="hero"><div class="wrap">
   <span class="eyebrow on-dark">Built with Claude · Life Sciences · Research track</span>
   <h1>A T cell's <span class="g">brakes</span> are its best drug targets.</h1>
-  <p class="lead">From a 2.6-million-cell CRISPRi Perturb-seq screen, Brakepoint nominates a shortlist of <b style="color:#f4b062">druggable targets</b> whose knockdown releases the brakes on human CD4⁺ T-cell effector function — led by <b style="color:#fff">CBLB</b>, already in the clinic.</p>
+  <p class="lead">From a 2.6-million-cell CRISPRi Perturb-seq screen, Brakepoint nominates a shortlist of <b style="color:#f4b062">druggable targets</b> whose knockdown releases the brakes on human CD4⁺ T-cell effector function — led by <b style="color:#fff">CBLB</b>, whose inhibitors are already in trials.</p>
   <div class="hero-actions">
     <a class="btn on-dark" href="#targets">See the targets <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
-    <a class="btn" href="#demo" style="background:rgba(255,255,255,.07);color:#fff;border:1px solid rgba(255,255,255,.14);padding-right:22px">Watch the 3-min demo</a>
+    <a class="btn" href="#demo" style="background:rgba(255,255,255,.07);color:#fff;border:1px solid rgba(255,255,255,.14);padding-right:22px">Watch the 2-min demo</a>
   </div>
   <div class="metrics">
     <div class="m"><div class="n mono">12,449</div><div class="l">knockdowns screened, genome-scale</div></div>
@@ -101,16 +101,16 @@
 <section class="pad" id="targets"><div class="wrap">
   <span class="eyebrow kicker reveal">The finding · a target shortlist</span>
   <h2 class="reveal" style="max-width:22ch">Five druggable brakes, ranked by convergent evidence.</h2>
-  <p class="lead reveal" style="margin-top:18px">A T-cell "brake" is a gene whose knockdown makes the cell a stronger effector — remove it and you boost immunity (the mechanism behind checkpoint and CAR-T therapy). The direction axis is an 8-hour transcriptional signature — functional validation is the next step. We score each candidate across seven evidence axes: causal effect, brake direction, donor consistency, viability, druggability, immune genetics, and clinical precedent.</p>
+  <p class="lead reveal" style="margin-top:18px">A T-cell "brake" is a gene whose knockdown makes the cell a stronger effector — remove it and you boost immunity (the mechanism behind checkpoint-blockade therapy). The direction axis is an 8-hour transcriptional signature — functional validation is the next step. We score each candidate across seven evidence axes: causal effect, brake direction, donor consistency, viability, druggability, immune genetics, and clinical precedent.</p>
   <div class="frame reveal" style="margin-top:38px"><div class="core"><img src="figures/target_matrix.svg" alt="Convergent-evidence matrix scoring CBLB, CD5, DGKA, SMAD3, UBASH3A across seven evidence dimensions"/></div></div>
-  <p class="cap reveal">Effect, direction, donor consistency and safety are computed from the genome-scale CD4⁺ leaderboard; druggability, immune-genetics and clinical precedent are curated from Open Targets, ChEMBL and ClinicalTrials.gov. Reproduce with <span class="mono">make figure</span>.</p>
+  <p class="cap reveal">Effect, direction, donor consistency and viability are computed from the genome-scale CD4⁺ leaderboard; druggability, immune-genetics and clinical precedent are curated from Open Targets, ChEMBL and ClinicalTrials.gov. Reproduce with <span class="mono">make figure</span>.</p>
 </div></section>
 
 <!-- LEAD: CBLB -->
 <section class="pad" id="lead" style="background:#f4f4ef"><div class="wrap split">
   <div class="reveal">
     <span class="eyebrow kicker">The lead · CBLB</span>
-    <h2 style="max-width:16ch">A brake that's already a drug.</h2>
+    <h2 style="max-width:16ch">A brake with inhibitors in the clinic.</h2>
     <p class="lead" style="margin-top:18px">CBLB is an E3 ubiquitin ligase that restrains T-cell activation. Its knockdown lands in the brake quadrant in our screen, and it converges with the strongest external evidence of any candidate — which is why it's our lead.</p>
     <div class="lead-card" style="margin-top:22px"><div class="in">
       <span class="tag lead">LEAD TARGET · CBLB</span>
@@ -128,7 +128,7 @@
 <section class="pad" id="map"><div class="wrap">
   <span class="eyebrow kicker reveal">How we found them · the signed causal map</span>
   <h2 class="reveal" style="max-width:24ch">Effect size alone points at the wrong genes.</h2>
-  <p class="lead reveal" style="margin-top:18px">Rank the 12,449 knockdowns by causal effect and the biggest hits are the cell's own TCR machinery — essential, not druggable. Adding a per-cell <b>direction-of-effect</b> axis flips it: those top effects point <b>down</b> (knockdown cripples the cell), and the drug-relevant candidates surface in the sparse positive quadrant. That map is the discovery engine behind the shortlist.</p>
+  <p class="lead reveal" style="margin-top:18px">Rank the 12,449 knockdowns by causal effect and the biggest hits are the cell's own TCR machinery — the wrong direction to drug. Adding a per-cell <b>direction-of-effect</b> axis flips it: those top effects point <b>down</b> (knockdown cripples the cell), and the drug-relevant candidates surface in the sparse positive quadrant. That map is the discovery engine behind the shortlist.</p>
   <div class="frame reveal" style="margin-top:36px"><div class="core"><img src="figures/causal_map.svg" alt="Signed causal map: causal effect size vs direction of effect; machinery bottom-right negative, candidate brakes positive"/></div></div>
 </div></section>
 
@@ -138,7 +138,7 @@
   <div class="reveal">
     <span class="eyebrow kicker">Rigor · reported honestly</span>
     <h2 style="max-width:18ch">We report what two donors can and can't support.</h2>
-    <p class="lead" style="margin-top:18px">The machinery axis is unanimous — every TCR gene is donor-consistent. The brake side is where n=2 shows its limits: <b>CD5 and DGKA are donor-consistent</b>; CBLB, SMAD3 and LAT2 are driven by one donor. As a group, known brakes are <b>not yet significantly enriched</b> in the positive quadrant (Mann–Whitney p = 0.56). So the shortlist is a prioritized set of nominations for the full four-donor cohort — not a finished target list, and we say so.</p>
+    <p class="lead" style="margin-top:18px">The machinery axis is unanimous — every evaluated TCR gene is donor-consistent. The brake side is where n=2 shows its limits: <b>CD5 and DGKA are donor-consistent</b>; CBLB, SMAD3 and UBASH3A are driven by one donor (as is the high-effect LAT2). As a group, known brakes are <b>not yet significantly enriched</b> in the positive quadrant (one-sided Mann–Whitney vs background over 29 curated brakes; p = 0.56). So the shortlist is a prioritized set of nominations for the full four-donor cohort — not a finished target list, and we say so.</p>
   </div>
 </div></section>
 
@@ -146,7 +146,7 @@
 <section class="dark-sec pad" id="demo"><div class="wrap">
   <span class="eyebrow on-dark">The demo</span>
   <h2 style="max-width:20ch">From 2.6 million cells to a target shortlist.</h2>
-  <p class="lead" style="margin-top:18px;max-width:62ch">A 3-minute walk through the question, the signed causal map, and the nominated targets — with the Claude Science provenance behind every number.</p>
+  <p class="lead" style="margin-top:18px;max-width:62ch">A short walk through the question, the signed causal map, and the nominated targets — with the Claude Science provenance behind every number.</p>
   <div class="frame on-dark reveal" style="margin-top:36px"><div class="core" style="background:#000">
     <video controls preload="metadata" poster="figures/target_matrix.png" style="background:#000">
       <source src="demo.mp4" type="video/mp4"/>Your browser can't play embedded video — <a href="demo.mp4" style="color:#7fe9d8">download the MP4</a>.
