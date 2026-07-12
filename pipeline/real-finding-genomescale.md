@@ -65,10 +65,10 @@ a useful consistency check:
 
 | Gene | E-distance | direction | donor-consistent? | note |
 |---|---|---|---|---|
-| **CD5** | 5.6 | +0.15 | **yes** (+0.15 / +0.14) | inhibitory co-receptor; KD de-represses TCR signalling |
+| **CD5** | 5.6 | +0.15 | **yes** (+0.15 / +0.14) | inhibitory co-receptor; KD de-represses TCR signalling (CD5 deletion boosts adoptive T-cell therapy, PMID 39028827, 2024) |
 | **DGKA** | 2.5 | +0.08 | **yes** (+0.09 / +0.07) | DAG kinase brake; DGKα inhibitors are an IO strategy |
 | **CBLB** | 6.4 | +0.14 | no (+0.44 / −0.15) | E3-ligase brake; investigational CBL-B inhibitors NX-1607 (Ph1), HST-1011 (Ph1/2) |
-| **SMAD3** | 25.1 | +0.06 | no (−0.13 / +0.26) | TGF-β pathway node (pathway-level candidate); the highest-E-distance *biologically-coherent* positive node |
+| **SMAD3** | 25.1 | +0.06 | no (−0.13 / +0.26) | TGF-β pathway node (pathway-level candidate); the highest-E-distance *biologically-coherent* positive node (SKI-SMAD2/3 disruption counters TGF-β suppression of adoptive T cells, PMID 41612698, 2026) |
 | **UBASH3A** | 2.0 | +0.05 | no (−0.08 / +0.19) | autoimmune-GWAS (T1D/RA) phosphatase; putatively tractable, no drug yet (genetics-led) |
 
 *(These five are the curated target shortlist scored in `figure_targets.py`. A

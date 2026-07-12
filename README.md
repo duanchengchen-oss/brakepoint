@@ -40,6 +40,19 @@ as a consistency check, but the positive side is a **prioritized hypothesis spac
 for the full 4-donor cohort, not a finished target list**. Full write-up:
 [`pipeline/real-finding-genomescale.md`](pipeline/real-finding-genomescale.md).
 
+## What Brakepoint adds to the source data
+The screen itself is the Marson lab's genome-scale Perturb-seq
+([bioRxiv 10.64898/2025.12.23.696273](https://doi.org/10.64898/2025.12.23.696273);
+CZI Virtual Cells Platform) — **we generated no data**. Brakepoint is the
+downstream analysis, and it contributes three things that dataset paper does not
+set out to do: (1) a **signed effector-vs-checkpoint direction axis** — an 8-hour
+transcriptional read-out — that separates a candidate brake from essential
+machinery; (2) ranking by **effect size** (power-equalized E-distance, as in
+scPerturb) rather than by significance; (3) a **five-candidate, prior-informed
+IO-druggability shortlist**, reported with its null enrichment (p = 0.70). The
+statistics are standard; the contribution is the combination, the signed axis, and
+the honest brake framing.
+
 ## Why it's trustworthy — and how it differs from standard analysis
 A significance-first Perturb-seq analysis ranks perturbations by significance or DE-count.
 Brakepoint does two things that ranking can't:
@@ -91,12 +104,15 @@ pipeline/
   figure_evidence.py       donor-consistency scatter + direction distribution
   figure_significance.py   the "significance wall" — why we rank by effect size, not p-value
   brake_enrichment.py      honest brake-enrichment test (Mann-Whitney, p=0.70)
+  export_map_points.py     export the tested leaderboard -> the interactive explorer JSON
   dossiers/                per-target evidence (Open Targets · ChEMBL · ClinicalTrials)
   Makefile · environment.yml · LICENSE (MIT) · SOURCES.md
   outputs_gladstone/       ranked_perturbations.csv (+ direction_*), direction_meta.json, figures
   real-finding-genomescale.md   the finding, with real numbers + honest caveats
 deliverables/
   demo.mp4 (Remotion, natural VO) · demo_deck.pptx · index.html · summary.md
+  index.html   premium landing + an INTERACTIVE explorer (hover/search all 11,438 tested knockdowns)
+  data/     causal_map_points.json  (the live leaderboard behind the explorer)
   figures/  target_matrix · causal_map · significance_wall · donor_consistency · direction_dist · brakepoint_onepager
 ```
 
