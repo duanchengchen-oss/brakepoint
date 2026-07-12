@@ -1,6 +1,18 @@
 # WAR LOG — Built with Claude: Life Sciences (research track, solo)
 Append-only, newest first. Self-critique loop: every 8h. Results-watcher: every 6h.
 
+## 2026-07-12T (Day 6) — Fable 5: PIVOT to target discovery + natural voice + plot-heavy; Codex rigor review acted on
+_User feedback: (1) research track = find TARGETS not build tools — much content was off-track; (2) the edge-tts SoniaNeural VO was "pure shit"; (3) loved the dot plot — wants MORE plots, less text, fill the space; keep iterating with Codex._
+
+**Did — the pivot:**
+- **Target-discovery reframe.** Deliverable is now a shortlist of **druggable T-cell brakes** (release the brake → boost immunity). `figure_targets.py` = a convergent-evidence matrix (targets × 7 axes) — the new centerpiece; `figure_evidence.py` = donor-consistency scatter + direction distribution. Leads: **CD5/DGKA** (screen-consistent), **CBLB** (external clinical+genetics; donor-split here). All of README / summary / landing / one-pager / video / finding re-led with the targets; the signed map is now framed as the *discovery engine*.
+- **Natural voiceover** — switched edge-tts to **en-US-AndrewMultilingualNeural** (warm/confident) and rewrote the script target-first.
+- **Plot-heavy** — landing now carries 4 plots (matrix, map, donor scatter, distribution); the Remotion video has 3 plot scenes (animated map + target matrix + donor consistency) with the natural VO (2:10).
+- **Verified live (ClinicalTrials.gov):** NX-1607 (Ph1, NCT05107674), HST-1011 (Ph1/2, NCT05662397), BAY 2862789 / DGKα (Ph1 completed, NCT05858164).
+
+**Codex collaboration (gpt-5.6-sol via `codex exec`) — a real rigor review, acted on:**
+Codex (after web-verifying) flagged, and I fixed: (a) **CD5 "15 CAR-T trials" was a modality mismatch** — those target CD5 as the tumor antigen, not CD5-as-a-brake → reworded to "CD5 deletion boosts CAR-T (preclinical)", lowered its clinical score (CBLB now correctly out-scores CD5); (b) **"Safety" axis conflated viability with therapeutic safety** → renamed "Viability (fitness)"; (c) **"effector function" is an 8-h transcriptional signature, not a functional assay** → said so; (d) **"genome-wide-significant autoimmune LoF"** softened to "autoimmune genetic association"; (e) **"discovered druggable targets"** → "prior-informed candidate targets for validation"; matrix relabeled with honest tiers (LEAD·clinical / SCREEN-CONSISTENT / EXPLORATORY / GENETICS-LED) + noted it's a curated summary, not a fitted model. (Earlier stale Codex sessions were saturating its thread cap; freed them, then the review ran clean.)
+
 ## 2026-07-12T00:21Z (Day 6, 08:21 HKT) — self-critique pass #7 (Fable 5, unattended): fixed the one overclaim the honesty pass missed + a verified stat upgrade
 _Verified live on disk. **Change since the two 07-12 passes (Remotion rebuild + honesty correction, commits 416b1b5→be76d80):** the honesty rewrite corrected the video/deck/landing/summary but **skipped the hero figure** — `causal_map.png/.svg` (the README hero image AND the landing-page video poster) still labelled the un-enriched positive quadrant "the drug-target quadrant," flatly contradicting this project's whole "we report honestly" differentiator. Red-team + targeted-research subagents ran in parallel: red-team found that surviving overclaim; research returned a verified replacement for the finding's weakest statistic. The demo video's load-bearing scenes were re-verified honest by the red-team (Validation "14/15", Brakes "not yet enriched, p=0.56, hypothesis space", MapScene "reported honestly"); duration 2:48 per the Remotion entry._
 

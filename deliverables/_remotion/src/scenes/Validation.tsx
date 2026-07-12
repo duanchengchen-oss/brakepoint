@@ -14,7 +14,7 @@ export const Validation: React.FC = () => {
         </div>
         <div style={{display: 'flex', flexDirection: 'column', gap: 26, maxWidth: 940}}>
           <Bullet color={C.amber} delay={40}>Two oral CBL-B inhibitors already in trials — <b style={{color: C.ink}}>NX-1607 (Ph1), HST-1011 (Ph1/2)</b>.</Bullet>
-          <Bullet color={C.teal} delay={70}>Genome-wide-significant <b style={{color: C.ink}}>autoimmune</b> loss-of-function — losing it drives autoimmunity, so inhibiting it boosts immunity.</Bullet>
+          <Bullet color={C.teal} delay={70}>An <b style={{color: C.ink}}>autoimmune genetic association</b> — loss-of-function consistent with a brake, so inhibiting it may boost immunity.</Bullet>
           <Bullet color={C.teal} delay={100}>Top-decile causal effect in the brake quadrant. <b style={{color: C.ink}}>CD5</b> and <b style={{color: C.ink}}>DGKA</b> follow — donor-consistent and druggable.</Bullet>
         </div>
       </div>

@@ -6,7 +6,7 @@ the positive quadrant is noisy at 2 donors, a candidate must survive CONVERGENT
 evidence. This bubble matrix scores the shortlist across 7 evidence dimensions
 (dot size + color = strength, 0-1).
 
-Effect / brake-direction / donor-consistency / safety come from the genome-scale
+Effect / brake-direction / donor-consistency / viability come from the genome-scale
 CD4 leaderboard (`ranked_perturbations.csv`); druggability / immune-genetics /
 clinical-precedent are curated from the MCP-verified dossiers (`dossiers/*.json`:
 Open Targets, ChEMBL v34, ClinicalTrials.gov v2). Values are documented per cell.
@@ -23,26 +23,29 @@ from matplotlib.colors import LinearSegmentedColormap  # noqa: E402
 SURFACE = "#fcfcfb"; INK = "#0b1220"; INK2 = "#39424e"; MUTED = "#8a8880"
 TEAL = "#0d9488"; AMBER = "#d97a12"; GRID = "#e9e8e2"
 
-DIMS = ["Causal\neffect", "Brake\ndirection", "Donor\nconsistency", "Safety\n(viability)",
+DIMS = ["Causal\neffect", "Brake\ndirection", "Donor\nconsistency", "Viability\n(fitness)",
         "Drugg-\nability", "Immune\ngenetics", "Clinical\nprecedent"]
 
 # rows: (gene, call, call_color, [7 scores 0-1], one-line evidence)
+# NB: this is a curated evidence *summary* (0-1 per axis), not a fitted/weighted
+# model. CBLB leads on external (clinical + genetics) evidence; CD5/DGKA are the
+# most screen-consistent; SMAD3/UBASH3A are exploratory. Scores documented per cell.
 TARGETS = [
-    ("CBLB", "LEAD", AMBER,
-     [0.88, 0.72, 0.35, 0.55, 1.00, 1.00, 0.90],
-     "CBL-B inhibitors NX-1607, HST-1011 in trials · autoimmune LoF"),
-    ("CD5", "STRONG", TEAL,
-     [0.87, 0.75, 1.00, 0.90, 0.70, 0.50, 0.70],
-     "donor-consistent · 15 active CD5 CAR-T trials"),
-    ("DGKA", "STRONG · clinical", TEAL,
+    ("CBLB", "LEAD · clinical", AMBER,
+     [0.88, 0.72, 0.35, 0.55, 1.00, 0.90, 0.90],
+     "CBL-B inhibitors NX-1607, HST-1011 in trials · autoimmune assoc."),
+    ("CD5", "SCREEN-CONSISTENT", TEAL,
+     [0.87, 0.75, 1.00, 0.90, 0.70, 0.50, 0.40],
+     "donor-consistent · CD5 deletion boosts CAR-T (preclinical)"),
+    ("DGKA", "SCREEN-CONSISTENT", TEAL,
      [0.71, 0.42, 1.00, 0.78, 1.00, 0.25, 0.85],
      "donor-consistent · Bayer DGKα inhibitor in Ph1"),
-    ("SMAD3", "HIGH-EFFECT", "#7a8a99",
-     [0.92, 0.32, 0.35, 0.90, 0.60, 0.45, 0.60],
+    ("SMAD3", "EXPLORATORY", "#7a8a99",
+     [0.92, 0.32, 0.35, 0.90, 0.60, 0.45, 0.55],
      "highest-effect brake · TGF-β node · donor-split"),
-    ("UBASH3A", "NOVEL", "#7a8a99",
-     [0.60, 0.28, 0.35, 0.82, 0.55, 0.90, 0.15],
-     "T1D / RA GWAS · tractable phosphatase · no drug yet"),
+    ("UBASH3A", "GENETICS-LED", "#7a8a99",
+     [0.40, 0.28, 0.35, 0.82, 0.55, 0.90, 0.15],
+     "T1D / RA GWAS · tractable phosphatase · weak in screen"),
 ]
 
 CMAP = LinearSegmentedColormap.from_list("t", ["#e8f2f0", "#7fccc0", TEAL, "#0b5a53"])
@@ -94,8 +97,8 @@ def build(out_png: str, out_svg: str) -> None:
     fig.text(0.045, 0.965, "A convergent-evidence shortlist of druggable T-cell brakes",
              fontsize=18, fontweight="bold", color=INK, va="top")
     fig.text(0.045, 0.923,
-             "Release the brake, boost effector function. Nominated from the genome-scale CD4⁺ signed causal map · "
-             "druggability/genetics/clinical from Open Targets · ChEMBL · ClinicalTrials.gov",
+             "Release the brake, boost the effector program (an 8-h transcriptional signature). Candidates from the CD4⁺ signed causal map; "
+             "evidence curated 0–1 from Open Targets · ChEMBL · ClinicalTrials.gov — a summary, not a fitted model",
              fontsize=11, color=MUTED, va="top")
     fig.subplots_adjust(left=0.10, right=0.995, top=0.86, bottom=0.05)
     fig.savefig(out_png, dpi=210, facecolor=SURFACE); fig.savefig(out_svg, facecolor=SURFACE)

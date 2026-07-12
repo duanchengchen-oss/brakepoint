@@ -19,8 +19,8 @@ From the **genome-scale Gladstone CRISPRi Perturb-seq** (**2,638,736 CD4⁺ T ce
 evidence (causal effect · direction · donor consistency · druggability · immune
 genetics · clinical precedent):
 
-- **CBLB** *(lead)* — E3-ligase brake; two oral CBL-B inhibitors in trials (NX-1607 Ph1, HST-1011 Ph1/2); genome-wide-significant autoimmune loss-of-function genetics.
-- **CD5, DGKA** — donor-consistent brakes, clinically tractable (CD5 CAR-T programs; Bayer oral DGKα inhibitor in Ph1).
+- **CBLB** *(lead)* — E3-ligase brake; two oral CBL-B inhibitors in trials (NX-1607 Ph1, HST-1011 Ph1/2); an autoimmune genetic association (loss-of-function direction consistent with a brake).
+- **CD5, DGKA** — donor-consistent brakes, clinically tractable (CD5 deletion enhances CAR-T preclinically; Bayer oral DGKα inhibitor in Ph1).
 - **SMAD3, UBASH3A** — a high-effect TGF-β node and an autoimmune-GWAS phosphatase.
 
 **How we find them.** Ranking by causal effect alone points at the wrong genes: 8
