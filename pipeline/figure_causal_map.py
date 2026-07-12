@@ -153,7 +153,7 @@ def build(ranked_csv: str, out_png: str, out_svg: str) -> None:
     ax.text(xmax * 0.985, 0.63,
             "knockdown ENHANCES the effector program",
             ha="right", va="center", fontsize=12, color=AMBER_DK, fontweight="bold")
-    ax.text(xmax * 0.985, 0.555, "candidate brakes — the drug-target quadrant",
+    ax.text(xmax * 0.985, 0.555, "candidate brakes — a prioritized hypothesis space",
             ha="right", va="center", fontsize=11, color=AMBER_DK, style="italic")
     ax.text(xmax * 0.985, -0.80,
             "knockdown IMPAIRS the effector program",
