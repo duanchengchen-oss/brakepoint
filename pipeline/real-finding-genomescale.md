@@ -1,6 +1,6 @@
 # REAL FINDING — druggable-brake target discovery in CD4⁺ T cells
 
-**Deliverable:** a shortlist of **five druggable brakes** on human CD4⁺ T-cell
+**Deliverable:** a shortlist of **five prior-informed candidate targets** (druggable brakes) on human CD4⁺ T-cell
 effector function (lead **CBLB**; also **CD5, DGKA, SMAD3, UBASH3A**), nominated by
 convergent evidence and scored in `figure_targets.py`. The signed causal map below
 is the *discovery engine*; the target shortlist is the *output*. Honesty caveats
@@ -8,9 +8,8 @@ is the *discovery engine*; the target shortlist is the *output*. Honesty caveats
 
 ## The engine — a genome-scale *signed* causal map of CD4⁺ T-cell function
 
-Real Claude Science run on the DGX Spark (NVIDIA GB10), verified end-to-end. This
-supersedes the earlier IL2RB-centric framing and the auto-generated
-`outputs_gladstone/hero_dossier.md` where they differ.
+Real Claude Science run on the DGX Spark (NVIDIA GB10), verified end-to-end. Full
+methods and honest caveats below.
 
 ## The one-line finding
 On 2.64 M primary human CD4⁺ T cells, ranking CRISPRi knockdowns by **causal
@@ -18,9 +17,8 @@ effect size alone cannot tell a drug target from the cell's own machinery** — 
 the 9 largest effects are the TCR signalling module. Adding a **signed
 direction-of-effect axis** splits the map: those top effects are all strongly
 **negative** (knockdown *cripples* the effector program → required machinery),
-donor-consistently. That machinery→negative result is the **validated,
-load-bearing finding**, confirmed against ground-truth biology in both magnitude
-and sign. The **positive** quadrant (knockdown *enhances* effector function) is the
+donor-consistently. That machinery→negative result is the **load-bearing internal
+consistency check** — in both magnitude and sign (a sanity check, not external validation). The **positive** quadrant (knockdown *enhances* effector function) is the
 therapeutic hypothesis space — presented honestly: at 2 donors it is noisy and
 **not yet enriched** for a curated known-brake set (p = 0.70), so it is a
 prioritized space for the full cohort, not a finished target list.
@@ -56,7 +54,7 @@ prioritized space for the full cohort, not a finished target list.
    (both donors strongly negative: e.g. ZAP70 −0.63, LCP2 −0.76, CD3D −0.66, LAT
    −0.64). Magnitude alone would headline the cell's own activation machinery; the
    sign axis correctly reclassifies it as **activation-required — unsuitable inhibition targets for this objective.**
-   This machinery→negative direction is the validated, load-bearing result.
+   This machinery→negative direction is the load-bearing internal consistency check.
 
 ## The therapeutic signal — the positive (brake) quadrant, reported honestly
 Knockdowns that *raise* the effector program are the drug-relevant class. Several
@@ -67,7 +65,7 @@ a useful consistency check:
 |---|---|---|---|---|
 | **CD5** | 5.6 | +0.15 | **yes** (+0.15 / +0.14) | inhibitory co-receptor; KD de-represses TCR signalling |
 | **DGKA** | 2.5 | +0.08 | **yes** (+0.09 / +0.07) | DAG kinase brake; DGKα inhibitors are an IO strategy |
-| **CBLB** | 6.4 | +0.14 | no (+0.44 / −0.15) | E3-ligase brake; oral CBL-B inhibitors (NX-1607, HST-1011) in Ph1 |
+| **CBLB** | 6.4 | +0.14 | no (+0.44 / −0.15) | E3-ligase brake; investigational CBL-B inhibitors NX-1607 (Ph1), HST-1011 (Ph1/2) |
 | **SMAD3** | 25.1 | +0.06 | no (−0.13 / +0.26) | TGF-β effector brake; the highest-E-distance *biologically-coherent* positive node |
 | **UBASH3A** | 2.0 | +0.05 | no (−0.08 / +0.19) | autoimmune-GWAS (T1D/RA) phosphatase; tractable, no drug yet (genetics-led) |
 
@@ -89,12 +87,12 @@ things must be stated plainly:
    germ-cell/chromatin genes, not credible CD4 brakes. So SMAD3 is the
    highest-magnitude *coherent* brake, not the highest positive overall.
 
-**What this means.** The **validated, load-bearing result is the machinery axis**
+**What this means.** The **load-bearing result is the machinery axis** (an internal consistency check)
 (14/15 largest effects negative, donor-consistent — magnitude alone would mislead).
 The **positive/brake side is a noisy hypothesis space at 2 donors / Stim-8 h**: the
 donor-consistent brakes (CD5, DGKA) are low-magnitude, the higher-magnitude ones
 (SMAD3, LAT2, CBLB) are donor-split, and the set as a whole isn't yet enriched. The
-honest deliverable is a **validated signed-map method + a prioritized hypothesis
+honest deliverable is a **reproducible signed-map method + a prioritized hypothesis
 space** that the full 4-donor / Stim-48 h cohort will test for improved robustness
 and enrichment — not a finished target list. (Enrichment recomputes via `pipeline/brake_enrichment.py`.)
 
@@ -128,8 +126,8 @@ An independent network layer (STRING diffusion) flagged **IL2RB** (CD122), but i
    caveat; the effector−dysfunction *difference* partially cancels depth effects.
 6. **The brake-enrichment test is exploratory** — the 29-gene brake set is a
    curated literature list (not pre-registered); it is used to report a *null*
-   (no significant enrichment, p=0.70 vs a matched 2-donor background), which
-   post-hoc curation does not inflate. The **target matrix is a curated evidence
+   (no significant enrichment, p=0.70 vs a matched 2-donor background), an exploratory, descriptive null (post-hoc
+   selection can bias inference, so we make no confirmatory claim). The **target matrix is a curated evidence
    summary, not a fitted model** — every score's basis is in
    `target_matrix_provenance.md`.
 

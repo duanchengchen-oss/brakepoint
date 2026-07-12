@@ -25,9 +25,10 @@ genetics · clinical precedent):
 
 **How we find them.** Ranking by causal effect alone points at the wrong genes: 8
 of the 9 largest effects are the cell's own TCR machinery — activation-required,
-unsuitable inhibition targets for this objective. A per-cell **direction-of-effect** axis flips it — 14 of the top 15
-effects are required machinery (knockdown *cripples* the cell), donor-consistently
-— and the drug-relevant candidates surface in the high-effect, coherent part of the positive quadrant.
+unsuitable inhibition targets for this objective. A per-cell **direction-of-effect** axis flips it — 14 of the top 15 largest
+effects are direction-negative (activation-required; knockdown impairs the effector
+program), donor-consistently — and the candidate brakes surface in the positive
+quadrant (mostly modest-effect, reported with their donor-consistency).
 
 The **positive quadrant** (knockdown *enhances* effector function) is the
 therapeutic hypothesis space — and we report it honestly. At 2 donors it is noisy:
