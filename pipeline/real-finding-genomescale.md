@@ -1,6 +1,6 @@
 # REAL FINDING — druggable-brake target discovery in CD4⁺ T cells
 
-**Deliverable:** a shortlist of **five prior-informed candidate targets** (druggable brakes) on human CD4⁺ T-cell
+**Deliverable:** a shortlist of **five prior-informed candidate targets** (candidate brakes; druggability varies — CBLB/DGKA clinical, UBASH3A undrugged) on human CD4⁺ T-cell
 effector function (lead **CBLB**; also **CD5, DGKA, SMAD3, UBASH3A**), nominated by
 convergent evidence and scored in `figure_targets.py`. The signed causal map below
 is the *discovery engine*; the target shortlist is the *output*. Honesty caveats
@@ -18,7 +18,7 @@ the 9 largest effects are the TCR signalling module. Adding a **signed
 direction-of-effect axis** splits the map: those top effects are all strongly
 **negative** (knockdown *cripples* the effector program → required machinery),
 donor-consistently. That machinery→negative result is the **load-bearing internal
-consistency check** — in both magnitude and sign (a sanity check, not external validation). The **positive** quadrant (knockdown *enhances* effector function) is the
+consistency check** — in both magnitude and sign (a sanity check, not external validation). The **positive** quadrant (knockdown *enhances* the effector transcriptional program) is the
 therapeutic hypothesis space — presented honestly: at 2 donors it is noisy and
 **not yet enriched** for a curated known-brake set (p = 0.70), so it is a
 prioritized space for the full cohort, not a finished target list.
@@ -27,8 +27,9 @@ prioritized space for the full cohort, not a finished target list.
 - **Data:** genome-scale CRISPRi Perturb-seq, **primary human CD4⁺ T cells**
   (Marson lab / Gladstone; CZI Virtual Cells Platform). Donors **D1 + D2**,
   condition **Stim 8 h**. Control = non-targeting guides (`control`).
-- **Scale:** **2,638,736 cells** × 4,816 measured HVGs; **12,449 perturbations**
-  (11,438 with ≥30 cells tested). scVI donor-integrated latent (`X_scVI`).
+- **Scale:** dataset **2,638,736 cells** × 4,816 measured HVGs; **12,449 perturbations**
+  (11,438 with ≥30 cells tested). The E-distance ranking used 2,436,881 post-QC/
+  subsampled cells; the direction axis scored all 2,638,736. scVI latent (`X_scVI`).
 - **Axis 1 — magnitude:** power-equalized **E-distance** on `X_scVI` +
   1,000-permutation E-test; gates: permutation q<0.05, viability, and the
   authors' per-guide knockdown-efficiency sidecar.

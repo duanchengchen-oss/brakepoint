@@ -30,7 +30,7 @@ effects are direction-negative (activation-required; knockdown impairs the effec
 program) — and the TCR module among them is donor-consistent; the candidate brakes surface in the positive
 quadrant (mostly modest-effect, reported with their donor-consistency).
 
-The **positive quadrant** (knockdown *enhances* effector function) is the
+The **positive quadrant** (knockdown *enhances* the effector transcriptional program) is the
 therapeutic hypothesis space — and we report it honestly. At 2 donors it is noisy:
 a curated set of 29 known T-cell brakes shows **no significant evidence of enrichment** there (one-sided Mann–Whitney vs a matched 2-donor background, p = 0.70; `pipeline/brake_enrichment.py`), and the strongest raw
 positives include likely artifacts. Individual literature brakes — **CD5, DGKA**
@@ -41,7 +41,7 @@ for the full 4-donor cohort, not a finished target list**. Full write-up:
 
 ## Why it's trustworthy
 - **Ranks by causal effect size** — power-equalized energy distance + a
-  permutation E-test — not p-values, which inflate with cell count.
+  permutation E-test — not p-values, which shrink to significance for almost any perturbation at this cell count.
 - **Adds the missing sign.** Magnitude can't tell an activation-*required* gene
   from a therapeutic *brake* — both land far from control. The signed axis does,
   and it self-validates: the TCR machinery is correctly flagged negative,
@@ -62,7 +62,7 @@ python brake_enrichment.py  # the honest brake-enrichment null (p=0.70)
 # genome-scale (needs scanpy + the built h5ad on a GPU workstation):
 make direction  DATA=<built.h5ad> LIB=<sgrna_library_metadata.csv> CONTROL=control
 ```
-Fixed seeds, pinned `environment.yml`, one-command regeneration.
+Fixed seeds; version-pinned `environment.yml` (exact builds via `make lock`); one-command regeneration.
 
 ## How Claude Science got us there
 Every result is a versioned artifact carrying its exact code, environment, and
