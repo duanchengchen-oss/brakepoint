@@ -10,8 +10,8 @@ target-shortlist and donor-consistency plots) with a natural voiceover (edge-tts
 ---
 
 ### 1 · Title
-> A T cell's brakes are its best drug targets. This is Brakepoint — druggable-brake
-> discovery from a 2.6-million-cell screen, built with Claude Science.
+> A T cell's brakes are its most validated drug targets. This is Brakepoint —
+> druggable-brake discovery from a 2.6-million-cell screen, built with Claude Science.
 
 ### 2 · The thesis
 > Checkpoint blockade works by releasing the brakes on T cells; CAR-T engineers
@@ -43,9 +43,9 @@ target-shortlist and donor-consistency plots) with a natural voiceover (edge-tts
 
 ### 7 · Reported honestly
 > And we report it honestly. With just two donors, CD5 and DGKA hold up in both;
-> CBLB and the higher-effect candidates are driven by one, and known brakes aren't
-> yet enriched as a group. So this is a prioritized shortlist for the full
-> four-donor cohort — a hypothesis to validate, not a finished target list.
+> CBLB and the higher-effect candidates are driven by one, and known brakes show
+> no significant enrichment as a group. So this is a prioritized shortlist for the
+> full four-donor cohort — a hypothesis to validate, not a finished target list.
 
 ### 8 · Close
 > Every candidate traces back to code — open source, one command to reproduce, built

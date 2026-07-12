@@ -10,7 +10,7 @@ OUT = pathlib.Path(__file__).parent / "audio"
 OUT.mkdir(exist_ok=True)
 
 VO = [
- "A T cell's brakes are its best drug targets. This is Brakepoint — druggable-brake discovery from a 2.6-million-cell screen, built with Claude Science.",
+ "A T cell's brakes are its most validated drug targets. This is Brakepoint — druggable-brake discovery from a 2.6-million-cell screen, built with Claude Science.",
  "Checkpoint blockade works by releasing the brakes on T cells; CAR-T engineers T cells to attack. Both point to the same prize. So we asked: across the genome, which druggable genes are the brakes — which knockdowns push a human T cell toward a stronger effector state?",
  "We started from a genome-scale CRISPR-interference screen — over twelve thousand gene knockdowns, across 2.6 million primary human CD4 T cells, from the Gladstone Institutes. Two donors, of an intended four.",
  "Ranking by effect size alone points at the wrong genes: the biggest hits are the cell's own essential signaling machinery. So we added a direction-of-effect axis — an 8-hour transcriptional readout. Now the machinery drops to the bottom, and the drug-relevant brakes rise to the top.",
