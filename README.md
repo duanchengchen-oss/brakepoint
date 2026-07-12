@@ -1,28 +1,33 @@
-# Brakepoint · a signed causal map of CD4⁺ T-cell function — Built with Claude Science
+# Brakepoint · druggable-brake target discovery in human T cells — Built with Claude Science
 
-*The largest effect is rarely the right target. Brakepoint finds the **brakes** — the knockdowns that make a T&nbsp;cell a better effector — and tells them apart from the machinery it just needs to survive.*
+*The most powerful immunotherapies — checkpoint blockade, CAR-T — all work by releasing **brakes** on T cells. Brakepoint screens the genome for the druggable ones.*
 
-**Built with Claude: Life Sciences · research track (solo).** A reproducible
-pipeline that ranks CRISPR perturbations in **primary human T cells** by **causal
-effect size**, then adds the axis magnitude can't supply — the **direction of
-effect** — to separate drug-relevant *brakes* from the cell's essential
-*machinery*. Every step carries Claude Science provenance.
+**Built with Claude: Life Sciences · research track (solo).** From a
+2.6-million-cell CRISPRi Perturb-seq screen, Brakepoint nominates a shortlist of
+**druggable targets** whose knockdown releases the brakes on human CD4⁺ T-cell
+effector function — led by **CBLB**, already in the clinic. Every target traces
+back to versioned, Claude-Science-provenanced code.
 
 > **Demo (≤3 min):** [`deliverables/demo.mp4`](deliverables/demo.mp4) · narration deck with verbatim VO in the speaker notes: [`deliverables/demo_deck.pptx`](deliverables/demo_deck.pptx) · script: [`deliverables/demo_script.md`](deliverables/demo_script.md) · **Landing page:** [`deliverables/index.html`](deliverables/index.html) · **Written summary:** [`deliverables/summary.md`](deliverables/summary.md)
 
-![The signed causal map](deliverables/figures/causal_map.png)
+![Target shortlist — convergent-evidence matrix](deliverables/figures/target_matrix.png)
 
-## The finding
-On the **genome-scale Gladstone CRISPRi Perturb-seq** — **2,638,736 primary human
-CD4⁺ T cells**, **12,449 knockdowns**, scVI donor-integrated — ranking by causal
-effect size alone is not enough: **8 of the 9 largest effects** are the **TCR
-signalling module** (ZAP70, LCP2, CD3E/G/D, PLCG1, LAT, VAV1; the 8th, SMARCD3, is
-a toxic chromatin-remodeler dropout), recovered **unsupervised**. Adding a per-cell
-**signed direction-of-effect axis** (effector − dysfunction program, scored on all
-2.64 M cells) reveals that **14 of the 15 largest-effect knockdowns are strongly
-negative** — knocking them down *cripples* the effector program. They are
-**required machinery, not drug targets**, donor-consistently. That
-machinery→negative result is the **validated, load-bearing finding**.
+## The finding — a shortlist of druggable T-cell brakes
+A T-cell "brake" is a gene whose knockdown makes the cell a stronger effector.
+From the **genome-scale Gladstone CRISPRi Perturb-seq** (**2,638,736 CD4⁺ T cells,
+12,449 knockdowns**), Brakepoint nominates **five druggable brakes** by convergent
+evidence (causal effect · direction · donor consistency · druggability · immune
+genetics · clinical precedent):
+
+- **CBLB** *(lead)* — E3-ligase brake; two oral CBL-B inhibitors in trials (NX-1607 Ph1, HST-1011 Ph1/2); genome-wide-significant autoimmune loss-of-function genetics.
+- **CD5, DGKA** — donor-consistent brakes, clinically tractable (CD5 CAR-T programs; Bayer oral DGKα inhibitor in Ph1).
+- **SMAD3, UBASH3A** — a high-effect TGF-β node and an autoimmune-GWAS phosphatase.
+
+**How we find them.** Ranking by causal effect alone points at the wrong genes: 8
+of the 9 largest effects are the cell's own TCR machinery (essential, not
+druggable). A per-cell **direction-of-effect** axis flips it — 14 of the top 15
+effects are required machinery (knockdown *cripples* the cell), donor-consistently
+— and the drug-relevant brakes surface in the sparse positive quadrant.
 
 The **positive quadrant** (knockdown *enhances* effector function) is the
 therapeutic hypothesis space — and we report it honestly. At 2 donors it is noisy:

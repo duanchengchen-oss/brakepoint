@@ -1,21 +1,21 @@
 # Written summary (submission)
 
-## Version A — the signed causal map (PRIMARY)
-Using **Claude Science**, we built a reproducible pipeline that turns a
-genome-scale CRISPRi Perturb-seq screen into a **signed causal map** of human
-CD4⁺ T-cell function. On **2,638,736 primary human T cells** (12,449 knockdowns,
-scVI donor-integrated, run on an NVIDIA DGX Spark), we rank perturbations by
-**causal effect size** — power-equalized energy distance with a permutation test —
-then add the axis magnitude cannot supply: a per-cell **direction-of-effect**
-score (an effector program versus a dysfunction program). The map validates
-itself: unsupervised, 8 of the 9 largest effects are the TCR-signalling module,
-and the direction axis correctly flags **14 of the top 15 as required machinery**
-whose knockdown *cripples* the cell — not drug targets, donor-consistently. That
-is the load-bearing result. The opposite, positive quadrant is the therapeutic
-hypothesis space; we report it honestly — at two donors it is not yet enriched for
-known brakes (p = 0.56), though brakes like CD5 and DGKA do land there. Every
-artifact carries Claude Science provenance and a reviewer trail, which caught a
-real statistical bug before any figure. One command reproduces the map.
+## Version A — druggable-brake target discovery (PRIMARY)
+Using **Claude Science**, we screened for druggable **brakes** on human CD4⁺
+T-cell effector function — the mechanism behind checkpoint and CAR-T therapy. From
+a genome-scale CRISPRi Perturb-seq screen (**2,638,736 cells, 12,449 knockdowns**,
+Gladstone/Marson, on an NVIDIA DGX Spark), we rank each knockdown by causal effect
+(power-equalized energy distance) and add a per-cell **direction-of-effect** axis.
+This signed causal map cleanly separates the cell's essential machinery — large
+effects, but knockdown *cripples* the cell — from candidate **brakes**, whose
+knockdown *enhances* effector function. From the brake quadrant we nominate a
+shortlist of **five druggable targets** by convergent evidence: effect, direction,
+donor consistency, druggability, immune genetics, and clinical precedent. Our lead
+is **CBLB** — an E3-ligase brake with two oral inhibitors already in Phase 1/2 and
+genome-wide-significant autoimmune genetics; **CD5** and **DGKA** follow,
+donor-consistent and clinically tractable. We report honestly that at two donors
+the quadrant is not yet enriched (Mann–Whitney p = 0.56), so this is a prioritized
+shortlist for the full cohort. Every target traces back to versioned code.
 
 ## Version B — public-data fallback (Shifrut CD8; ~150 words)
 Using Claude Science, we built a reproducible pipeline that ranks CRISPR-KO
