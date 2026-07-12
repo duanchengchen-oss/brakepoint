@@ -16,8 +16,9 @@ back to versioned, Claude-Science-provenanced code.
 A T-cell "brake" is a gene whose knockdown pushes the cell toward a stronger effector *transcriptional* state (functional validation is the next step).
 From the **genome-scale Gladstone CRISPRi Perturb-seq** (**2,638,736 CD4⁺ T cells,
 12,449 knockdowns**), Brakepoint prioritizes **five candidate targets for validation** by convergent
-evidence (causal effect · direction · donor consistency · druggability · immune
-genetics · clinical precedent):
+evidence — which varies by target (three of five are donor-split) — across causal
+effect, direction, donor consistency, druggability, immune genetics, and clinical
+precedent:
 
 - **CBLB** *(lead)* — E3-ligase brake; its inhibitors are in early-phase trials (NX-1607 Ph1, HST-1011 Ph1/2); autoimmune genetic association.
 - **CD5, DGKA** — donor-consistent; DGKA is clinically tractable (Bayer oral DGKα inhibitor, Ph1), CD5 is biologically supported (deletion enhances CAR-T preclinically).

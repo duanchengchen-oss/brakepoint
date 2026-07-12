@@ -4,7 +4,7 @@ Using **Claude Science**, we screened for druggable **brakes** on human CD4⁺
 T-cell function — the target class behind checkpoint-blockade therapy (CAR-T,
 separately, is engineered antigen recognition that brake-removal can further
 enhance). From a genome-scale CRISPRi Perturb-seq screen (**2,638,736 cells,
-12,449 knockdowns**, Gladstone/Marson; two of four donors), we rank each knockdown
+12,449 knockdowns**, Gladstone/Marson; two of four donors), we rank each sufficiently-sampled knockdown (11,438 of 12,449)
 by causal effect (power-equalized energy distance) and add a per-cell
 **direction-of-effect** score — an 8-hour effector-minus-checkpoint transcriptional
 readout, not a functional assay. The signed map separates the cell's
@@ -13,7 +13,7 @@ from candidate **brakes** (knockdown shifts cells toward the effector program). 
 a strong internal consistency check, the largest, donor-consistent effects are the
 TCR machinery, correctly scored negative. From the positive region we prioritize
 **five candidate targets for validation** — CBLB, CD5, DGKA, SMAD3, UBASH3A — by
-convergent evidence (effect, direction, donor consistency, viability, druggability,
+convergent evidence — evidence varies by target (three of the five are donor-split) — across effect, direction, donor consistency, viability, druggability,
 genetics, clinical precedent). Lead **CBLB**: its inhibitors are in early-phase
 trials and its human genetics are autoimmune-associated. We report honestly that at
 two donors the region shows **no significant brake-enrichment** (p = 0.70), so this
