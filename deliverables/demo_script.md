@@ -10,8 +10,9 @@ target-shortlist and donor-consistency plots) with a natural voiceover (edge-tts
 ---
 
 ### 1 · Title
-> A T cell's brakes are its most validated drug targets. This is Brakepoint —
-> druggable-brake discovery from a 2.6-million-cell screen, built with Claude Science.
+> Releasing the brakes on a T cell is how checkpoint immunotherapy works. This is
+> Brakepoint — druggable-brake discovery from a 2.6-million-cell screen, built with
+> Claude Science.
 
 ### 2 · The thesis
 > Checkpoint blockade works by releasing the brakes on T cells; CAR-T engineers
