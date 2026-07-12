@@ -3,332 +3,188 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>A signed causal map of T-cell function — Built with Claude Science</title>
-<meta name="description" content="A reproducible pipeline that turns a 2.64-million-cell CRISPRi Perturb-seq screen into a signed causal map of human CD4+ T-cell function — separating drug-relevant brakes from the cell's essential machinery. Built with Claude Science."/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<title>Brakepoint — druggable brakes on human T-cell function</title>
+<meta name="description" content="From a 2.6-million-cell CRISPRi Perturb-seq screen, Brakepoint nominates a shortlist of druggable targets whose knockdown releases the brakes on human CD4+ T-cell effector function — led by CBLB, already in the clinic. Built with Claude Science."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet"/>
 <style>
   :root{
     --page:#fbfbf8; --card:#ffffff; --ink:#0b1220; --body:#39424e; --muted:#727c88;
     --teal:#0d9488; --teal-dk:#0b6b62; --amber:#d97a12; --amber-dk:#a85c08;
-    --line:rgba(11,18,32,.09); --line-soft:rgba(11,18,32,.06);
-    --dark:#0a1211; --dark-2:#0e1a18; --on-dark:#eef4f2; --on-dark-mut:#8fa39d;
+    --line:rgba(11,18,32,.09); --dark:#0a1211; --dark-2:#0e1a18; --on-dark:#eef4f2; --on-dark-mut:#8fa39d;
     --disp:"Space Grotesk",system-ui,sans-serif; --sans:"Plus Jakarta Sans",system-ui,sans-serif;
-    --ease:cubic-bezier(.22,.61,.20,1); --easeing:cubic-bezier(.32,.72,0,1);
-    --maxw:1120px; --r:26px;
+    --ease:cubic-bezier(.22,.61,.20,1); --easeing:cubic-bezier(.32,.72,0,1); --maxw:1160px; --r:26px;
   }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{margin:0;background:var(--page);color:var(--body);font-family:var(--sans);
-       line-height:1.62;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  *{box-sizing:border-box}html{scroll-behavior:smooth}
+  body{margin:0;background:var(--page);color:var(--body);font-family:var(--sans);line-height:1.62;-webkit-font-smoothing:antialiased}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
   h1,h2,h3{font-family:var(--disp);color:var(--ink);letter-spacing:-.02em;line-height:1.06;margin:0}
-  h1{font-size:clamp(38px,6.4vw,74px);font-weight:700}
-  h2{font-size:clamp(27px,3.6vw,42px);font-weight:600;letter-spacing:-.025em}
-  h3{font-size:19px;font-weight:600;letter-spacing:-.01em}
+  h1{font-size:clamp(38px,6.2vw,72px);font-weight:700}
+  h2{font-size:clamp(26px,3.4vw,40px);font-weight:600;letter-spacing:-.025em}
   p{margin:0}
-  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);
-    font-size:10.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
-    color:var(--teal-dk);background:rgba(13,148,136,.09);border:1px solid rgba(13,148,136,.18);
-    padding:6px 13px;border-radius:999px}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:10.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--teal-dk);background:rgba(13,148,136,.09);border:1px solid rgba(13,148,136,.18);padding:6px 13px;border-radius:999px}
   .eyebrow.on-dark{color:#7fe9d8;background:rgba(127,233,216,.08);border-color:rgba(127,233,216,.16)}
-  .lead{font-size:clamp(17px,1.5vw,20px);color:var(--muted);max-width:60ch}
+  .lead{font-size:clamp(17px,1.5vw,20px);color:var(--muted);max-width:64ch}
   .mono{font-family:"Space Grotesk",ui-monospace,monospace;font-variant-numeric:tabular-nums}
-
-  /* floating glass nav */
-  header{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;justify-content:center;
-         padding:18px 16px;pointer-events:none}
-  nav{pointer-events:auto;display:flex;align-items:center;gap:22px;width:min(var(--maxw),100%);
-      padding:10px 12px 10px 20px;border-radius:999px;background:rgba(251,251,248,.72);
-      backdrop-filter:saturate(1.4) blur(14px);border:1px solid var(--line);
-      box-shadow:0 10px 30px -18px rgba(11,18,32,.25)}
-  nav .brand{font-family:var(--disp);font-weight:600;color:var(--ink);letter-spacing:-.02em;
-             display:flex;align-items:center;gap:10px;margin-right:auto;font-size:15.5px}
-  nav .brand .dot{width:22px;height:22px;border-radius:7px;
-    background:conic-gradient(from 210deg,var(--teal),var(--amber));display:inline-block}
-  nav .links{display:flex;gap:22px}
-  nav .links a{font-size:14px;color:var(--muted);transition:color .3s var(--ease)}
-  nav .links a:hover{color:var(--ink)}
-  @media(max-width:720px){nav .links{display:none}}
-
-  /* buttons — island / button-in-button */
-  .btn{display:inline-flex;align-items:center;gap:12px;padding:11px 12px 11px 22px;border-radius:999px;
-       font-family:var(--sans);font-weight:600;font-size:15px;cursor:pointer;
-       transition:transform .5s var(--easeing),background .4s var(--ease),box-shadow .4s var(--ease)}
-  .btn .ico{width:32px;height:32px;border-radius:999px;display:grid;place-items:center;
-            transition:transform .5s var(--easeing),background .4s var(--ease)}
-  .btn svg{width:15px;height:15px}
-  .btn.primary{background:var(--ink);color:#fff}
-  .btn.primary .ico{background:rgba(255,255,255,.14)}
+  header{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;justify-content:center;padding:18px 16px;pointer-events:none}
+  nav{pointer-events:auto;display:flex;align-items:center;gap:22px;width:min(var(--maxw),100%);padding:10px 12px 10px 20px;border-radius:999px;background:rgba(251,251,248,.72);backdrop-filter:saturate(1.4) blur(14px);border:1px solid var(--line);box-shadow:0 10px 30px -18px rgba(11,18,32,.25)}
+  nav .brand{font-family:var(--disp);font-weight:600;color:var(--ink);letter-spacing:-.02em;display:flex;align-items:center;gap:10px;margin-right:auto;font-size:15.5px}
+  nav .brand .dot{width:22px;height:22px;border-radius:7px;background:conic-gradient(from 210deg,var(--teal),var(--amber));display:inline-block}
+  nav .links{display:flex;gap:22px}nav .links a{font-size:14px;color:var(--muted);transition:color .3s}nav .links a:hover{color:var(--ink)}
+  @media(max-width:760px){nav .links{display:none}}
+  .btn{display:inline-flex;align-items:center;gap:12px;padding:11px 12px 11px 22px;border-radius:999px;font-weight:600;font-size:15px;cursor:pointer;transition:transform .5s var(--easeing),box-shadow .4s}
+  .btn .ico{width:32px;height:32px;border-radius:999px;display:grid;place-items:center}.btn svg{width:15px;height:15px}
+  .btn.primary{background:var(--ink);color:#fff}.btn.primary .ico{background:rgba(255,255,255,.14)}
   .btn.primary:hover{transform:translateY(-1px);box-shadow:0 18px 40px -20px rgba(11,18,32,.6)}
-  .btn.primary:hover .ico{transform:translate(3px,-1px) scale(1.06)}
-  .btn.primary:active{transform:scale(.985)}
-  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);padding-right:22px}
-  .btn.ghost:hover{background:rgba(11,18,32,.03);transform:translateY(-1px)}
-  .btn.on-dark{background:#fff;color:var(--dark)}
-  .btn.on-dark .ico{background:rgba(11,18,32,.1)}
-
-  section{position:relative}
-  .pad{padding:clamp(88px,12vw,150px) 0}
-
-  /* HERO (dark, cinematic) */
-  .hero{background:var(--dark);color:var(--on-dark);overflow:hidden;padding:clamp(150px,20vh,220px) 0 clamp(90px,12vw,130px)}
-  .hero::before{content:"";position:absolute;inset:0;pointer-events:none;
-    background:radial-gradient(60% 70% at 18% 8%,rgba(13,148,136,.26),transparent 60%),
-               radial-gradient(50% 60% at 92% 30%,rgba(217,122,18,.16),transparent 62%);}
-  .hero::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
-    background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
-                     linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
-    background-size:64px 64px;mask-image:radial-gradient(70% 60% at 50% 20%,#000,transparent 75%)}
-  .hero .wrap{position:relative;z-index:1}
-  .hero h1{color:#fff;max-width:16ch;margin-top:22px}
-  .hero h1 .g{background:linear-gradient(96deg,#7fe9d8,#f4b062);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-  .hero .lead{color:var(--on-dark-mut);margin-top:26px;font-size:clamp(17px,1.6vw,20.5px);max-width:56ch}
-  .hero-actions{display:flex;gap:14px;margin-top:38px;flex-wrap:wrap}
-  .herometrics{display:flex;gap:38px;margin-top:56px;flex-wrap:wrap}
-  .herometrics .m .n{font-family:var(--disp);font-size:clamp(26px,3.4vw,38px);font-weight:600;color:#fff;letter-spacing:-.02em}
-  .herometrics .m .l{font-size:12.5px;color:var(--on-dark-mut);margin-top:4px;max-width:20ch}
-
-  /* double-bezel frame */
+  .btn.on-dark{background:#fff;color:var(--dark)}.btn.on-dark .ico{background:rgba(11,18,32,.1)}
+  section{position:relative}.pad{padding:clamp(76px,10vw,120px) 0}
+  .hero{background:var(--dark);color:var(--on-dark);overflow:hidden;padding:clamp(150px,20vh,210px) 0 clamp(70px,9vw,100px)}
+  .hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 70% at 18% 8%,rgba(217,122,18,.20),transparent 60%),radial-gradient(50% 60% at 92% 30%,rgba(13,148,136,.22),transparent 62%)}
+  .hero::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(70% 60% at 50% 20%,#000,transparent 75%)}
+  .hero .wrap{position:relative;z-index:1}.hero h1{color:#fff;max-width:17ch;margin-top:22px}
+  .hero h1 .g{background:linear-gradient(96deg,#f4b062,#7fe9d8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .hero .lead{color:var(--on-dark-mut);margin-top:26px;font-size:clamp(17px,1.6vw,20.5px);max-width:60ch}
+  .hero-actions{display:flex;gap:14px;margin-top:36px;flex-wrap:wrap}
+  .metrics{display:flex;gap:44px;margin-top:52px;flex-wrap:wrap}
+  .metrics .m .n{font-family:var(--disp);font-size:clamp(26px,3.2vw,36px);font-weight:600;color:#fff;letter-spacing:-.02em}
+  .metrics .m .l{font-size:12.5px;color:var(--on-dark-mut);margin-top:4px;max-width:22ch}
   .frame{background:rgba(11,18,32,.04);border:1px solid var(--line);padding:10px;border-radius:var(--r)}
-  .frame .core{background:var(--card);border-radius:calc(var(--r) - 9px);overflow:hidden;
-    box-shadow:inset 0 1px 1px rgba(255,255,255,.6),0 30px 60px -40px rgba(11,18,32,.4)}
+  .frame .core{background:var(--card);border-radius:calc(var(--r) - 9px);overflow:hidden;box-shadow:inset 0 1px 1px rgba(255,255,255,.6),0 30px 60px -40px rgba(11,18,32,.4)}
   .frame.on-dark{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1)}
   .frame img,.frame video{display:block;width:100%}
-
-  .kicker{display:block;margin-bottom:18px}
-  .grid{display:grid;gap:22px}
-  .cols-3{grid-template-columns:repeat(3,1fr)}
-  .cols-2{grid-template-columns:1fr 1fr}
-  @media(max-width:860px){.cols-3,.cols-2{grid-template-columns:1fr}}
-
-  .card{background:rgba(11,18,32,.03);border:1px solid var(--line);padding:8px;border-radius:22px}
-  .card .in{background:var(--card);border-radius:15px;padding:26px 24px;height:100%;
-            box-shadow:inset 0 1px 1px rgba(255,255,255,.6)}
-  .card .num{font-family:var(--disp);font-size:13px;font-weight:600;color:var(--teal);letter-spacing:.1em}
-  .card h3{margin:14px 0 8px}
-  .card p{font-size:14.5px;color:var(--muted)}
-
-  /* signed-axis explainer */
-  .axis-ex{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:12px}
-  @media(max-width:720px){.axis-ex{grid-template-columns:1fr}}
-  .quad{border-radius:18px;padding:22px 24px;border:1px solid var(--line)}
-  .quad.up{background:linear-gradient(180deg,rgba(217,122,18,.09),rgba(217,122,18,.02))}
-  .quad.dn{background:linear-gradient(180deg,rgba(13,148,136,.02),rgba(13,148,136,.09))}
-  .quad .t{font-family:var(--disp);font-weight:600;font-size:16px}
-  .quad.up .t{color:var(--amber-dk)} .quad.dn .t{color:var(--teal-dk)}
-  .quad p{font-size:14px;color:var(--body);margin-top:7px}
-
-  table.shortlist{width:100%;border-collapse:collapse;margin-top:8px;font-size:14.5px}
-  table.shortlist th,table.shortlist td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line-soft)}
-  table.shortlist th{font-family:var(--sans);font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:700}
-  table.shortlist td.g{font-family:var(--disp);font-weight:600;color:var(--ink)}
-  .tag{display:inline-block;font-size:11px;font-weight:600;padding:2px 9px;border-radius:999px}
-  .tag.ok{color:var(--teal-dk);background:rgba(13,148,136,.1)}
-  .tag.split{color:var(--amber-dk);background:rgba(217,122,18,.1)}
-
-  /* dark sections */
+  .kicker{display:block;margin-bottom:16px}.cap{color:var(--muted);font-size:13px;margin-top:14px;max-width:92ch}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  @media(max-width:880px){.split{grid-template-columns:1fr}}
+  .lead-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:8px}
+  .lead-card .in{padding:26px 28px}
+  .tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 11px;border-radius:999px;letter-spacing:.06em}
+  .tag.lead{color:var(--amber-dk);background:rgba(217,122,18,.12)}
+  .evrow{display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--body);margin-top:12px}
+  .evrow .d{flex:none;width:9px;height:9px;border-radius:3px;margin-top:8px;background:var(--teal)}
   .dark-sec{background:var(--dark);color:var(--on-dark);overflow:hidden}
-  .dark-sec .eyebrow{margin-bottom:18px}
-  .dark-sec h2{color:#fff} .dark-sec .lead{color:var(--on-dark-mut)}
-  .dark-sec::before{content:"";position:absolute;inset:0;pointer-events:none;
-    background:radial-gradient(50% 60% at 80% 12%,rgba(13,148,136,.18),transparent 60%)}
-  .dark-sec .wrap{position:relative;z-index:1}
-
-  code.block{display:block;white-space:pre-wrap;background:#0c1614;color:#d6e6e1;border:1px solid rgba(255,255,255,.08);
-    border-radius:16px;padding:22px 24px;font-family:ui-monospace,"Space Grotesk",monospace;
-    font-size:13.5px;line-height:1.9;overflow:auto}
-  code.block .c{color:#6f8f88}
-  code.block .k{color:#7fe9d8}
-
-  footer{background:var(--dark-2);color:var(--on-dark-mut);padding:60px 0 44px;font-size:14px}
-  footer a{color:var(--on-dark)}
-  footer .fl{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
-  footer .fl a{border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:7px 15px;font-size:13px;
-    transition:background .3s var(--ease)}
-  footer .fl a:hover{background:rgba(255,255,255,.06)}
-
-  .reveal{opacity:0;transform:translateY(26px);filter:blur(6px);
-    transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease)}
+  .dark-sec h2{color:#fff}.dark-sec .lead{color:var(--on-dark-mut)}
+  code.block{display:block;white-space:pre-wrap;background:#0c1614;color:#d6e6e1;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:22px 24px;font-family:ui-monospace,"Space Grotesk",monospace;font-size:13.5px;line-height:1.9}
+  code.block .c{color:#6f8f88}code.block .k{color:#7fe9d8}
+  footer{background:var(--dark-2);color:var(--on-dark-mut);padding:56px 0 44px;font-size:14px}
+  footer a{color:var(--on-dark)}footer .fl{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  footer .fl a{border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:7px 15px;font-size:13px}
+  .reveal{opacity:0;transform:translateY(24px);filter:blur(6px);transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease)}
   .reveal.in{opacity:1;transform:none;filter:none}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;filter:none}html{scroll-behavior:auto}}
-  .cap{color:var(--muted);font-size:13px;margin-top:16px}
 </style>
 </head>
 <body>
-
-<header>
-  <nav>
-    <span class="brand"><span class="dot"></span>Brakepoint</span>
-    <div class="links">
-      <a href="#finding">Finding</a>
-      <a href="#method">Method</a>
-      <a href="#brakes">Targets</a>
-      <a href="#demo">Demo</a>
-      <a href="#reproduce">Reproduce</a>
-    </div>
-    <a class="btn primary" href="https://github.com/duanchengchen-oss/brakepoint" style="padding:8px 10px 8px 18px;font-size:14px">
-      Repository <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 17 17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-    </a>
-  </nav>
-</header>
+<header><nav>
+  <span class="brand"><span class="dot"></span>Brakepoint</span>
+  <div class="links"><a href="#targets">Targets</a><a href="#lead">Lead</a><a href="#map">How</a><a href="#robust">Rigor</a><a href="#demo">Demo</a></div>
+  <a class="btn primary" href="https://github.com/duanchengchen-oss/brakepoint" style="padding:8px 10px 8px 18px;font-size:14px">Repository <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 17 17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+</nav></header>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="wrap">
-    <span class="eyebrow on-dark">Built with Claude · Life Sciences · Research track</span>
-    <h1>The largest effect is rarely the <span class="g">right</span> target.</h1>
-    <p class="lead">We turn a 2.64-million-cell CRISPRi Perturb-seq screen into a <b style="color:#cfe8e2">signed causal map</b> of human CD4⁺ T-cell function — separating the drug-relevant <span style="color:#f4b062">brakes</span> from the cell's essential <span style="color:#7fe9d8">machinery</span>. Built end-to-end with Claude&nbsp;Science.</p>
-    <div class="hero-actions">
-      <a class="btn on-dark" href="#finding">See the map <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
-      <a class="btn" href="#demo" style="background:rgba(255,255,255,.07);color:#fff;border:1px solid rgba(255,255,255,.14);padding-right:22px">Watch the 3-min demo</a>
-    </div>
-    <div class="herometrics">
-      <div class="m"><div class="n mono">2,638,736</div><div class="l">primary human CD4⁺ T cells</div></div>
-      <div class="m"><div class="n mono">12,449</div><div class="l">CRISPRi knockdowns ranked</div></div>
-      <div class="m"><div class="n mono">14 / 15</div><div class="l">top-effect knockdowns are machinery, not targets</div></div>
-    </div>
+<section class="hero"><div class="wrap">
+  <span class="eyebrow on-dark">Built with Claude · Life Sciences · Research track</span>
+  <h1>A T cell's <span class="g">brakes</span> are its best drug targets.</h1>
+  <p class="lead">From a 2.6-million-cell CRISPRi Perturb-seq screen, Brakepoint nominates a shortlist of <b style="color:#f4b062">druggable targets</b> whose knockdown releases the brakes on human CD4⁺ T-cell effector function — led by <b style="color:#fff">CBLB</b>, already in the clinic.</p>
+  <div class="hero-actions">
+    <a class="btn on-dark" href="#targets">See the targets <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+    <a class="btn" href="#demo" style="background:rgba(255,255,255,.07);color:#fff;border:1px solid rgba(255,255,255,.14);padding-right:22px">Watch the 3-min demo</a>
   </div>
-</section>
+  <div class="metrics">
+    <div class="m"><div class="n mono">12,449</div><div class="l">knockdowns screened, genome-scale</div></div>
+    <div class="m"><div class="n mono">5</div><div class="l">druggable brakes nominated</div></div>
+    <div class="m"><div class="n mono">CBLB</div><div class="l">lead — inhibitors already in Phase 1/2</div></div>
+  </div>
+</div></section>
 
-<!-- FINDING / hero figure -->
-<section class="pad" id="finding">
-  <div class="wrap">
-    <span class="eyebrow kicker reveal">The finding</span>
-    <h2 class="reveal" style="max-width:20ch">A genome-scale map that knows which direction is up.</h2>
-    <p class="lead reveal" style="margin-top:20px">Rank the knockdowns by causal effect size and 8 of the 9 biggest hits are the TCR-signalling module — recovered unsupervised. Add a per-cell <b>direction-of-effect</b> axis and the interpretation flips: those top effects all point <b>down</b> (knockdown cripples the cell). The drug signal lives in the sparse quadrant above the line.</p>
-    <div class="frame reveal" style="margin-top:44px">
-      <div class="core"><img src="figures/causal_map.svg" alt="Signed causal map: causal effect size (E-distance) on the x-axis versus signed direction-of-effect on the y-axis. The TCR machinery clusters far-right and strongly negative; candidate brakes sit in the positive quadrant."/></div>
-    </div>
-    <p class="cap reveal">Each point is one gene knockdown across 2.64 M cells. Teal = required machinery (knockdown impairs effector function); amber = candidate brakes (knockdown enhances it). Marker shape encodes donor consistency. Rendered from the tracked <span class="mono">ranked_perturbations.csv</span> by <span class="mono">figure_causal_map.py</span>.</p>
-  </div>
-</section>
+<!-- TARGETS -->
+<section class="pad" id="targets"><div class="wrap">
+  <span class="eyebrow kicker reveal">The finding · a target shortlist</span>
+  <h2 class="reveal" style="max-width:22ch">Five druggable brakes, ranked by convergent evidence.</h2>
+  <p class="lead reveal" style="margin-top:18px">A T-cell "brake" is a gene whose knockdown makes the cell a stronger effector — remove it and you boost immunity (the mechanism behind checkpoint and CAR-T therapy). We score each candidate across seven evidence axes: causal effect, brake direction, donor consistency, safety, druggability, immune genetics, and clinical precedent.</p>
+  <div class="frame reveal" style="margin-top:38px"><div class="core"><img src="figures/target_matrix.svg" alt="Convergent-evidence matrix scoring CBLB, CD5, DGKA, SMAD3, UBASH3A across seven evidence dimensions"/></div></div>
+  <p class="cap reveal">Effect, direction, donor consistency and safety are computed from the genome-scale CD4⁺ leaderboard; druggability, immune-genetics and clinical precedent are curated from Open Targets, ChEMBL and ClinicalTrials.gov. Reproduce with <span class="mono">make figure</span>.</p>
+</div></section>
 
-<!-- METHOD -->
-<section class="pad" id="method" style="background:#f4f4ef">
-  <div class="wrap">
-    <span class="eyebrow kicker reveal">Why two axes</span>
-    <h2 class="reveal" style="max-width:22ch">Magnitude tells you <em>how much</em>. Only the sign tells you <em>which way</em>.</h2>
-    <div class="axis-ex reveal" style="margin-top:34px">
-      <div class="quad up">
-        <div class="t">↑ direction &gt; 0 — a brake</div>
-        <p>Knockdown pushes cells <b>toward</b> the effector program. Removing the gene enhances function — the therapeutic quadrant (e.g. CD5, DGKA land here).</p>
-      </div>
-      <div class="quad dn">
-        <div class="t">↓ direction &lt; 0 — machinery</div>
-        <p>Knockdown pushes cells <b>away</b> from the effector program. The gene is required for function — a large effect in the wrong direction. The TCR module lands here.</p>
-      </div>
-    </div>
-    <div class="grid cols-3 reveal" style="margin-top:26px">
-      <div class="card"><div class="in"><div class="num">01</div><h3>Causal effect size</h3><p>Power-equalized energy distance with a permutation E-test on the scVI donor-integrated latent — ranks by causal magnitude, not p-values (which inflate with cell count).</p></div></div>
-      <div class="card"><div class="in"><div class="num">02</div><h3>Direction of effect</h3><p>Per cell, an effector program minus a dysfunction program, aggregated per perturbation × donor with a per-donor sign-agreement flag. Computed on all 2.64 M cells in ~40 s.</p></div></div>
-      <div class="card"><div class="in"><div class="num">03</div><h3>Gated &amp; honest</h3><p>Viability catches toxic knockdowns; the authors' knockdown-efficiency sidecar confirms on-target; donor consistency is reported, not hidden.</p></div></div>
-    </div>
+<!-- LEAD: CBLB -->
+<section class="pad" id="lead" style="background:#f4f4ef"><div class="wrap split">
+  <div class="reveal">
+    <span class="eyebrow kicker">The lead · CBLB</span>
+    <h2 style="max-width:16ch">A brake that's already a drug.</h2>
+    <p class="lead" style="margin-top:18px">CBLB is an E3 ubiquitin ligase that restrains T-cell activation. Its knockdown lands in the brake quadrant in our screen, and it converges with the strongest external evidence of any candidate — which is why it's our lead.</p>
+    <div class="lead-card" style="margin-top:22px"><div class="in">
+      <span class="tag lead">LEAD TARGET · CBLB</span>
+      <div class="evrow"><span class="d"></span><div><b style="color:var(--ink)">Druggable, clinically:</b> two oral CBL-B inhibitors in trials — NX-1607 (Ph1) and HST-1011 (Ph1/2).</div></div>
+      <div class="evrow"><span class="d"></span><div><b style="color:var(--ink)">Human genetics:</b> a genome-wide-significant autoimmune loss-of-function signal — losing CBLB drives autoimmunity, so inhibiting it boosts anti-tumor immunity.</div></div>
+      <div class="evrow"><span class="d"></span><div><b style="color:var(--ink)">Causal + control:</b> a top-decile effect (E-distance 6.4) in the positive/brake direction, and an internal positive control for the method.</div></div>
+      <div class="evrow"><span class="d" style="background:var(--amber)"></span><div><b style="color:var(--ink)">Honest caveat:</b> donor-split at n=2 (one of two donors drives the effect) — see the donor plot below.</div></div>
+    </div></div>
   </div>
-</section>
+  <figure class="reveal" style="margin:0"><div class="frame"><div class="core"><img src="figures/direction_dist.png" alt="Distribution of the signed direction score across 12,449 knockdowns"/></div></div>
+    <figcaption class="cap">The signed axis splits every knockdown: machinery in the negative tail, the brake search space in the positive tail.</figcaption></figure>
+</div></section>
 
-<!-- VALIDATION -->
-<section class="pad">
-  <div class="wrap grid cols-2" style="align-items:center;gap:56px">
-    <div class="reveal">
-      <span class="eyebrow kicker">Validation</span>
-      <h2 style="max-width:14ch">It recovers ground truth — in both axes.</h2>
-      <p class="lead" style="margin-top:20px">Unsupervised, 8 of the 9 largest effects are the TCR proximal-signalling module — ZAP70, LCP2, CD3E/G/D, PLCG1, LAT, VAV1 (the 8th, SMARCD3, is a toxic chromatin-remodeler dropout); CD247 and ITK sit just below. The direction axis flags every TCR gene as machinery — and it agrees across <b>both</b> donors, every time.</p>
-      <p class="lead" style="margin-top:16px">That two-way agreement with known biology is the internal control: a map that gets the machinery right in sign is a map you can trust to point at the brakes.</p>
-    </div>
-    <div class="reveal">
-      <div class="grid" style="gap:16px">
-        <div class="card"><div class="in" style="padding:22px 24px"><div class="n mono" style="font-family:var(--disp);font-size:34px;font-weight:600;color:var(--ink)">14 / 15</div><p style="margin-top:6px;font-size:14px;color:var(--muted)">largest-effect knockdowns point down — required machinery, not drug targets</p></div></div>
-        <div class="card"><div class="in" style="padding:22px 24px"><div class="n mono" style="font-family:var(--disp);font-size:34px;font-weight:600;color:var(--ink)">100%</div><p style="margin-top:6px;font-size:14px;color:var(--muted)">of the TCR module is donor-consistent in sign (both donors strongly negative)</p></div></div>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- MAP / how -->
+<section class="pad" id="map"><div class="wrap">
+  <span class="eyebrow kicker reveal">How we found them · the signed causal map</span>
+  <h2 class="reveal" style="max-width:24ch">Effect size alone points at the wrong genes.</h2>
+  <p class="lead reveal" style="margin-top:18px">Rank the 12,449 knockdowns by causal effect and the biggest hits are the cell's own TCR machinery — essential, not druggable. Adding a per-cell <b>direction-of-effect</b> axis flips it: those top effects point <b>down</b> (knockdown cripples the cell), and the drug-relevant candidates surface in the sparse positive quadrant. That map is the discovery engine behind the shortlist.</p>
+  <div class="frame reveal" style="margin-top:36px"><div class="core"><img src="figures/causal_map.svg" alt="Signed causal map: causal effect size vs direction of effect; machinery bottom-right negative, candidate brakes positive"/></div></div>
+</div></section>
 
-<!-- BRAKES / targets -->
-<section class="pad" id="brakes" style="background:#f4f4ef">
-  <div class="wrap">
-    <span class="eyebrow kicker reveal">The therapeutic quadrant</span>
-    <h2 class="reveal" style="max-width:24ch">Known brakes land in the positive quadrant — reported honestly.</h2>
-    <p class="lead reveal" style="margin-top:18px">Knockdowns that <em>raise</em> the effector program are the drug-relevant class. Known brakes like CD5 and DGKA land here and are donor-consistent — a consistency check. But we're honest: at two donors this quadrant is <b>not yet enriched</b> for a curated known-brake set (Mann–Whitney p = 0.56), and its strongest raw hits include likely artifacts. It is a prioritized hypothesis space for the full four-donor cohort, not a finished target list.</p>
-    <div class="frame reveal" style="margin-top:30px;background:transparent;border:none;padding:0">
-      <div class="core" style="padding:8px 20px 4px">
-        <table class="shortlist">
-          <thead><tr><th>Gene</th><th>E-dist</th><th>Direction</th><th>Donors</th><th>Why it makes sense</th></tr></thead>
-          <tbody>
-            <tr><td class="g">CD5</td><td class="mono">5.6</td><td class="mono">+0.15</td><td><span class="tag ok">consistent</span></td><td>inhibitory co-receptor; knockdown de-represses TCR signalling</td></tr>
-            <tr><td class="g">DGKA</td><td class="mono">2.5</td><td class="mono">+0.08</td><td><span class="tag ok">consistent</span></td><td>DAG-kinase brake; DGKα inhibitors are an immuno-oncology strategy</td></tr>
-            <tr><td class="g">CBLB</td><td class="mono">6.4</td><td class="mono">+0.14</td><td><span class="tag split">donor-split</span></td><td>E3-ligase brake; oral CBL-B inhibitors already in Phase 1</td></tr>
-            <tr><td class="g">SMAD3</td><td class="mono">25.1</td><td class="mono">+0.06</td><td><span class="tag split">donor-split</span></td><td>TGF-β effector brake — highest-magnitude <em>coherent</em> brake</td></tr>
-            <tr><td class="g">LAT2</td><td class="mono">23.0</td><td class="mono">+0.20</td><td><span class="tag split">donor-split</span></td><td>negative modulator of LAT signalling</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <p class="cap reveal">A convergent network layer (public STRING interactome + Open Targets genetics) independently highlights <b>IL2RB</b>/CD122. The direction axis explains it: its knockdown is lethal — required machinery for the pro-survival IL-2 signal — which is exactly why the drug is an IL-2/CD122 <b>agonist</b> (aldesleukin, N-803), not an inhibitor.</p>
+<!-- ROBUST / honesty -->
+<section class="pad" id="robust" style="background:#f4f4ef"><div class="wrap split">
+  <figure class="reveal" style="margin:0"><div class="frame"><div class="core"><img src="figures/donor_consistency.png" alt="Per-donor direction of effect; consistent brakes vs donor-split candidates"/></div></div></figure>
+  <div class="reveal">
+    <span class="eyebrow kicker">Rigor · reported honestly</span>
+    <h2 style="max-width:18ch">We report what two donors can and can't support.</h2>
+    <p class="lead" style="margin-top:18px">The machinery axis is unanimous — every TCR gene is donor-consistent. The brake side is where n=2 shows its limits: <b>CD5 and DGKA are donor-consistent</b>; CBLB, SMAD3 and LAT2 are driven by one donor. As a group, known brakes are <b>not yet significantly enriched</b> in the positive quadrant (Mann–Whitney p = 0.56). So the shortlist is a prioritized set of nominations for the full four-donor cohort — not a finished target list, and we say so.</p>
   </div>
-</section>
+</div></section>
 
 <!-- DEMO -->
-<section class="dark-sec pad" id="demo">
-  <div class="wrap">
-    <span class="eyebrow on-dark">The demo</span>
-    <h2 style="max-width:18ch">Watch the map get built — with the provenance.</h2>
-    <p class="lead" style="margin-top:18px;max-width:60ch">The question, the method, the self-validation on known biology, and the brake shortlist — with the Claude Science provenance and reviewer trail that produced every number.</p>
-    <div class="frame on-dark reveal" style="margin-top:40px">
-      <div class="core" style="background:#000">
-        <video controls preload="metadata" poster="figures/causal_map.png" style="background:#000">
-          <source src="demo.mp4" type="video/mp4"/>
-          Your browser can't play embedded video — <a href="demo.mp4" style="color:#7fe9d8">download the MP4</a>.
-        </video>
-      </div>
-    </div>
-    <p class="cap" style="color:var(--on-dark-mut)">Narrated ≤3-min cut. The narration deck (verbatim voiceover in the speaker notes) is in the repository.</p>
-  </div>
-</section>
+<section class="dark-sec pad" id="demo"><div class="wrap">
+  <span class="eyebrow on-dark">The demo</span>
+  <h2 style="max-width:20ch">From 2.6 million cells to a target shortlist.</h2>
+  <p class="lead" style="margin-top:18px;max-width:62ch">A 3-minute walk through the question, the signed causal map, and the nominated targets — with the Claude Science provenance behind every number.</p>
+  <div class="frame on-dark reveal" style="margin-top:36px"><div class="core" style="background:#000">
+    <video controls preload="metadata" poster="figures/target_matrix.png" style="background:#000">
+      <source src="demo.mp4" type="video/mp4"/>Your browser can't play embedded video — <a href="demo.mp4" style="color:#7fe9d8">download the MP4</a>.
+    </video>
+  </div></div>
+</div></section>
 
 <!-- REPRODUCE -->
-<section class="dark-sec pad" id="reproduce" style="background:var(--dark-2)">
-  <div class="wrap grid cols-2" style="align-items:center;gap:56px">
-    <div class="reveal">
-      <span class="eyebrow on-dark">Reproducible by design</span>
-      <h2 style="max-width:16ch">One command. Fixed seeds. MIT.</h2>
-      <p class="lead" style="margin-top:18px">Every artifact carries its exact code, environment, and a plain-language trail; a reviewer agent checks each claim against what actually ran — it caught a real statistical bug before it reached a figure. The pure-logic core tests run anywhere; the genome-scale axis regenerates on a GPU workstation.</p>
-    </div>
-    <div class="reveal">
-      <code class="block"><span class="c"># dependency-free core tests — run anywhere</span>
-git clone <span class="k">https://github.com/duanchengchen-oss/brakepoint</span> && cd pipeline
-make smoke
+<section class="dark-sec pad" id="reproduce" style="background:var(--dark-2)"><div class="wrap split">
+  <div class="reveal">
+    <span class="eyebrow on-dark">Open source · MIT</span>
+    <h2 style="max-width:16ch">Every target traces back to code.</h2>
+    <p class="lead" style="margin-top:18px">Built with Claude Science: each result is a versioned artifact, and a reviewer agent checks every claim against what ran — it caught a real statistical bug before a figure. One command regenerates the shortlist and all four figures from a clean clone.</p>
+  </div>
+  <div class="reveal"><code class="block"><span class="c"># dependency-free core tests</span>
+git clone <span class="k">github.com/duanchengchen-oss/brakepoint</span>
+cd brakepoint/pipeline && make smoke
 
-<span class="c"># re-render the hero figure from the leaderboard</span>
+<span class="c"># regenerate the target figures</span>
 make figure
 
-<span class="c"># genome-scale signed axis (GPU workstation)</span>
-make direction DATA=<span class="k">built.h5ad</span> \
-  LIB=<span class="k">sgrna_library.csv</span> CONTROL=control</code>
-    </div>
-  </div>
-</section>
+<span class="c"># is the brake quadrant enriched? (honest null)</span>
+python brake_enrichment.py</code></div>
+</div></section>
 
-<footer>
-  <div class="wrap">
-    <span class="brand" style="font-family:var(--disp);color:#fff;font-weight:600;font-size:16px">Brakepoint · Built with Claude Science</span>
-    <p style="margin-top:12px;max-width:70ch">A signed causal map of CD4⁺ T-cell function from the Gladstone genome-scale CRISPRi Perturb-seq. Open source (MIT). STRING and Open Targets are public evidence layers on top of the provided Perturb-seq data — there is no Gladstone-provided interaction network or regulatory model.</p>
-    <div class="fl">
-      <a href="#demo">▸ Demo video</a>
-      <a href="https://github.com/duanchengchen-oss/brakepoint">Repository</a>
-      <a href="summary.md">Written summary</a>
-      <a href="figures/causal_map.png">Hero figure (PNG)</a>
-      <a href="figures/brakepoint_onepager.png">One-pager (PNG)</a>
-    </div>
+<footer><div class="wrap">
+  <span class="brand" style="font-family:var(--disp);color:#fff;font-weight:600;font-size:16px">Brakepoint · Built with Claude Science</span>
+  <p style="margin-top:12px;max-width:74ch">Druggable-brake target discovery from the Gladstone genome-scale CD4⁺ T-cell CRISPRi Perturb-seq (Marson lab). Open source (MIT). STRING and Open Targets are public evidence layers on top of the provided Perturb-seq data.</p>
+  <div class="fl">
+    <a href="#demo">▸ Demo video</a>
+    <a href="https://github.com/duanchengchen-oss/brakepoint">Repository</a>
+    <a href="summary.md">Written summary</a>
+    <a href="figures/target_matrix.png">Target matrix (PNG)</a>
+    <a href="figures/causal_map.png">Causal map (PNG)</a>
   </div>
-</footer>
-
+</div></footer>
 <script>
-  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.14});
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 </script>
-</body>
-</html>
+</body></html>
