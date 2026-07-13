@@ -18,11 +18,14 @@ _Unattended (Fable 5), numpy-only sandbox, network-locked (pip 403). Repo quiet 
 
 **Current state:** submission is **complete and pushed** — github.com/duanchengchen-oss/brakepoint (landing live at duanchengchen-oss.github.io/brakepoint/deliverables/). Video, figures, interactive explorer, deck+script, 187-word summary, MIT pipeline, honest rigor pass all done and mutually consistent. Only open item is the human-only submit click.
 
+**Commit note (env quirk).** Two local commits landed this run: `14270d9` (VIDEO_URL.txt + WAR_LOG + doc fixes + the newer real-data figure PNG/SVG regenerations that were sitting modified on disk — all verified valid images) and `1d2bcef` (gitignore the `_video/human_vo/` scratch WAV). No push (hard wall). The sandbox mount returns **EPERM on unlink** inside `.git`, so git can't clean up its own `*.lock` files — every git write left a stale `index.lock`/`HEAD.lock`/`maintenance.lock` that blocked the next op. Workaround that worked: **rename each `*.lock` aside** (`mv` is permitted where `rm` is not), then run a **single-process** `git commit <pathspec>`. Set `gc.auto 0` + `maintenance.auto false` to stop the churn. Left-behind: inert `.git/*.moved*` / `.git/*.stale*` litter (git ignores these; harmless).
+
 ### NEEDS SAM
 - **[the one blocking step]** Submit on the CV platform before **Mon 2026-07-13 21:00 ET** — attach `deliverables/demo.mp4` (or the hosted landing URL), the repo URL, and `deliverables/summary.md` (paste the Version-A / 187-word block only). Agent cannot submit (no platform creds).
 - **[optional, not done]** CAMERA/cameraPR re-do of the brake-enrichment null (properly handles inter-perturbation correlation; likely still n.s. at 2 donors — calibration, not a flip). Needs scipy/gseapy → a Claude Science env; `brake_enrichment.py` also can't be re-run here (no scipy).
 - **[optional]** Re-record the VO in your own voice (script in `demo_deck.pptx` notes) if you prefer it to edge-tts.
 - **[carried]** The rigorous full CSV with the real `direction_score` column is already computed (Day-6 DGX run, in `outputs_gladstone/`); the 4-donor / Stim-48 h cohort re-run is the science stretch, not a submission blocker.
+- **[trivial cleanup, from the Mac host]** `rm -f .git/*.moved* .git/*.stale* .git/objects/*.moved*` to clear the inert lock litter this run left in `.git` (sandbox can't unlink them). Purely cosmetic; nothing tracked references them.
 
  + natural voice + plot-heavy; Codex rigor review acted on
 _User feedback: (1) research track = find TARGETS not build tools — much content was off-track; (2) the edge-tts SoniaNeural VO was "pure shit"; (3) loved the dot plot — wants MORE plots, less text, fill the space; keep iterating with Codex._
