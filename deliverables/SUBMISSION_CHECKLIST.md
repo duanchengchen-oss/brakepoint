@@ -33,7 +33,7 @@ item under **NEEDS SAM** is the one human-only step.
       shortlist, the CBLB lead, a 3-step "how it works" engine, the interactive
       explorer, a "vs traditional discovery" comparison, the honest rigor section, the
       video walkthrough, and the reproduce block. Root `/index.html` redirects to it.
-- [x] **Written summary (100–200 words)** — `deliverables/summary.md` (**192 words**, `wc -w`).
+- [x] **Written summary (100–200 words)** — `deliverables/summary.md` (**188 words** body, `wc -w`; 194 even if a counter splits hyphenated compounds — safely in range).
 - [x] **Open-source pipeline** — `pipeline/` (MIT), one-command reproduce
       (`make smoke` anywhere; `make figure` regenerates every figure).
 - [x] **Honesty pass (multi-round, Codex-reviewed)** — "candidate" not blanket
@@ -50,7 +50,7 @@ item under **NEEDS SAM** is the one human-only step.
 ## NEEDS SAM (the one human-only step)
 - [ ] **Submit on the CV platform** before Mon 21:00 ET — attach `brakepoint_video.mp4`
       (or the hosted landing page), the repo URL, and the summary
-      (`deliverables/summary.md`, 192 words). This is the only step an agent can't
+      (`deliverables/summary.md`, 188 words). This is the only step an agent can't
       do (no platform credentials).
 
 ## Optional (the submission already stands on its own)

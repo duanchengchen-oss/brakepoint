@@ -4,7 +4,7 @@
 
 ## PRIMARY (submit this) — narrated motion-graphics build, local + reproducible
 deliverables/brakepoint_video.mp4
-  3840x2160 (4K), ~2:55, 11-scene Remotion build (animated signed causal map,
+  3840x2160 (4K), ~2:56 (176 s, under the 3-min gate), 11-scene Remotion build (animated signed causal map,
   significance-wall beat, a live screen-recording of the interactive explorer,
   vs-traditional comparison, target shortlist + donor plots, result-first close)
   with a synced natural human-voice narration (F5-TTS open-source voice model,
