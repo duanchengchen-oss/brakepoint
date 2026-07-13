@@ -1,6 +1,6 @@
 """build_from_human_vo.py — swap in a human voiceover and rebuild the demo in one step.
 
-Drop your recordings in deliverables/_video/human_vo/ as slide_0..slide_9
+Drop your recordings in deliverables/_video/human_vo/ as slide_0..slide_10
 (.mp3/.m4a/.wav/.aac), following RECORD_SCRIPT.md, then run this. It normalizes each
 clip, recomputes the per-scene frame timing, rewrites durations.json, regenerates the
 captions (demo.vtt), renders the Remotion video, and copies it to demo.mp4 — no other
@@ -17,8 +17,8 @@ HUMAN = HERE / "human_vo"
 REMOTION = HERE.parent / "_remotion"
 PUB_AUDIO = REMOTION / "public" / "audio"
 DUR_JSON = REMOTION / "public" / "durations.json"
-N = 10
-LEAD, TAIL, FPS, TR = 12, 36, 30, 18
+N = 11
+LEAD, TAIL, FPS, TR = 12, 24, 30, 18
 EXTS = (".mp3", ".m4a", ".wav", ".aac", ".flac", ".ogg")
 
 
@@ -41,7 +41,7 @@ def main() -> None:
     missing = [i for i in range(N) if _find(i) is None]
     if missing:
         print(f"Missing recordings for slides {missing} in {HUMAN}/ .")
-        print("Record slide_0..slide_9 (see RECORD_SCRIPT.md), then re-run.")
+        print("Record slide_0..slide_10 (see RECORD_SCRIPT.md), then re-run.")
         sys.exit(1)
 
     PUB_AUDIO.mkdir(parents=True, exist_ok=True)

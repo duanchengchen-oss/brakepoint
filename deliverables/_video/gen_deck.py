@@ -10,7 +10,7 @@ W,H=Inches(13.333),Inches(7.5)
 # eyebrow, title (parts: (text,color)), narration note
 SLIDES=[
  ("BRAKEPOINT · BUILT WITH CLAUDE",[("The ",INK),("brakes",AMBER),(" on a T cell are its drug targets.",INK)],
-  "Checkpoint immunotherapy works by releasing the brakes on a T cell. So we went looking for those brakes — genome-wide. This is Brakepoint, built with Claude Science."),
+  "Checkpoint drugs work by releasing the brakes on a T cell — but they help only a minority of patients, because only a handful of those brakes are drugged. So we went looking for the rest, genome-wide. This is Brakepoint, built with Claude Science."),
  ("THE THESIS",[("Which knockdowns make a T cell a ",INK),("stronger effector",AMBER),("?",INK)],
   "Those brakes matter beyond checkpoint therapy — they also throttle engineered CAR-T. So across the genome, which genes are the brakes — which knockdowns push a human T cell toward a stronger effector state?"),
  ("THE SCREEN",[("2.6M CD4",INK),("+",TEAL),(" T cells · 12,449 CRISPRi knockdowns.",INK)],
@@ -19,6 +19,8 @@ SLIDES=[
   "How do you find the brakes in twelve thousand knockdowns? The reflex is to rank by significance — but at two million cells that breaks down: over 97% of the tested knockdowns clear the bar. So we rank by causal effect size instead."),
  ("THE ENGINE · SIGNED CAUSAL MAP",[("Rank by effect size, then add the ",INK),("sign",AMBER),(".",INK)],
   "But effect size alone still points at the wrong genes — the biggest hits are the cell's own signaling machinery. So we add what a magnitude ranking leaves out: direction — toward the effector program, or away. Now the machinery falls away, and the candidate brakes rise into view."),
+ ("EXPLORE · THE LIVE LEADERBOARD",[("Not a picture — ",INK),("the real leaderboard",AMBER),(".",INK)],
+  "And this isn't a static picture. Every one of the eleven thousand tested knockdowns is here to explore — search any gene, hover any point, and read its causal effect and its direction. It's the real leaderboard, live."),
  ("WHY IT'S DIFFERENT",[("Same data. ",INK),("A sharper question.",AMBER)],
   "And that's the edge. Differential expression finds correlations — not what to drug. Genetics points to a locus, rarely a direction. We measure what a knockdown actually does, and which way it pushes — then weigh it against genetics and the clinic."),
  ("THE SHORTLIST",[("Five candidate brakes: ",INK),("CBLB, CD5, DGKA, SMAD3, UBASH3A",AMBER),(".",INK)],
@@ -28,7 +30,7 @@ SLIDES=[
  ("REPORTED HONESTLY",[("CD5 & DGKA hold up; the rest are ",INK),("donor-split",AMBER),(" (p = 0.70).",INK)],
   "And we're honest about what two donors can support. CD5 and DGKA hold up in both; the other three ride on one donor. As a group, known brakes aren't significantly enriched — so this is a ranked shortlist for the full cohort, a hypothesis to test, not a finished answer."),
  ("OPEN SOURCE · MIT",[("Every number traces back to ",INK),("code",TEAL),(".",INK)],
-  "Every number here traces back to versioned code — and to a self-check that caught a real bias in our effect-size code before it reached a figure. Open source; every figure regenerates with one command. This is Brakepoint, built with Claude Science."),
+  "Five candidate brakes, led by CBLB — every number reproducible from one command, and checked against a real bug we caught ourselves. Explore the live map, clone the code, and help find the brakes today's drugs still miss. Built with Claude Science."),
 ]
 
 prs=Presentation(); prs.slide_width=W; prs.slide_height=H

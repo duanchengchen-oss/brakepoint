@@ -1,19 +1,24 @@
 # Demo video — narration script (target discovery)
 
 **The submission video is complete and narrated:** `deliverables/demo.mp4`
-(1920×1080, ~2:42, a **Remotion motion-graphics build** — animated signed causal
-map, a significance-wall beat, a vs-traditional comparison, target-shortlist and
-donor-consistency plots) with a natural voiceover (edge-tts
-`en-US-AndrewMultilingualNeural`; gene/acronym pronunciations are respelled in
-`_video/gen_tts.py` and verified by round-tripping each clip through Whisper). The
-script below is what is narrated. Reproduce: `deliverables/_remotion/`
-(`npm i && npm run render`); voiceover from `_video/gen_tts.py`.
+(1920×1080, **~2:57**, an **11-scene Remotion motion-graphics build** — animated
+signed causal map, a significance-wall beat, a **live screen-recording of the
+interactive explorer**, a vs-traditional comparison, target-shortlist and
+donor-consistency plots, and a result-first close). The voiceover is a **natural
+human-voice model** (F5-TTS, open source, cloned from a reference sample) rendered
+on the **NVIDIA DGX Spark** via Claude Science remote compute, paced for a natural
+cadence; measured naturalness UTMOS ≈ 4.2–4.5, and every gene pronunciation was
+verified by round-tripping each clip through Whisper. Captions
+(`deliverables/demo.vtt`) are per-sentence and on-brand styled in the landing
+player. Reproduce: `deliverables/_remotion/` (`npm i && npm run render`); rebuild
+the voiceover + timing with `_video/build_from_human_vo.py`.
 
 ---
 
-### 1 · Title
-> Checkpoint immunotherapy works by releasing the brakes on a T cell. So we went
-> looking for those brakes — genome-wide. This is Brakepoint, built with Claude
+### 1 · Title / hook
+> Checkpoint drugs work by releasing the brakes on a T cell — but they help only a
+> minority of patients, because only a handful of those brakes are drugged. So we
+> went looking for the rest, genome-wide. This is Brakepoint, built with Claude
 > Science.
 
 ### 2 · The thesis
@@ -37,27 +42,34 @@ script below is what is narrated. Reproduce: `deliverables/_remotion/`
 > direction — toward the effector program, or away. Now the machinery falls away,
 > and the candidate brakes rise into view.
 
-### 6 · Why it's different — vs the usual playbook
+### 6 · Explore it live — the interactive leaderboard
+> And this isn't a static picture. Every one of the eleven thousand tested knockdowns
+> is here to explore — search any gene, hover any point, and read its causal effect
+> and its direction. It's the real leaderboard, live.
+
+### 7 · Why it's different — vs the usual playbook
 > And that's the edge. Differential expression finds correlations — not what to drug.
 > Genetics points to a locus, rarely a direction. We measure what a knockdown
 > actually does, and which way it pushes — then weigh it against genetics and the
 > clinic.
 
-### 7 · The target shortlist
+### 8 · The target shortlist
 > From that map, five prior-informed candidates: CBLB, CD5, DGKA, SMAD3, and UBASH3A
 > — each scored across seven lines of evidence, from causal effect and direction to
 > human genetics and clinical precedent.
 
-### 8 · The lead — CBLB
+### 9 · The lead — CBLB
 > Our lead is CBLB. It's a natural off-switch for T-cell activation, and inhibitors
 > are already in early-phase trials. Its genetics point the same way, and it lands
 > in our brake quadrant. CD5 and DGKA come next — and both hold up across donors.
 
-### 9 · Reported honestly
+### 10 · Reported honestly
 > And we're honest about what two donors can support. CD5 and DGKA hold up in both;
 > the other three ride on one donor. As a group, known brakes aren't significantly
 > enriched — so this is a ranked shortlist for the full cohort, a hypothesis to test,
 > not a finished answer.
 
-### 10 · Close
-> Every number traces back to versioned code — and to a self-check that caught a real bias in our energy-distance statistic: a null scoring five instead of zero. Open source; every figure regenerates with one command. Brakepoint, built with Claude Science.
+### 11 · The result / close
+> Five candidate brakes, led by CBLB — every number reproducible from one command,
+> and checked against a real bug we caught ourselves. Explore the live map, clone the
+> code, and help find the brakes today's drugs still miss. Built with Claude Science.

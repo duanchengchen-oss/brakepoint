@@ -10,7 +10,7 @@ export const Title: React.FC = () => {
       <Words size={112} delay={10} maxWidth={1320}
         parts={[{t: 'The '}, {t: 'brakes', color: C.amber}, {t: " on a T cell are its drug targets."}]} />
       <div style={{...sub, fontSize: 40, color: C.mut, marginTop: 38, maxWidth: 1250, lineHeight: 1.4}}>
-        Druggable-brake target discovery from a 2.6-million-cell CRISPRi screen — built with Claude Science.
+        Candidate brake-target discovery from a 2.6-million-cell CRISPRi screen — built with Claude Science.
       </div>
       <Spacer />
       <div style={{...foot, display: 'flex', alignItems: 'center', gap: 16, fontSize: 23, color: C.mut}}>
