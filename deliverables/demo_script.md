@@ -23,8 +23,8 @@ the voiceover + timing with `_video/build_from_human_vo.py`.
 
 ### 2 · The thesis
 > Those brakes matter beyond checkpoint therapy — they also throttle engineered
-> CAR-T. So across the genome, which genes are the brakes — which knockdowns push a
-> human T cell toward a stronger effector state?
+> CAR-T. So across the genome: which genes are the brakes? And which knockdowns push
+> a human T cell toward a stronger effector state?
 
 ### 3 · The screen
 > We started from a genome-scale CRISPR-interference screen: over twelve thousand
@@ -43,9 +43,9 @@ the voiceover + timing with `_video/build_from_human_vo.py`.
 > and the candidate brakes rise into view.
 
 ### 6 · Explore it live — the interactive leaderboard
-> And this isn't a static picture. Every one of the eleven thousand tested knockdowns
-> is here to explore — search any gene, hover any point, and read its causal effect
-> and its direction. It's the real leaderboard, live.
+> And this isn't a static picture. Every one of the eleven thousand that passed our
+> testing threshold is here to explore — search any gene, hover any point, and read
+> its causal effect and its direction. It's the real leaderboard, live.
 
 ### 7 · Why it's different — vs the usual playbook
 > And that's the edge. Differential expression finds correlations — not what to drug.
@@ -61,15 +61,17 @@ the voiceover + timing with `_video/build_from_human_vo.py`.
 ### 9 · The lead — CBLB
 > Our lead is CBLB. It's a natural off-switch for T-cell activation, and inhibitors
 > are already in early-phase trials. Its genetics point the same way, and it lands
-> in our brake quadrant. CD5 and DGKA come next — and both hold up across donors.
+> in our brake quadrant. CD5 and DGKA come next.
 
 ### 10 · Reported honestly
-> And we're honest about what two donors can support. CD5 and DGKA hold up in both;
-> the other three ride on one donor. As a group, known brakes aren't significantly
-> enriched — so this is a ranked shortlist for the full cohort, a hypothesis to test,
-> not a finished answer.
+> We're honest about what two donors can support. CD5 and DGKA hold up in both; the
+> other three ride on one donor. Known brakes aren't significantly enriched — but
+> that's a two-donor power limit, not a null result. So this stays a ranked shortlist
+> for the full cohort, a hypothesis to test, not a finished answer.
 
 ### 11 · The result / close
-> Five candidate brakes, led by CBLB — every number reproducible from one command,
-> and checked against a real bug we caught ourselves. Explore the live map, clone the
-> code, and help find the brakes today's drugs still miss. Built with Claude Science.
+> Five candidate brakes, led by CBLB — a target the industry already drugs, so
+> recovering it validates our method. Every figure regenerates from cached outputs
+> with one command, checked against a real bug we caught ourselves. Explore the live
+> map, clone the code, and help find the brakes today's drugs still miss. Built with
+> Claude Science.

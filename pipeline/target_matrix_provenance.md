@@ -15,11 +15,11 @@ Order of axes: **Causal effect · Brake direction · Donor consistency · Viabil
 
 | Gene | Causal effect | Brake direction | Donor consistency | Viability | Druggability | Immune genetics | Clinical precedent | Call |
 |---|---|---|---|---|---|---|---|---|
-| **CBLB** | 0.88 | 0.72 | 0.35 | 0.55 | 1.00 | 0.90 | 0.90 | LEAD · clinical (external) |
-| **CD5** | 0.87 | 0.75 | 1.00 | 0.90 | 0.70 | 0.50 | 0.40 | SCREEN-CONSISTENT |
-| **DGKA** | 0.71 | 0.42 | 1.00 | 0.78 | 1.00 | 0.25 | 0.85 | SCREEN-CONSISTENT |
-| **SMAD3** | 0.92 | 0.32 | 0.35 | 0.90 | 0.60 | 0.45 | 0.55 | EXPLORATORY |
-| **UBASH3A** | 0.40 | 0.28 | 0.35 | 0.82 | 0.55 | 0.90 | 0.15 | GENETICS-LED |
+| **CBLB** | 0.96 | 0.72 | 0.35 | 0.55 | 1.00 | 0.90 | 0.90 | LEAD · clinical (external) |
+| **CD5** | 0.95 | 0.75 | 1.00 | 0.90 | 0.70 | 0.50 | 0.40 | SCREEN-CONSISTENT |
+| **DGKA** | 0.78 | 0.42 | 1.00 | 0.78 | 1.00 | 0.25 | 0.85 | SCREEN-CONSISTENT |
+| **SMAD3** | 1.00 | 0.32 | 0.35 | 0.90 | 0.60 | 0.45 | 0.55 | EXPLORATORY |
+| **UBASH3A** | 0.69 | 0.28 | 0.35 | 0.82 | 0.55 | 0.90 | 0.15 | GENETICS-LED |
 
 These 0–1 values are a **presentation encoding of the evidence tiers**, not measured
 probabilities; they are not summed or weighted into a composite. Read each row across, not
@@ -55,23 +55,23 @@ exists" can mean very different things:
   target.
 
 ## Per-target sources (data columns are exact from the CSV)
-- **CBLB** — E-dist 6.43 (rank 439; ~88th pct), dir +0.14 (**donor-split** +0.44/−0.15),
+- **CBLB** — E-dist 6.43 (rank 439; ~96th pct), dir +0.14 (**donor-split** +0.44/−0.15),
   viab 0.56, kd-gated. Druggability/clinical: oral CBL-B inhibitors **NX-1607** (Ph1,
   NCT05107674) and **HST-1011** (Ph1/2, NCT05662397) — the *inhibitors* are in trials, not
   CBLB itself. Genetics: CBLB is a published autoimmune-risk gene (RA/T1D); the matrix
   scores the *association*, not a specific causal variant (no variant-to-gene fine-mapping
   claimed).
-- **CD5** — E-dist 5.64 (rank 583; ~87th pct), dir +0.15 (**donor-consistent** +0.15/+0.14),
+- **CD5** — E-dist 5.64 (rank 583; ~95th pct), dir +0.15 (**donor-consistent** +0.15/+0.14),
   viab 1.38, kd-gated. Druggability: cell-surface (biologic/engineered). Clinical precedent
   scored LOW: CD5-directed CAR-T targets CD5 as a *tumour antigen* (different modality); CD5
   deletion enhancing CAR-T function is **preclinical**.
-- **DGKA** — E-dist 2.50 (rank 2,579; ~71st pct), dir +0.08 (**donor-consistent** +0.09/+0.07),
+- **DGKA** — E-dist 2.50 (rank 2,579; ~78th pct), dir +0.08 (**donor-consistent** +0.09/+0.07),
   viab 0.87, kd-gated. Druggability/clinical: **BAY2862789** oral DGKα inhibitor, Ph1
   (NCT05858164).
-- **SMAD3** — E-dist 25.1 (rank 21; ~92nd pct), dir +0.06 (**donor-split** −0.13/+0.26),
+- **SMAD3** — E-dist 25.1 (rank 21; ~100th pct), dir +0.06 (**donor-split** −0.13/+0.26),
   viab 1.37, kd-gated. TGF-β **pathway** is heavily drugged (pathway-level precedent only).
   No per-gene dossier file; external scores are literature-curated (flagged EXPLORATORY).
-- **UBASH3A** — E-dist 2.03 (rank 3,579), dir +0.05 (**donor-split** −0.08/+0.19), viab 0.88,
+- **UBASH3A** — E-dist 2.03 (rank 3,579; ~69th pct), dir +0.05 (**donor-split** −0.08/+0.19), viab 0.88,
   kd-gated. Genetics: T1D/RA GWAS gene (strong). Druggability: histidine-phosphatase;
   **tractability unestablished, undrugged, no validated chemical matter cited** (GENETICS-LED).
 

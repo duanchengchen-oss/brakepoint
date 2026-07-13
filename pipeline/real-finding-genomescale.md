@@ -88,6 +88,8 @@ target list.
   CD160, VSIR, ENTPD1, TOX, NR4A1/2/3. `direction_score > 0` ⇒ knockdown pushes cells
   toward the effector program (a *candidate brake* — a transcriptional shift, not proven
   function); `< 0` ⇒ toward loss of that program. Across all 12,451 scored perturbations
+  (2 more than the 12,449-perturbation E-distance universe — the direction axis also
+  scores ATP1A1 and DGCR8, two perturbations the E-distance leaderboard drops)
   the distribution is left-shifted (percentiles: 50th −0.037, 75th +0.029, 95th +0.144,
   99th +0.312), so the featured brakes (+0.05 to +0.15) sit in roughly the **upper 5–25%
   of the direction distribution**, not merely just-above-zero.

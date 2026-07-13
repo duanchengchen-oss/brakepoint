@@ -18,7 +18,8 @@ REMOTION = HERE.parent / "_remotion"
 PUB_AUDIO = REMOTION / "public" / "audio"
 DUR_JSON = REMOTION / "public" / "durations.json"
 N = 11
-LEAD, TAIL, FPS, TR = 12, 24, 30, 18
+LEAD, TAIL, FPS, TR = 12, 18, 30, 18
+TEMPO = 1.07  # gentle, near-imperceptible time-tighten so the 11-scene cut stays < 3:00
 EXTS = (".mp3", ".m4a", ".wav", ".aac", ".flac", ".ogg")
 
 
@@ -53,7 +54,7 @@ def main() -> None:
         out = PUB_AUDIO / f"slide_{i}.mp3"
         # normalize loudness + resample to a clean 48k mono mp3
         subprocess.run(["ffmpeg", "-v", "error", "-i", str(src), "-af",
-                        "loudnorm=I=-16:TP=-1.5:LRA=11", "-ar", "48000", "-ac", "1",
+                        f"loudnorm=I=-16:TP=-1.5:LRA=11,atempo={TEMPO}", "-ar", "48000", "-ac", "1",
                         "-b:a", "192k", str(out), "-y"], check=True)
         d = _dur(out)
         durs.append(LEAD + int(d * FPS + 0.999) + TAIL)

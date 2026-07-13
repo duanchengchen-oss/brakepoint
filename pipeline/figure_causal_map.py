@@ -20,26 +20,9 @@ from __future__ import annotations
 
 import argparse
 
-import matplotlib
-
-matplotlib.use("Agg")
-import matplotlib.font_manager as fm  # noqa: E402
-import matplotlib.pyplot as plt  # noqa: E402
-import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
-from matplotlib.patches import FancyBboxPatch  # noqa: E402
 
-# --- palette (validated: teal<->amber CVD dE 60.8) ----------------------------
-SURFACE = "#fcfcfb"
-INK = "#0b1220"  # house ink
-INK2 = "#52514e"
-MUTED = "#8a8880"
-BULK = "#cdccc4"
-TEAL = "#0d9488"  # required machinery (cool)
-TEAL_DK = "#0b6b62"
-AMBER = "#d97a12"  # candidate brakes (warm)
-AMBER_DK = "#a85c08"
-GRID = "#ecebe5"
+import figstyle
 
 # TCR proximal-signaling machinery (positive controls; expected far-right, -Y).
 TCR_MODULE = ["ZAP70", "LCP2", "CD3E", "CD3G", "PLCG1", "LAT", "VAV1", "CD3D", "CD247", "ITK"]
@@ -90,6 +73,7 @@ def _pt(ax, x, y, color, label, off):
 
 
 def build(ranked_csv: str, out_png: str, out_svg: str) -> None:
+    figstyle.apply_rc()
     df = pd.read_csv(ranked_csv)
     df = df.dropna(subset=["e_distance", "direction_score"]).copy()
     by = {str(r.perturbation): (float(r.e_distance), float(r.direction_score))
@@ -100,14 +84,7 @@ def build(ranked_csv: str, out_png: str, out_svg: str) -> None:
     n_neg = int((top15.direction_score < 0).sum())
     n_split = sum(1 for g in BRAKES if g in agreed and not agreed[g])
 
-    plt.rcParams.update({
-        "font.family": "sans-serif",
-        "font.sans-serif": ["Helvetica Neue", "Helvetica", "Arial", "DejaVu Sans"],
-        "svg.fonttype": "none",
-    })
-    fig, ax = plt.subplots(figsize=(12.2, 7.6), dpi=210)
-    fig.patch.set_facecolor(SURFACE)
-    ax.set_facecolor(SURFACE)
+    fig, ax = figstyle.dark_figure((12.2, 7.6), dpi=200)
 
     xmax = float(df.e_distance.max()) * 1.06
     # derive y-limits from the plotted data (never clip a real observation)
@@ -118,100 +95,105 @@ def build(ranked_csv: str, out_png: str, out_svg: str) -> None:
     ax.set_ylim(ymin, ymax)
 
     # quadrant wash (very subtle) above/below the sign line
-    ax.axhspan(0, ymax, xmin=0, xmax=1, color=AMBER, alpha=0.045, zorder=0)
-    ax.axhspan(ymin, 0, xmin=0, xmax=1, color=TEAL, alpha=0.05, zorder=0)
-    ax.axhline(0, color=INK2, lw=1.1, zorder=2)
+    ax.axhspan(0, ymax, xmin=0, xmax=1, color=figstyle.AMBER_MID,
+               alpha=figstyle.AMBER_WASH, zorder=0)
+    ax.axhspan(ymin, 0, xmin=0, xmax=1, color=figstyle.TEAL_MID,
+               alpha=figstyle.TEAL_WASH, zorder=0)
+    ax.axhline(0, color=figstyle.HAIRLINE, lw=1.1, zorder=2)
 
     # bulk cloud
-    ax.scatter(df.e_distance, df.direction_score, s=7, c=BULK, alpha=0.32,
-               linewidths=0, zorder=1, rasterized=True)
+    figstyle.bulk_cloud(ax, df.e_distance, df.direction_score, size=7,
+                        alpha=0.32, zorder=1)
 
     # highlights — marker shape carries donor consistency (o = both donors agree,
     # D = donor-split at n=2). Machinery is uniformly donor-consistent; the brake
     # side is where n=2 shows its limits, so we make that visible rather than hide it.
-    for genes, color, edge in ((TCR_MODULE, TEAL, TEAL_DK), (BRAKES, AMBER, AMBER_DK)):
+    for genes, fill, label_color in (
+        (TCR_MODULE, figstyle.TEAL_MID, figstyle.TEAL),
+        (BRAKES, figstyle.AMBER_MID, figstyle.AMBER),
+    ):
         for g in genes:
             if g not in by:
                 continue
             x, y = by[g]
             mk = "o" if agreed.get(g, True) else "D"
             sz = 105 if mk == "o" else 82
-            ax.scatter([x], [y], s=sz, marker=mk, c=color, edgecolors="white",
-                       linewidths=1.4, zorder=6, alpha=0.97)
-            ax.scatter([x], [y], s=sz, marker=mk, facecolors="none", edgecolors=edge,
-                       linewidths=0.7, zorder=7)
-            _pt(ax, x, y, edge, g, LABEL_OFFSETS.get(g, (6, 6, "left")))
+            figstyle.marker(ax, [x], [y], fill, size=sz, mk=mk, lw=2.2,
+                            zorder=6, alpha=0.97)
+            _pt(ax, x, y, label_color, g, LABEL_OFFSETS.get(g, (6, 6, "left")))
 
     from matplotlib.lines import Line2D
     leg = ax.legend(
         handles=[
-            Line2D([0], [0], marker="o", ls="", mfc=MUTED, mec="white", ms=9,
+            Line2D([0], [0], marker="o", ls="", mfc=figstyle.BULK, mec="white", mew=1.5, ms=9,
                    label="consistent across both donors"),
-            Line2D([0], [0], marker="D", ls="", mfc=MUTED, mec="white", ms=8,
+            Line2D([0], [0], marker="D", ls="", mfc=figstyle.BULK, mec="white", mew=1.5, ms=8,
                    label="donor-split (n=2 — confirm at full 4-donor cohort)"),
         ],
-        loc="lower left", fontsize=9.5, frameon=True, framealpha=0.96,
-        edgecolor=GRID, handletextpad=0.5, borderpad=0.7,
+        loc="lower left", fontsize=9.5, frameon=True, framealpha=0.88,
+        facecolor=figstyle.BG_PANEL, edgecolor=figstyle.HAIRLINE,
+        handletextpad=0.5, borderpad=0.7,
     )
+    for text in leg.get_texts():
+        text.set_color(figstyle.BODY)
     leg.set_zorder(9)
 
     # quadrant captions (axes-fraction coords so they never collide with data or
     # shift when the limits change)
     ax.text(0.985, 0.965, "knockdown ENHANCES the effector program",
             transform=ax.transAxes, ha="right", va="top",
-            fontsize=12, color=AMBER_DK, fontweight="bold")
+            fontsize=12, color=figstyle.AMBER, fontweight="bold")
     ax.text(0.985, 0.918,
             "candidate brakes — a hypothesis space, not brake-enriched (Mann–Whitney p = 0.70)",
             transform=ax.transAxes, ha="right", va="top",
-            fontsize=10.5, color=AMBER_DK, style="italic")
+            fontsize=10.5, color=figstyle.AMBER, style="italic")
     ax.text(0.985, 0.879,
             f"{n_split} of {len(BRAKES)} highlighted candidates are donor-split (n = 2)",
             transform=ax.transAxes, ha="right", va="top",
-            fontsize=10.5, color=AMBER_DK, style="italic")
+            fontsize=10.5, color=figstyle.AMBER, style="italic")
     ax.text(0.985, 0.058, "knockdown IMPAIRS the effector program",
             transform=ax.transAxes, ha="right", va="bottom",
-            fontsize=12, color=TEAL_DK, fontweight="bold")
+            fontsize=12, color=figstyle.TEAL, fontweight="bold")
     ax.text(0.985, 0.015, "required TCR machinery — inhibition opposes the goal",
             transform=ax.transAxes, ha="right", va="bottom",
-            fontsize=10.5, color=TEAL_DK, style="italic")
+            fontsize=10.5, color=figstyle.TEAL, style="italic")
 
     # headline-stat callout box (upper-left)
-    box = FancyBboxPatch((0.022, 0.80), 0.40, 0.155, transform=ax.transAxes,
-                         boxstyle="round,pad=0.012,rounding_size=0.02",
-                         fc="white", ec=GRID, lw=1.2, zorder=9)
-    ax.add_patch(box)
+    figstyle.panel_box(ax, 0.022, 0.80, 0.40, 0.155, zorder=9)
     ax.text(0.042, 0.905, f"{n_neg} of the 15 largest-effect knockdowns",
-            transform=ax.transAxes, fontsize=12.5, fontweight="bold", color=INK, zorder=10)
+            transform=ax.transAxes, fontsize=12.5, fontweight="bold",
+            color=figstyle.INK, zorder=10)
     ax.text(0.042, 0.848,
             "impair effector function — magnitude alone\nwould nominate the cell's own machinery.",
-            transform=ax.transAxes, fontsize=11, color=INK2, zorder=10, linespacing=1.25)
+            transform=ax.transAxes, fontsize=11, color=figstyle.BODY,
+            zorder=10, linespacing=1.25)
 
     # axes chrome
     ax.set_xlabel("Causal effect size   ·   E-distance (power-equalized)",
-                  fontsize=12.5, color=INK, labelpad=8)
+                  fontsize=12.5, color=figstyle.BODY, labelpad=8)
     ax.set_ylabel("Direction of effect   ·   effector − dysfunction  (vs control)",
-                  fontsize=12.5, color=INK, labelpad=8)
-    for s in ("top", "right"):
-        ax.spines[s].set_visible(False)
-    for s in ("left", "bottom"):
-        ax.spines[s].set_color("#c3c2b7")
-    ax.tick_params(colors=MUTED, labelsize=10.5)
-    ax.grid(axis="both", color=GRID, lw=0.8, zorder=0)
-    ax.set_axisbelow(True)
+                  fontsize=12.5, color=figstyle.BODY, labelpad=8)
 
     # title block
-    fig.text(0.062, 0.975, "A genome-scale signed causal map of CD4⁺ T-cell function",
-             fontsize=17.5, fontweight="bold", color=INK, va="top")
-    fig.text(0.062, 0.936,
-             f"{len(df):,} CRISPRi knockdowns with a measurable causal effect · "
-             "E-distance on 2.44 M post-QC CD4⁺ T cells · Gladstone Perturb-seq · built with Claude Science",
-             fontsize=11.5, color=MUTED, va="top")
+    figstyle.title_block(
+        fig,
+        "A genome-scale signed causal map of CD4⁺ T-cell function",
+        [f"{len(df):,} CRISPRi knockdowns with a measurable causal effect · "
+         "E-distance on 2.44 M post-QC CD4⁺ T cells",
+         "Gladstone Perturb-seq · built with Claude Science"],
+        x=0.062,
+        y=0.975,
+        title_size=17.5,
+        sub_size=11,
+        dy=0.038,
+    )
 
-    fig.subplots_adjust(left=0.075, right=0.975, top=0.885, bottom=0.092)
-    fig.savefig(out_png, dpi=210, facecolor=SURFACE)
-    fig.savefig(out_svg, facecolor=SURFACE)
-    plt.close(fig)
-    print(f"wrote {out_png} + {out_svg}  ({n_neg}/15 top-effects negative)")
+    fig.subplots_adjust(left=0.075, right=0.975, top=0.858, bottom=0.092)
+    fig.savefig(out_png, dpi=200, facecolor=figstyle.BG)
+    fig.savefig(out_svg, facecolor=figstyle.BG)
+    figstyle.plt.close(fig)
+    print(f"wrote {out_png} + {out_svg}  "
+          f"(n_neg={n_neg}/15, donor-split={n_split}/{len(BRAKES)})")
 
 
 def main() -> None:

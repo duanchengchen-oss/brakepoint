@@ -73,16 +73,24 @@ Brakepoint does two things that ranking can't:
   self-critique pass, then fixed (the provenance reviewer separately checks claims
   against what ran; see [`pipeline/WAR_LOG.md`](pipeline/WAR_LOG.md)).
 
-## Reproduce
+## Reproduce — in tiers
+Reproducibility is tiered by what each step needs; the headline **genome-scale**
+numbers are **not** a single offline command.
 ```bash
 cd pipeline
-make smoke      # dependency-free unit tests: E-distance core + signed axis + figure (runs anywhere)
-make figure     # regenerate the target shortlist + all figures
-python brake_enrichment.py  # the honest brake-enrichment null (p=0.70)
-# genome-scale (needs scanpy + the built h5ad on a GPU workstation):
+make smoke                  # dependency-free unit tests (numpy only) — runs anywhere
+# Tier 1 · figures + shortlist, fully offline (no GPU, no download):
+make figure                 # re-render the target shortlist + all figures from the shipped leaderboard
+# Tier 2 · the brake-enrichment null — runs anywhere:
+python brake_enrichment.py  # the honest Mann–Whitney null (p=0.70)
+# Tier 3 · genome-scale signed-axis scoring — needs a GPU workstation + the public built h5ad:
 make direction  DATA=<built.h5ad> LIB=<sgrna_library_metadata.csv> CONTROL=control
 ```
-Fixed seeds; version-pinned `environment.yml` (exact builds via `make lock`); one-command figure regeneration.
+Fixed seeds; version-pinned `environment.yml` (exact builds via `make lock`).
+`make figure` re-renders the figures and shortlist offline from the shipped
+leaderboard; regenerating the genome-scale signed-axis scores themselves is Tier 3
+(GPU + the built h5ad), so the headline genome-scale numbers do not come from one
+offline command.
 
 ## How Claude Science got us there
 Every result is a versioned artifact carrying its exact code, environment, and
@@ -99,7 +107,7 @@ pipeline/
   direction.py             signed effector-vs-dysfunction axis (CD4 + CD8 modules; unit-tested)
   direction_genomescale.py per-cell scoring on the 2.64M-cell build (row-chunked; runs on the DGX)
   merge_direction.py       merge the signed score + tier into the leaderboard
-  figure_causal_map.py     the signed causal map (discovery engine)
+  figure_causal_map.py     the signed causal map (prioritization engine)
   figure_targets.py        the convergent-evidence TARGET matrix (centerpiece)
   figure_evidence.py       donor-consistency scatter + direction distribution
   figure_significance.py   the "significance wall" — why we rank by effect size, not p-value
