@@ -205,7 +205,7 @@
   <span class="eyebrow kicker reveal">The shortlist · five candidate targets</span>
   <h2 class="reveal" style="max-width:22ch">Five candidate targets. Seven lines of evidence each.</h2>
   <p class="lead reveal" style="margin-top:18px">Five candidate T-cell targets rise to the top, each backed by seven independent lines of evidence. A "brake" is a gene whose shutoff pushes a T cell toward a stronger fighting state — the same move checkpoint drugs make. This screen reads transcription, so functional assays are the next step; how ready each target is to drug ranges widely — CBLB inhibitors are already in trials, UBASH3A is undrugged, and SMAD3 is supported at the pathway level. Each candidate is scored across seven independent lines of evidence: how hard its shutoff hits the cell, which way it pushes the cell, consistency across donors, viability, druggability, immune genetics, and clinical precedent.</p>
-  <div class="frame reveal" style="margin-top:38px"><div class="fbar"><span class="fdot"></span><span class="flab">Convergent-evidence matrix</span><span class="fkey">Fig 01</span></div><div class="core"><img src="figures/target_matrix.svg" loading="lazy" decoding="async" alt="Convergent-evidence matrix scoring CBLB, CD5, DGKA, SMAD3, UBASH3A across seven evidence dimensions"/></div></div>
+  <div class="frame reveal" style="margin-top:38px"><div class="fbar"><span class="fdot"></span><span class="flab">Convergent-evidence matrix</span><span class="fkey">Fig 01</span></div><div class="core"><video autoplay muted loop playsinline preload="metadata" poster="figures/target_matrix.png" aria-label="Convergent-evidence matrix scoring CBLB, CD5, DGKA, SMAD3, UBASH3A across seven evidence dimensions" style="display:block;width:100%"><source src="figures/target_matrix_anim.webm" type="video/webm"/><source src="figures/target_matrix_anim.mp4" type="video/mp4"/></video></div></div>
   <p class="cap reveal">Effect, direction, donor consistency and viability are computed from the genome-scale CD4⁺ leaderboard; druggability, immune-genetics and clinical precedent are curated from Open Targets, ChEMBL and ClinicalTrials.gov. Reproduce with <span class="mono">make figure</span>.</p>
   <div class="cands reveal">
     <div class="cand"><span class="g">CBLB</span><span class="t"><b>Translational lead.</b> Rediscovered straight from the raw data — an off-switch on T-cell activation whose inhibitors, NX-1607 and HST-1011, are already in early-phase trials.</span></div>
@@ -242,22 +242,23 @@
 
   <div class="steps reveal">
     <div class="step"><div class="no">01 · MEASURE</div><h4>Measure the hit, not the p-value</h4><p>Rank every knockdown by how hard the gene's shutoff hits the cell — the size of the shift away from control, compared fairly across genes. The standard test lights up for <b>97.5%</b> of the 11,438 tested knockdowns, so significance alone stops telling you anything.</p></div>
-    <div class="step"><div class="no">02 · DIRECT</div><h4>Give every hit a direction</h4><p>Ask which way each shutoff pushes the cell — toward a stronger fighter or a weaker one. All 2.6 million cells are scored in about 40 seconds, and the map flips: the biggest raw effects reveal themselves as machinery the cell needs to survive, while the candidate brakes rise into view.</p></div>
+    <div class="step"><div class="no">02 · DIRECT</div><h4>Give every hit a direction</h4><p>Ask which way each shutoff pushes the cell — toward a stronger fighter or a weaker one. All 2.6 million cells are scored in 38.9 seconds, and the map flips: the biggest raw effects reveal themselves as machinery the cell needs to survive, while the candidate brakes rise into view.</p></div>
     <div class="step"><div class="no">03 · SCORE</div><h4>Demand seven lines of evidence</h4><p>The shortlist is then ranked across <b>seven independent lines of evidence</b> — effect, direction, donor consistency, viability, druggability, immune genetics, clinical precedent. The result is a test-ready order built on convergence, not a one-score guess.</p></div>
   </div>
 
-  <div class="frame reveal" style="margin-top:40px"><div class="fbar"><span class="fdot"></span><span class="flab">Signed causal map</span><span class="fkey">Fig 03</span></div><div class="core"><img src="figures/causal_map.svg" loading="lazy" decoding="async" alt="Signed causal map: causal effect size vs direction of effect; machinery negative, candidate brakes positive"/></div></div>
+  <div class="frame reveal" style="margin-top:40px"><div class="fbar"><span class="fdot"></span><span class="flab">Signed causal map</span><span class="fkey">Fig 03</span></div><div class="core"><video autoplay muted loop playsinline preload="metadata" poster="figures/causal_map.png" aria-label="Signed causal map: causal effect size vs direction of effect; machinery negative, candidate brakes positive" style="display:block;width:100%"><source src="figures/causal_map_anim.webm" type="video/webm"/><source src="figures/causal_map_anim.mp4" type="video/mp4"/></video></div></div>
   <p class="cap reveal">Step 2 in one figure: effect size alone (x) would nominate the T cell's own machinery — 14 of the 15 largest effects are essential machinery. Adding direction (y) reclassifies those top effects as <i>required</i> for survival and lifts the candidate brakes into the upper region.</p>
 
-  <div class="frame reveal" style="margin-top:34px"><div class="fbar"><span class="fdot"></span><span class="flab">Significance vs causal effect</span><span class="fkey">Fig 04</span></div><div class="core"><img src="figures/significance_wall.svg" loading="lazy" decoding="async" alt="Scatter of E-distance vs significance: 97.5% of tested knockdowns clear q<0.05 in a ceiling band; effect size spreads them, machinery at high effect, brakes at modest-to-moderate effect"/></div></div>
+  <div class="frame reveal" style="margin-top:34px"><div class="fbar"><span class="fdot"></span><span class="flab">Significance vs causal effect</span><span class="fkey">Fig 04</span></div><div class="core"><video autoplay muted loop playsinline preload="metadata" poster="figures/significance_wall.png" aria-label="Scatter of E-distance vs significance: 97.5% of tested knockdowns clear q<0.05 in a ceiling band; effect size spreads them, machinery at high effect, brakes at modest-to-moderate effect" style="display:block;width:100%"><source src="figures/significance_wall_anim.webm" type="video/webm"/><source src="figures/significance_wall_anim.mp4" type="video/mp4"/></video></div></div>
   <p class="cap reveal">Step 1, at scale: nearly every tested knockdown clears significance — 9,802 of the 11,438 pile up at the floor of the test. Only effect size — how hard each shutoff hits the cell — spreads the biology apart, which is why we rank by it.</p>
 
   <h3 class="reveal" style="font-family:var(--disp);font-size:20px;color:var(--ink);margin-top:52px;letter-spacing:-.01em">The computational work behind it</h3>
   <div class="rigor reveal">
-    <div class="row"><div class="k2">Effect size, not p-value</div><div class="v">97.5% of the 11,438 tested knockdowns clear the significance gate, leaving them nearly tied. So we rank by how hard each gene's shutoff hits the cell — an effect size (energy distance) measured at a common cell count so genes compare fairly — and use the 1,000-permutation test only as a gate.</div></div>
-    <div class="row"><div class="k2">It caught its own bug</div><div class="v">The first effect-size math was subtly wrong: a pure null scored <b>~5 instead of 0 at n = 40</b>, a sample-size bias that would have corrupted the whole ranking. An adversarial self-critique reproduced it in-sandbox; we switched to the unbiased formula (off-diagonal <b>U-statistic</b>), and the corrected null now sits at zero (checked by <span class="mono">make smoke</span>).</div></div>
-    <div class="row"><div class="k2">Genome-scale, fast</div><div class="v">The direction score ran across all <b>2,638,736 cells</b> on an NVIDIA DGX Spark (GB10) in <b>~40 s</b>; the effect-size ranking ran on 2.44 M cells after quality control, with scVI donor integration.</div></div>
-    <div class="row"><div class="k2">Reproducible</div><div class="v"><span class="mono">make smoke</span> reproduces the dependency-free core anywhere; <span class="mono">make figure</span> regenerates every figure and the interactive dataset. Fixed seeds, version-pinned environment.</div></div>
+    <div class="row"><div class="k2">Effect size, not p-value</div><div class="v"><b>97.5%</b> of the 11,438 tested knockdowns clear the significance gate, and <b>9,802</b> pile up at the exact permutation floor — significance can't separate them. So Brakepoint ranks by how hard each shutoff hits the cell: a power-equalized effect size (energy distance) computed on a <b>scVI donor-integrated</b> embedding, with every perturbation subsampled to a common cell count so genes compare fairly across coverage. The 1,000-permutation test is used only as a gate. Effect size was computed on <b>2,436,881 post-QC cells</b>.</div></div>
+    <div class="row"><div class="k2">A direction for every hit</div><div class="v">The direction axis is precise: each cell scores its effector program minus its dysfunction program. Effector module (16 genes): <span class="mono">IFNG, IL2, TNF, CSF2, GZMB, TNFRSF9, CD69, IRF4, BATF, TBX21</span> and more. Dysfunction/exhaustion module (13 genes): <span class="mono">PDCD1, CTLA4, LAG3, HAVCR2, TIGIT, TOX, NR4A1</span> and more. <b>Up = stronger fighter; down = exhausted.</b></div></div>
+    <div class="row"><div class="k2">Genome-scale, fast</div><div class="v">The direction score ran across all <b>2,638,736 cells</b> on an NVIDIA DGX Spark (GB10) via Claude Science in <b>38.9 seconds</b>.</div></div>
+    <div class="row"><div class="k2">It caught its own bug</div><div class="v">The first effect-size math was subtly wrong: a pure null scored <b>~5 instead of 0 at n = 40</b>, a sample-size bias that would have corrupted the whole ranking. An adversarial self-critique reproduced it in-sandbox, then switched to the unbiased formula (off-diagonal <b>U-statistic</b> in place of the biased V-statistic). The corrected null now sits at zero, checked by <span class="mono">make smoke</span>.</div></div>
+    <div class="row"><div class="k2">Reproducible</div><div class="v">Fixed seed, version-pinned environment, three one-command tiers: <span class="mono">make smoke</span> runs the dependency-free core anywhere, <span class="mono">make figure</span> rebuilds every figure offline, and <span class="mono">make direction</span> runs the genome-scale score on GPU. A reviewer agent checks each claim against what actually ran.</div></div>
   </div>
 </div></section>
 
@@ -286,7 +287,29 @@
   <span class="eyebrow kicker reveal">Why Brakepoint · vs traditional discovery</span>
   <h2 class="reveal" style="max-width:22ch">Find the brake, not just the change.</h2>
   <p class="lead reveal" style="margin-top:18px">Every column below is a genuine tool, and Brakepoint <b>uses</b> several of them as evidence layers. But for the specific job — finding a <i>druggable brake whose shutoff makes a T cell a stronger fighter</i> — each leaves a blind spot. Brakepoint fills it by reading impact, direction, and converging evidence together.</p>
-  <div class="tblcard reveal"><div class="tblwrap"><table class="cmp">
+  <div class="lead-card reveal" style="margin-top:30px">
+    <div class="in" style="padding:28px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px">
+        <div style="padding-left:18px;border-left:4px solid var(--amber)">
+          <div class="mono" style="font-family:var(--disp);font-size:46px;font-weight:700;line-height:1;color:var(--amber-dk);letter-spacing:0">18 of 20</div>
+          <div style="margin-top:10px;font-size:15px;line-height:1.55;color:var(--body)">Rank by effect size alone and the top hits are the cell's own essential TCR-signaling machinery — genes a T cell can't live without. Top 15: <b style="color:var(--ink)">14 of 15</b>. That's about <b style="color:var(--ink)">90% wrong</b> for target discovery.</div>
+        </div>
+        <div style="padding-left:18px;border-left:4px solid var(--teal)">
+          <div class="mono" style="font-family:var(--disp);font-size:46px;font-weight:700;line-height:1;color:var(--teal-dk);letter-spacing:0">−0.43</div>
+          <div style="margin-top:10px;font-size:15px;line-height:1.55;color:var(--body)">The mean direction of that top 20 sits deep in the essential zone. <b style="color:var(--ink)">A naive hit list hands you genes you must never inhibit.</b></div>
+        </div>
+      </div>
+      <p style="margin-top:24px;padding-top:22px;border-top:1px solid var(--line);font-size:17px;line-height:1.6;color:var(--body)">Add the signed direction axis and every one of those machinery genes flags negative and drops out. The real candidates surface: <b style="color:var(--teal-dk);font-family:var(--disp);font-size:22px">2,016</b> knockdowns push the cell toward a stronger fighter, and <b style="color:var(--teal-dk);font-family:var(--disp);font-size:22px">1,286</b> of them do it consistently in both donors. <b style="color:var(--ink)">Traditional pipelines can't even see this search space.</b></p>
+    </div>
+  </div>
+  <figure class="reveal" style="margin:30px 0 0">
+    <div class="frame">
+      <div class="fbar"><span class="fdot"></span><span class="flab">Naive ranking vs signed axis</span><span class="fkey">Fig 06</span></div>
+      <div class="core"><img src="figures/naive_vs_signed.png" loading="lazy" decoding="async" alt="A naive effect-size ranking dominated by essential TCR machinery compared with the signed axis, which removes the machinery and surfaces candidate brakes"/></div>
+    </div>
+    <figcaption class="cap">A naive effect-size ranking is about 90% essential machinery; the signed axis flags all of it and surfaces the candidate brakes.</figcaption>
+  </figure>
+  <div class="tblcard reveal" style="margin-top:32px"><div class="tblwrap"><table class="cmp">
     <thead><tr><th>Traditional approach</th><th>What it gives</th><th>Blind spot for finding brakes</th><th>Brakepoint's edge</th></tr></thead>
     <tbody>
       <tr><td class="m">Differential expression</td><td>correlated markers of a cell state</td><td>correlation ≠ causation — can't tell a driver from a passenger</td><td class="edge">measures what a <b>knockdown does</b> (CRISPRi vs control), genome-wide</td></tr>
@@ -301,7 +324,7 @@
 
 <!-- ROBUST / honesty -->
 <section class="pad" id="robust" style="background:#f4f4ef"><div class="wrap split">
-  <figure class="reveal" style="margin:0"><div class="frame"><div class="fbar"><span class="fdot"></span><span class="flab">Per-donor consistency</span><span class="fkey">Fig 05</span></div><div class="core"><img src="figures/donor_consistency.png" loading="lazy" decoding="async" alt="Per-donor direction of effect; consistent brakes vs donor-split candidates"/></div></div></figure>
+  <figure class="reveal" style="margin:0"><div class="frame"><div class="fbar"><span class="fdot"></span><span class="flab">Per-donor consistency</span><span class="fkey">Fig 05</span></div><div class="core"><video autoplay muted loop playsinline preload="metadata" poster="figures/donor_consistency.png" aria-label="Per-donor direction of effect; consistent brakes vs donor-split candidates" style="display:block;width:100%"><source src="figures/donor_consistency_anim.webm" type="video/webm"/><source src="figures/donor_consistency_anim.mp4" type="video/mp4"/></video></div></div></figure>
   <div class="reveal">
     <span class="eyebrow kicker">Rigor · what the data supports</span>
     <h2 style="max-width:18ch">Two donors establish the map. Four sharpen it.</h2>

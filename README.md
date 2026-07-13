@@ -4,7 +4,7 @@
 
 **Brakepoint is a genome-scale discovery engine for the next generation of cancer-immunotherapy drug targets.** The best cancer immunotherapies cut the brakes off a patient's T cells. Only a handful of those brakes have ever been drugged. Brakepoint goes after the rest, reading an experiment spanning **2,638,736 single human T cells** and **12,449 gene knockdowns** to find the brakes worth testing. The result is a reproducible pipeline of five candidate targets and a blueprint for AI-native drug discovery.
 
-**[Video walkthrough](deliverables/brakepoint_video.mp4)** · [Captions](deliverables/brakepoint_video.vtt) · [Slides](deliverables/brakepoint_slides.pptx) · [Script](deliverables/brakepoint_video_script.md) · [Interactive explorer of all 11,438 tested knockdowns](deliverables/index.html) · [Written summary](deliverables/summary.md)
+**[Video walkthrough](deliverables/brakepoint_video.mp4)** · [Captions](deliverables/brakepoint_video.vtt) · [Slides](deliverables/brakepoint_slides.pptx) · [Script](deliverables/brakepoint_video_script.md) · [Interactive explorer of all 11,438 tested knockdowns](deliverables/index.html) · [Written summary](deliverables/summary.md) · [Methods deep-dive](pipeline/METHODS.md)
 
 ![Brakepoint target matrix: five candidate T-cell brakes across seven evidence axes](deliverables/figures/target_matrix.png)
 
@@ -30,32 +30,36 @@ The readout is transcriptional. Brakepoint nominates candidate targets for funct
 
 **Brakepoint tells a drug-target candidate apart from machinery the T cell needs to survive and fight.**
 
-For every gene knockdown, it asks two questions:
+For every one of the 12,449 gene knockdowns, it asks two questions:
 
-1. **How hard did the shutoff hit the cell?** This measures the total change in cell state across the experiment.
-2. **Which way did it push the cell?** This measures whether the cells moved toward a stronger fighter program or a weaker one.
+1. **How hard did the shutoff hit the cell?** Brakepoint measures the full shift in cell state between a knockdown's cells and untouched controls, inside a single donor-integrated map of the data (a power-equalized energy distance on a scVI latent space). Every knockdown is compared at a matched cell count, so a gene captured in millions of cells and a gene captured in a few hundred are ranked on the same footing.
+2. **Which way did it push the cell?** Brakepoint scores each cell on one signed axis — a 16-gene fighter program (IFNG, IL2, TNF, GZMB, TBX21, …) minus a 13-gene exhaustion program (PDCD1, CTLA4, LAG3, TOX, …) — and asks whether switching the gene off moved cells toward the stronger state or the weaker one.
 
-Together, those answers reveal both the size and the meaning of every effect. A large shift toward a weaker state marks required machinery. A shift toward a stronger state puts the gene into the candidate-brake search space.
+Together, those answers reveal both the size and the meaning of every effect. A large shift toward a weaker fighter state marks machinery the cell needs. A shift toward a stronger state drops the gene into the candidate-brake search space — **2,016 of the 11,438 tested knockdowns push that way, 1,286 of them consistently across both donors.** That signed search space is the part of the genome a traditional pipeline never sees.
 
-Brakepoint keeps statistical significance as a minimum check, filters for cell fitness and knockdown quality, records donor agreement, and then adds public evidence from genetics, drug discovery, and clinical development. Every candidate remains traceable to the evidence supporting it.
+Brakepoint keeps statistical significance as a minimum check, filters for cell fitness and knockdown quality, records donor agreement, and then reads public evidence from genetics, drug discovery, and clinical development across seven convergent axes. Every candidate remains traceable to the evidence supporting it.
 
-The engine also attacks its own conclusions. An adversarial self-critique challenges the math, while a provenance reviewer checks every claim against the code and outputs that actually ran.
+The engine also attacks its own conclusions. An adversarial self-critique challenges the math — it caught and fixed a real bug in the effect-size calculation before it could reach a result — while a provenance reviewer checks every claim against the code and outputs that actually ran. The full walkthrough is in [`pipeline/METHODS.md`](pipeline/METHODS.md).
 
 ## Why it beats the usual approach
 
 **Genome-scale data breaks conventional target ranking. Brakepoint restores the signal.**
 
-The standard significance test lights up for almost everything: **about 97.5% of the 11,438 tested knockdowns clear q < 0.05**. When nearly the entire genome looks significant, significance can no longer identify the targets that matter.
+The standard significance test lights up for almost everything: **97.5% of the 11,438 tested knockdowns (11,149) clear q < 0.05, and 9,802 of them pile at the exact floor the permutation test can return.** When nearly the entire genome is "significant" and thousands of genes tie at the same p-value, significance can no longer identify the targets that matter.
 
-Effect size alone also fails. It finds genes with enormous consequences, but **8 of the 9 largest effects are the T cell's own TCR machinery**. A huge effect does not tell you whether blocking the gene strengthens the cell or cripples it.
+Effect size alone fails the other way. Rank the top 20 knockdowns by raw effect size and **18 of them push the cell toward a weaker fighter state when switched off** (mean direction −0.43); of the top 15, 14 are negative. **The 8 of the 9 very largest effects are the T cell's own TCR-signaling core** — ZAP70, LCP2, CD3E/D/G, PLCG1, LAT, VAV1 — genes a T cell cannot live without. A naive hit list hands you the genes you must never inhibit.
 
-Brakepoint fixes both failures:
+Brakepoint fixes both failures at once:
 
-- **Effect size ranks impact; significance remains a quality gate.**
-- **Direction separates candidate brakes from essential T-cell machinery.**
+- **Effect size ranks impact; significance is demoted to a quality gate.**
+- **Direction separates candidate brakes from essential T-cell machinery.** The machinery genes all flag strongly negative and donor-consistent; the candidate brakes rise into the positive quadrant — a search space of **2,016 knockdowns (1,286 donor-consistent)** that unsigned methods can't resolve.
 - **Donor agreement, fitness, knockdown quality, and external evidence turn a signal into a testable target case.**
 
-The pipeline then stress-tested its own foundation. A self-critique pass exposed a real sample-size-dependent bias in the effect-size math, reproduced the failure, fixed it, and locked the correction behind regression tests before the final conclusion. The full record is in [`pipeline/WAR_LOG.md`](pipeline/WAR_LOG.md).
+Every traditional alternative has a blind spot Brakepoint fills: differential expression finds correlations, not causal or directional calls; GWAS points to loci, rarely to a cell type or a direction; significance- and DE-count rankings are unsigned; bulk viability screens can't tell "kills the cell" from "makes a better fighter."
+
+![Ranking by raw effect size points straight at essential T-cell machinery; adding the signed direction axis drops the machinery out and surfaces the candidate brakes](deliverables/figures/naive_vs_signed.png)
+
+The pipeline then stress-tested its own foundation. A self-critique pass exposed a real sample-size-dependent bias in the effect-size math — a biased V-statistic whose within-group terms included the zero self-distance diagonal, inflating small-sample effects enough that a pure-null 40-cell knockdown could outrank a real hit — then reproduced the failure, switched to the unbiased U-statistic, and locked the correction behind a regression test before the final conclusion. The full record is in [`pipeline/WAR_LOG.md`](pipeline/WAR_LOG.md); the end-to-end methods are in [`pipeline/METHODS.md`](pipeline/METHODS.md).
 
 ## How Claude Science powered it
 
@@ -92,7 +96,7 @@ make direction \
   CONTROL=control
 ```
 
-The full run uses fixed seeds and the pinned environment in [`pipeline/environment.yml`](pipeline/environment.yml). It produces the ranked perturbation table, per-target direction scores, run metadata, and every judge-facing figure.
+The full run uses a fixed seed (0) and the pinned environment in [`pipeline/environment.yml`](pipeline/environment.yml). Effect sizes are computed on the donor-integrated scVI latent across **2,436,881 QC-passing cells** (from 2,638,736 raw) and gated by a **1,000-permutation** E-test; the signed direction axis scores all **2,638,736 cells in 38.9 seconds** on an NVIDIA DGX Spark. It produces the ranked perturbation table, per-target direction scores, run metadata, and every judge-facing figure. The step-by-step method — data, QC, both axes, the seven-axis scoring, and the self-caught bug — is documented in [`pipeline/METHODS.md`](pipeline/METHODS.md).
 
 **Current analysis boundary:** this submission uses **D1 + D2 at Stim 8 h, two of the four available donors**. The broad curated set of 29 known brakes is not statistically enriched in the positive quadrant against the matched two-donor background (**one-sided Mann-Whitney p = 0.70**). That result is inconclusive at two donors; the full four-donor analysis is the scale-up that sharpens the test. Individual literature brakes **CD5, DGKA, and SMAD3** still land positive as consistency checks.
 
@@ -121,6 +125,7 @@ pipeline/
   Makefile
   environment.yml
   LICENSE                    MIT license
+  METHODS.md                 end-to-end methods walkthrough
   SOURCES.md
   WAR_LOG.md
   real-finding-genomescale.md
