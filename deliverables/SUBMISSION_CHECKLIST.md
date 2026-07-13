@@ -13,7 +13,7 @@ item under **NEEDS SAM** is the one human-only step.
       `significance_wall` (why effect size, not p-value), `donor_consistency`,
       `direction_dist` (+ `brakepoint_onepager.png`). Rendered from real data by
       `pipeline/figure_*.py`; categorical palette validated colorblind-safe.
-- [x] **Demo video — narrated motion-graphics, 1080p, ~2:57** — `deliverables/demo.mp4`
+- [x] **Demo video — narrated motion-graphics, 1080p, ~2:54** — `deliverables/demo.mp4`
       (11-scene **Remotion** build): animated signed causal map, a significance-wall
       beat, **a live screen-recording of the interactive explorer**, a vs-traditional
       comparison, the target shortlist and donor plots, and a result-first close, with
@@ -33,7 +33,7 @@ item under **NEEDS SAM** is the one human-only step.
       shortlist, the CBLB lead, a 3-step "how it works" engine, the interactive
       explorer, a "vs traditional discovery" comparison, the honest rigor section, the
       demo video, and the reproduce block. Root `/index.html` redirects to it.
-- [x] **Written summary (100–200 words)** — `deliverables/summary.md` (**187 words**).
+- [x] **Written summary (100–200 words)** — `deliverables/summary.md` (**192 words**, `wc -w`).
 - [x] **Open-source pipeline** — `pipeline/` (MIT), one-command reproduce
       (`make smoke` anywhere; `make figure` regenerates every figure).
 - [x] **Honesty pass (multi-round, Codex-reviewed)** — "candidate" not blanket
@@ -50,11 +50,11 @@ item under **NEEDS SAM** is the one human-only step.
 ## NEEDS SAM (the one human-only step)
 - [ ] **Submit on the CV platform** before Mon 21:00 ET — attach `demo.mp4`
       (or the DEMO_URL landing page), the repo URL, and the summary
-      (`deliverables/summary.md`, 187 words). This is the only step an agent can't
+      (`deliverables/summary.md`, 192 words). This is the only step an agent can't
       do (no platform credentials).
 
 ## Optional (the submission already stands on its own)
 - [ ] Re-record the voiceover in **your own voice** (or a premium TTS) if you prefer
-      it to edge-tts — `demo_deck.pptx` / `demo_script.md` have the verbatim script.
+      it to the F5-TTS voice — `demo_deck.pptx` / `demo_script.md` have the verbatim script.
 - [ ] Pull the provided **DESeq2 DE result** (CZI VCP) to corroborate the ranking;
       run the full **4-donor / Stim-48 h** cohort to firm up the donor-split brakes.

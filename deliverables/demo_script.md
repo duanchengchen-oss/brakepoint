@@ -1,7 +1,7 @@
 # Demo video — narration script (target discovery)
 
 **The submission video is complete and narrated:** `deliverables/demo.mp4`
-(1920×1080, **~2:57**, an **11-scene Remotion motion-graphics build** — animated
+(1920×1080, **~2:54**, an **11-scene Remotion motion-graphics build** — animated
 signed causal map, a significance-wall beat, a **live screen-recording of the
 interactive explorer**, a vs-traditional comparison, target-shortlist and
 donor-consistency plots, and a result-first close). The voiceover is a **natural

@@ -4,7 +4,7 @@
 
 ## PRIMARY (submit this) — narrated motion-graphics build, local + reproducible
 deliverables/demo.mp4
-  1920x1080, ~2:57, 11-scene Remotion build (animated signed causal map,
+  1920x1080, ~2:54, 11-scene Remotion build (animated signed causal map,
   significance-wall beat, a live screen-recording of the interactive explorer,
   vs-traditional comparison, target shortlist + donor plots, result-first close)
   with a synced natural human-voice narration (F5-TTS open-source voice model,

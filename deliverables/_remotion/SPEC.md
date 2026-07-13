@@ -57,7 +57,7 @@ Study `src/scenes/Title.tsx` for the exact pattern (Bg + Eyebrow + Spacer + Word
 - Heading (`Words`, ~64): "The positive quadrant — **reported honestly**." (`reported honestly` amber).
 - Three `Bullet`s (delays ~30/60/90):
   1. (amber) Known brakes **CD5, DGKA** land here and are donor-consistent — a consistency check.
-  2. (teal) But at two donors the quadrant is **not yet enriched** for a known-brake set (Mann–Whitney p = 0.56); its strongest raw hits include likely artifacts.
+  2. (teal) But at two donors the quadrant is **not yet enriched** for a known-brake set (Mann–Whitney p = 0.70); its strongest raw hits include likely artifacts.
   3. (teal) So the positive side is an honest, prioritized **hypothesis space** for the full four-donor cohort — the validated result is the machinery axis.
 
 ### Close.tsx (≈337 frames)
