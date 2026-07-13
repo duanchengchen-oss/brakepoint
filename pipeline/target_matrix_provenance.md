@@ -1,6 +1,8 @@
 # Target-matrix score provenance (`figure_targets.py`)
 
-The convergent-evidence matrix is a **curated evidence summary (0–1 per axis), not a
+The convergent-evidence matrix reads **seven independent lines of evidence** for each
+candidate at a glance — four measured in the public Marson/Pritchard CD4⁺ T-cell screen,
+three curated from public dossiers. It is a **curated evidence summary (0–1 per axis), not a
 fitted or weighted model**, and not a computed rank. This file documents the basis of
 every score so each cell is traceable. Four axes are **data-derived** from the genome-
 scale leaderboard (`outputs_gladstone/ranked_perturbations.csv`); three are **curated**

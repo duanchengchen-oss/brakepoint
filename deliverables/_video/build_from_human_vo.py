@@ -68,13 +68,17 @@ def main() -> None:
     # regenerate captions to the new timing
     subprocess.run([sys.executable, str(HERE / "gen_vtt.py")], check=True)
 
-    # render + install
-    print("rendering (Remotion)…")
+    # render + install (SCALE=2 → 3840x2160 4K; CRF lower = higher quality; both env-overridable)
+    import os
+    scale = os.environ.get("SCALE", "2")
+    crf = os.environ.get("CRF", "19")
+    conc = os.environ.get("CONC", "4")
+    print(f"rendering (Remotion) scale={scale} crf={crf}…")
     subprocess.run(["npx", "remotion", "render", "BrakepointVideo", "out/video.mp4",
-                    "--concurrency", "4"], cwd=REMOTION, check=True)
+                    "--scale", scale, "--crf", crf, "--concurrency", conc], cwd=REMOTION, check=True)
     shutil_out = REMOTION / "out" / "video.mp4"
-    (HERE.parent / "demo.mp4").write_bytes(shutil_out.read_bytes())
-    print("done -> deliverables/demo.mp4 (human voiceover)")
+    (HERE.parent / "brakepoint_video.mp4").write_bytes(shutil_out.read_bytes())
+    print("done -> deliverables/brakepoint_video.mp4 (human voiceover)")
 
 
 if __name__ == "__main__":

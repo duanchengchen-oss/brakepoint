@@ -10,7 +10,7 @@ any TTS — and it's a 5-minute job:
    quiet room, hold a steady pace, leave ~0.3 s of silence at the start/end).
 2. Run: `python deliverables/_video/build_from_human_vo.py`
    That copies your clips in, recomputes the per-scene timing, rebuilds the
-   captions, and re-renders `demo.mp4` — one command, no other edits needed.
+   captions, and re-renders `brakepoint_video.mp4` — one command, no other edits needed.
 
 Read naturally, like explaining it to a smart colleague. Gene names are spelled
 phonetically in brackets only as a hint — say them normally.

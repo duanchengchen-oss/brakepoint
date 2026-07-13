@@ -2,7 +2,9 @@
 
 **Deliverable:** five **prior-informed, literature-supported candidate brakes** on
 human CD4⁺ T-cell effector function — **CBLB, CD5, DGKA, SMAD3, UBASH3A** —
-**re-ranked by a genome-scale CRISPRi screen**, not discovered de novo. Druggability
+**prioritized by a computational re-analysis of the public Marson (Gladstone) +
+Pritchard (Stanford) genome-scale CD4⁺ T-cell CRISPRi screen** (prior-informed and
+re-ranked by the screen, not discovered de novo). Druggability
 varies and is *not* uniform: CBLB/DGKA have clinical-stage inhibitors, CD5 is a
 cell-surface protein addressed to date only as a CAR/deletion (a different modality),
 SMAD3 is a **pathway-level** node, and UBASH3A is **undrugged** (genetics-led, no
@@ -46,8 +48,8 @@ evidence of no effect), so it is a prioritized space for the full cohort, not a 
 target list.
 
 ## The run
-- **Data:** genome-scale CRISPRi Perturb-seq, **primary human CD4⁺ T cells** (Marson lab
-  / Gladstone; CZI Virtual Cells Platform, dataset `genome-scale-tcell-perturb-seq`;
+- **Data:** genome-scale CRISPRi Perturb-seq, **primary human CD4⁺ T cells** (Marson lab,
+  Gladstone, with the Pritchard lab, Stanford; CZI Virtual Cells Platform, dataset `genome-scale-tcell-perturb-seq`;
   bioRxiv 10.64898/2025.12.23.696273). Build `GWCD4i_Stim8hr_D1D2.built.h5ad`, donors
   **D1 + D2**, condition **Stim 8 h**. Control = non-targeting guides (`control`).
 - **Scale:** dataset **2,638,736 cells** × **4,816 measured HVGs** (Ensembl `var_names`);

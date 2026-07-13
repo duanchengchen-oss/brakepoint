@@ -1,16 +1,16 @@
-# DEMO VIDEO — source of truth
+# VIDEO WALKTHROUGH — source of truth
 # Built with Claude: Life Sciences (research track) · "Brakepoint"
 # Last verified: 2026-07-13 (results-watcher run)
 
 ## PRIMARY (submit this) — narrated motion-graphics build, local + reproducible
-deliverables/demo.mp4
-  1920x1080, ~2:54, 11-scene Remotion build (animated signed causal map,
+deliverables/brakepoint_video.mp4
+  3840x2160 (4K), ~2:55, 11-scene Remotion build (animated signed causal map,
   significance-wall beat, a live screen-recording of the interactive explorer,
   vs-traditional comparison, target shortlist + donor plots, result-first close)
   with a synced natural human-voice narration (F5-TTS open-source voice model,
-  cloned from a reference sample and rendered on the NVIDIA DGX Spark; naturalness
-  UTMOS ~4.3; gene pronunciations Whisper-verified). Per-sentence styled captions.
-  Captions: deliverables/demo.vtt   Source: deliverables/_remotion/ (npm i && npm run render)
+  rendered on the NVIDIA DGX Spark; naturalness UTMOS ~4.3; phrasing/pronunciation
+  hand-tuned; gene pronunciations Whisper-verified). Per-sentence styled captions.
+  Captions: deliverables/brakepoint_video.vtt   Source: deliverables/_remotion/ (npm i && npm run render)
   Committed to the repo and embedded in the landing page (deliverables/index.html #demo).
 
 ## HOSTED (alternative to attach) — landing page with the embedded player
@@ -23,9 +23,9 @@ https://duanchengchen-oss.github.io/brakepoint/deliverables/
   https://files2.heygen.ai/aries/output/3a8adaa1-fbcf-4275-923e-a042bd7c8e55/video.mp4
   Note: this HeyGen cut is a silent 80.9s auto-composition that finished with 21
   lint errors and validation skipped — kept only as free b-roll insurance. The
-  Remotion demo.mp4 above is the real submission video (narrated, higher quality,
+  Remotion brakepoint_video.mp4 above is the real submission video (narrated, higher quality,
   reproducible). Do NOT submit the HeyGen cut.
 
 ## NEEDS SAM
   Final submission click on the CV platform is the only remaining human-only step
-  (attach demo.mp4 or the hosted landing URL + repo + summary.md).
+  (attach brakepoint_video.mp4 or the hosted landing URL + repo + summary.md).

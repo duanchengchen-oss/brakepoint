@@ -31,9 +31,14 @@ export const Close: React.FC = () => {
         Explore the live map · clone the repo · help find the brakes today's drugs still miss.
       </div>
       <Spacer />
-      <div style={{...foot, display: 'flex', alignItems: 'center', gap: 14, fontFamily: disp, fontSize: 26, color: C.ink, fontWeight: 600}}>
-        <div style={{width: 24, height: 24, borderRadius: 7, background: 'conic-gradient(from 210deg, #0d9488, #d97a12)'}} />
-        Brakepoint · Built with Claude Science.
+      <div style={{...foot}}>
+        <div style={{display: 'flex', alignItems: 'center', gap: 14, fontFamily: disp, fontSize: 26, color: C.ink, fontWeight: 600}}>
+          <div style={{width: 24, height: 24, borderRadius: 7, background: 'conic-gradient(from 210deg, #0d9488, #d97a12)'}} />
+          Brakepoint · Built with Claude Science.
+        </div>
+        <div style={{fontSize: 21, color: C.mut, marginTop: 12, marginLeft: 38}}>
+          Chengchen (Sam) Duan · duanchengchen@gmail.com · github.com/duanchengchen-oss
+        </div>
       </div>
     </Bg>
   );

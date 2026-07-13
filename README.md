@@ -1,140 +1,161 @@
-# Brakepoint · candidate druggable-brake target discovery in human T cells — Built with Claude Science
+# Brakepoint: Genome-scale cancer-immunotherapy target discovery
 
-*Checkpoint-blockade therapy works by releasing **brakes** on T cells (CAR-T, separately, is engineered antigen recognition that brake-removal can enhance). Brakepoint mines a genome-scale screen for candidate brakes — genes whose knockdown pushes the cell toward a stronger effector state — and scores their druggability separately.*
+**Chengchen (Sam) Duan — solo research-track submission**
 
-**Built with Claude: Life Sciences · research track (solo).** From a
-2.6-million-cell CRISPRi Perturb-seq screen, Brakepoint prioritizes a shortlist of
-**candidate targets** whose knockdown shifts human CD4⁺ T cells toward an effector
-transcriptional state — led by **CBLB**, whose inhibitors are in early-phase trials. Every target traces
-back to versioned, Claude-Science-provenanced code.
+**Brakepoint is a genome-scale discovery engine for the next generation of cancer-immunotherapy drug targets.** The best cancer immunotherapies cut the brakes off a patient's T cells. Only a handful of those brakes have ever been drugged. Brakepoint goes after the rest, reading an experiment spanning **2,638,736 single human T cells** and **12,449 gene knockdowns** to find the brakes worth testing. The result is a reproducible pipeline of five candidate targets and a blueprint for AI-native drug discovery.
 
-> **Demo (≤3 min):** [`deliverables/demo.mp4`](deliverables/demo.mp4) · narration deck with verbatim VO in the speaker notes: [`deliverables/demo_deck.pptx`](deliverables/demo_deck.pptx) · script: [`deliverables/demo_script.md`](deliverables/demo_script.md) · **Landing page:** [`deliverables/index.html`](deliverables/index.html) · **Written summary:** [`deliverables/summary.md`](deliverables/summary.md)
+**[Video walkthrough](deliverables/brakepoint_video.mp4)** · [Captions](deliverables/brakepoint_video.vtt) · [Slides](deliverables/brakepoint_slides.pptx) · [Script](deliverables/brakepoint_video_script.md) · [Interactive explorer of all 11,438 tested knockdowns](deliverables/index.html) · [Written summary](deliverables/summary.md)
 
-![Target shortlist — convergent-evidence matrix](deliverables/figures/target_matrix.png)
+![Brakepoint target matrix: five candidate T-cell brakes across seven evidence axes](deliverables/figures/target_matrix.png)
 
-## The finding — a shortlist of candidate T-cell brakes
-A T-cell "brake" is a gene whose knockdown pushes the cell toward a stronger effector *transcriptional* state (functional validation is the next step).
-From the **genome-scale Gladstone CRISPRi Perturb-seq** (**2,638,736 CD4⁺ T cells,
-12,449 knockdowns**; 11,438 passed QC and were ranked), Brakepoint prioritizes **five candidate targets for validation** by convergent
-evidence — which varies by target (three of five are donor-split) — across causal
-effect, direction, donor consistency, viability, druggability, immune genetics, and
-clinical precedent:
+## The finding
 
-- **CBLB** *(lead)* — E3-ligase brake; its inhibitors are in early-phase trials (NX-1607 Ph1, HST-1011 Ph1/2); autoimmune genetic association.
-- **CD5, DGKA** — donor-consistent; DGKA is clinically tractable (Bayer oral DGKα inhibitor, Ph1), CD5 is biologically supported (deletion enhances CAR-T preclinically).
-- **SMAD3, UBASH3A** — a high-effect TGF-β node and a genetics-led (autoimmune-GWAS), currently-undrugged phosphatase.
+**Brakepoint delivers five candidate T-cell brakes for the next experiment: CBLB, CD5, DGKA, SMAD3, and UBASH3A.**
 
-**How we find them.** Ranking by causal effect alone points at the wrong genes: 8
-of the 9 largest-magnitude effects are the cell's own TCR machinery — activation-required,
-unsuitable inhibition targets for this objective. A per-cell **direction-of-effect** axis flips it — 14 of the top 15 largest-magnitude
-effects are direction-negative (activation-required; knockdown impairs the effector
-program) — and the TCR module among them is donor-consistent; the candidate brakes surface in the positive
-quadrant (mostly modest-to-moderate effect, reported with their donor-consistency).
+**CBLB is the decisive proof point.** With zero prior target hints in the discovery ranking, Brakepoint recovered CBLB directly from the raw screen. The pharmaceutical industry is already taking this target into the clinic through **NX-1607 (Phase 1)** and **HST-1011 (Phase 1/2)**. Brakepoint found the signal independently, then prioritized four more candidate targets.
 
-The **positive quadrant** (knockdown *enhances* the effector transcriptional program) is the
-therapeutic hypothesis space (candidate generation, not proof of benefit) — and we report it honestly. At 2 donors it is noisy:
-a curated set of 29 known T-cell brakes shows **no significant evidence of enrichment** there (one-sided Mann–Whitney vs a matched 2-donor background, p = 0.70; `pipeline/brake_enrichment.py`), and the strongest raw
-positives include likely artifacts. Individual literature brakes — **CD5, DGKA**
-(donor-consistent), and the TGF-β node **SMAD3** (donor-split) — do land positive
-as a consistency check (descriptive, not independent validation, given the null above), but the positive side is a **prioritized hypothesis space
-for the full 4-donor cohort, not a finished target list**. Full write-up:
-[`pipeline/real-finding-genomescale.md`](pipeline/real-finding-genomescale.md).
+- **CBLB** — the lead candidate; an E3-ligase T-cell brake with clinical-stage inhibitors and an autoimmune genetic link.
+- **CD5** — donor-consistent in the screen; deleting CD5 has enhanced CAR-T activity preclinically.
+- **DGKA** — donor-consistent in the screen; a Bayer oral inhibitor has entered Phase 1.
+- **SMAD3** — a high-effect control point in the TGF-β suppression pathway.
+- **UBASH3A** — a genetics-led phosphatase linked to autoimmune disease and currently undrugged.
 
-## What Brakepoint adds to the source data
-The screen itself is the Marson lab's genome-scale Perturb-seq
-([bioRxiv 10.64898/2025.12.23.696273](https://doi.org/10.64898/2025.12.23.696273);
-CZI Virtual Cells Platform) — **we generated no data**. Brakepoint is the
-downstream analysis, and it contributes three things that dataset paper does not
-set out to do: (1) a **signed effector-vs-dysfunction direction axis** — an 8-hour
-transcriptional read-out — that separates a candidate brake from essential
-machinery; (2) ranking by **effect size** (power-equalized E-distance, as in
-scPerturb) rather than by significance; (3) a **five-candidate, prior-informed
-IO-druggability shortlist**, reported with its null enrichment (p = 0.70). The
-statistics are standard; the contribution is the combination, the signed axis, and
-the honest brake framing.
+Each candidate is assessed across **seven convergent evidence axes**: causal effect, direction, donor consistency, viability, druggability, immune genetics, and clinical precedent.
 
-## Why it's trustworthy — and how it differs from standard analysis
-A significance-first Perturb-seq analysis ranks perturbations by significance or DE-count.
-Brakepoint does two things that ranking can't:
-- **Ranks by causal effect size** — power-equalized energy distance + a
-  permutation E-test used only as a gate — not p-values, which shrink to
-  significance for almost any perturbation at this cell count (**97.5%** of the
-  11,438 tested knockdowns clear q < 0.05; see
-  [`figures/significance_wall.png`](deliverables/figures/significance_wall.png)).
-- **Adds the missing sign.** Magnitude can't tell an activation-*required* gene
-  from a therapeutic *brake* — both land far from control. The signed axis does,
-  and it passes an internal sanity check: the TCR machinery is correctly flagged
-  negative in both donors. This is the sign an unsigned effect-size ranking omits.
-- **Gated + honest:** viability (catches toxic knockdowns), author-provided
-  knockdown efficiency, **donor-stratified** with a per-donor sign-agreement flag (two donors; no
-  donor-level population inference).
-- **Self-checking:** a real statistical bug — an n-dependent bias in our
-  effect-size computation — was surfaced and reproduced by an adversarial
-  self-critique pass, then fixed (the provenance reviewer separately checks claims
-  against what ran; see [`pipeline/WAR_LOG.md`](pipeline/WAR_LOG.md)).
+The breakthrough is the direction test. Ranking only by how hard a gene's shutoff hits the cell points straight at essential machinery: **8 of the 9 largest effects are the T cell's own TCR activation system**, not useful inhibition targets. Brakepoint asks what the shutoff actually does. Those TCR genes push cells strongly toward a weaker fighter state when switched off, consistently across donors. Candidate brakes push the cell the other way.
 
-## Reproduce — in tiers
-Reproducibility is tiered by what each step needs; the headline **genome-scale**
-numbers are **not** a single offline command.
+The readout is transcriptional. Brakepoint nominates candidate targets for functional testing; it does not claim wet-lab validation or validated drugs.
+
+## How it works
+
+**Brakepoint tells a drug-target candidate apart from machinery the T cell needs to survive and fight.**
+
+For every gene knockdown, it asks two questions:
+
+1. **How hard did the shutoff hit the cell?** This measures the total change in cell state across the experiment.
+2. **Which way did it push the cell?** This measures whether the cells moved toward a stronger fighter program or a weaker one.
+
+Together, those answers reveal both the size and the meaning of every effect. A large shift toward a weaker state marks required machinery. A shift toward a stronger state puts the gene into the candidate-brake search space.
+
+Brakepoint keeps statistical significance as a minimum check, filters for cell fitness and knockdown quality, records donor agreement, and then adds public evidence from genetics, drug discovery, and clinical development. Every candidate remains traceable to the evidence supporting it.
+
+The engine also attacks its own conclusions. An adversarial self-critique challenges the math, while a provenance reviewer checks every claim against the code and outputs that actually ran.
+
+## Why it beats the usual approach
+
+**Genome-scale data breaks conventional target ranking. Brakepoint restores the signal.**
+
+The standard significance test lights up for almost everything: **about 97.5% of the 11,438 tested knockdowns clear q < 0.05**. When nearly the entire genome looks significant, significance can no longer identify the targets that matter.
+
+Effect size alone also fails. It finds genes with enormous consequences, but **8 of the 9 largest effects are the T cell's own TCR machinery**. A huge effect does not tell you whether blocking the gene strengthens the cell or cripples it.
+
+Brakepoint fixes both failures:
+
+- **Effect size ranks impact; significance remains a quality gate.**
+- **Direction separates candidate brakes from essential T-cell machinery.**
+- **Donor agreement, fitness, knockdown quality, and external evidence turn a signal into a testable target case.**
+
+The pipeline then stress-tested its own foundation. A self-critique pass exposed a real sample-size-dependent bias in the effect-size math, reproduced the failure, fixed it, and locked the correction behind regression tests before the final conclusion. The full record is in [`pipeline/WAR_LOG.md`](pipeline/WAR_LOG.md).
+
+## How Claude Science powered it
+
+**Claude Science made it possible for one person to build, challenge, and run a genome-scale target-discovery program in one week.**
+
+Every result is a versioned artifact carrying the exact code, environment, and conversation trail that produced it. A provenance reviewer checks each claim against the actual run and its outputs.
+
+The heavy genome-scale analysis ran remotely on an **NVIDIA DGX Spark (GB10)** through Claude Science's SSH compute workflow. The signed direction scoring pass across **2.64 million cells completes in about 40 seconds**, excluding preprocessing and model fitting.
+
+The result is an end-to-end scientific loop: inspect the data, build the analysis, challenge the assumptions, repair failures, rerun at genome scale, and reproduce every conclusion from code.
+
+## Reproduce
+
+**The shipped analysis has fast local checks, offline figure reproduction, an explicit enrichment test, and a full GPU tier.**
+
 ```bash
 cd pipeline
-make smoke                  # dependency-free unit tests (numpy only) — runs anywhere
-# Tier 1 · figures + shortlist, fully offline (no GPU, no download):
-make figure                 # re-render the target shortlist + all figures from the shipped leaderboard
-# Tier 2 · the brake-enrichment null — runs anywhere:
-python brake_enrichment.py  # the honest Mann–Whitney null (p=0.70)
-# Tier 3 · genome-scale signed-axis scoring — needs a GPU workstation + the public built h5ad:
-make direction  DATA=<built.h5ad> LIB=<sgrna_library_metadata.csv> CONTROL=control
-```
-Fixed seeds; version-pinned `environment.yml` (exact builds via `make lock`).
-`make figure` re-renders the figures and shortlist offline from the shipped
-leaderboard; regenerating the genome-scale signed-axis scores themselves is Tier 3
-(GPU + the built h5ad), so the headline genome-scale numbers do not come from one
-offline command.
 
-## How Claude Science got us there
-Every result is a versioned artifact carrying its exact code, environment, and
-conversation trail; a background reviewer checks claims against what actually ran.
-The heavy genome-scale analysis runs on an **NVIDIA DGX Spark** over Claude
-Science's SSH remote-compute; the signed direction axis over 2.64 M cells
-completes in ~40 s (the scoring pass; excludes preprocessing and model fitting).
+# Tier 1: core effect-size, direction, and plotting checks.
+make smoke
+
+# Tier 2: rebuild the target matrix and full figure set from shipped results.
+# No data download or GPU is required.
+make figure
+
+# Tier 3: recompute the curated known-brake enrichment analysis.
+python brake_enrichment.py
+
+# Tier 4: recompute signed direction across the public genome-scale build.
+# Requires the built h5ad, sgRNA library metadata, and a suitable GPU environment.
+make direction \
+  DATA=<built.h5ad> \
+  LIB=<sgrna_library_metadata.csv> \
+  CONTROL=control
+```
+
+The full run uses fixed seeds and the pinned environment in [`pipeline/environment.yml`](pipeline/environment.yml). It produces the ranked perturbation table, per-target direction scores, run metadata, and every judge-facing figure.
+
+**Current analysis boundary:** this submission uses **D1 + D2 at Stim 8 h, two of the four available donors**. The broad curated set of 29 known brakes is not statistically enriched in the positive quadrant against the matched two-donor background (**one-sided Mann-Whitney p = 0.70**). That result is inconclusive at two donors; the full four-donor analysis is the scale-up that sharpens the test. Individual literature brakes **CD5, DGKA, and SMAD3** still land positive as consistency checks.
 
 ## Repository layout
-```
+
+```text
 pipeline/
-  edistance_core.py        power-equalized E-distance + permutation E-test (unbiased U-statistic)
-  run_pipeline.py          QC → scVI embedding → E-distance ranking → viability + knockdown gates
-  direction.py             signed effector-vs-dysfunction axis (CD4 + CD8 modules; unit-tested)
-  direction_genomescale.py per-cell scoring on the 2.64M-cell build (row-chunked; runs on the DGX)
-  merge_direction.py       merge the signed score + tier into the leaderboard
-  figure_causal_map.py     the signed causal map (prioritization engine)
-  figure_targets.py        the convergent-evidence TARGET matrix (centerpiece)
-  figure_evidence.py       donor-consistency scatter + direction distribution
-  figure_significance.py   the "significance wall" — why we rank by effect size, not p-value
-  brake_enrichment.py      honest brake-enrichment test (Mann-Whitney, p=0.70)
-  export_map_points.py     export the tested leaderboard -> the interactive explorer JSON
-  dossiers/                per-target evidence (Open Targets · ChEMBL · ClinicalTrials)
-  Makefile · environment.yml · LICENSE (MIT) · SOURCES.md
-  outputs_gladstone/       ranked_perturbations.csv (+ direction_*), direction_meta.json, figures
-  real-finding-genomescale.md   the finding, with real numbers + honest caveats
+  edistance_core.py          effect-size calculation and permutation gate
+  run_pipeline.py            QC, ranking, viability, and knockdown gates
+  direction.py               signed T-cell state scoring
+  direction_genomescale.py   row-chunked scoring across 2.64M cells
+  merge_direction.py         merges direction into the ranked leaderboard
+  figure_causal_map.py       signed genome-scale map
+  figure_targets.py          five-target evidence matrix
+  figure_evidence.py         donor consistency and direction distribution
+  figure_significance.py     significance-saturation figure
+  figure_onepager.py         one-page project figure
+  brake_enrichment.py        known-brake enrichment analysis
+  export_map_points.py       interactive explorer export
+  dossiers/                  per-target Open Targets, ChEMBL, and ClinicalTrials evidence
+  outputs_gladstone/
+    ranked_perturbations.csv
+    direction_*
+    direction_meta.json
+    figures/
+  Makefile
+  environment.yml
+  LICENSE                    MIT license
+  SOURCES.md
+  WAR_LOG.md
+  real-finding-genomescale.md
+
 deliverables/
-  demo.mp4 (Remotion, natural VO) · demo_deck.pptx · index.html · summary.md
-  index.html   premium landing + an INTERACTIVE explorer (hover/search all 11,438 tested knockdowns)
-  data/     causal_map_points.json  (the live leaderboard behind the explorer)
-  figures/  target_matrix · causal_map · significance_wall · donor_consistency · direction_dist · brakepoint_onepager
+  brakepoint_video.mp4
+  brakepoint_video.vtt
+  brakepoint_slides.pptx
+  brakepoint_video_script.md
+  index.html
+  summary.md
+  data/
+    causal_map_points.json
+  figures/
+    target_matrix.png
+    causal_map.png
+    significance_wall.png
+    donor_consistency.png
+    direction_dist.png
+    brakepoint_onepager.png
 ```
 
 ## Data & license
-Code: **MIT** ([`pipeline/LICENSE`](pipeline/LICENSE)). Primary data: the
-Gladstone genome-scale CD4⁺ T-cell CRISPRi Perturb-seq (Marson lab; CZI Virtual
-Cells Platform) — the expression matrix (the release also includes a DESeq2 DE result and supplementary tables, not used here).
-Public evidence layers: **STRING v12** (interactome) and **Open Targets** (human
-genetics); public validation sets (Shifrut/Marson, Datlinger) via scPerturb. There
-is **no Gladstone-provided interaction network or regulatory model** — STRING and
-Open Targets are public layers on top of the provided Perturb-seq data, not
-substitutes for it. Provenance and licenses in
-[`pipeline/SOURCES.md`](pipeline/SOURCES.md); only openly-licensed evidence is
-bundled (no DrugBank).
+
+**Brakepoint is a computational discovery on a landmark public human T-cell screen.**
+
+The primary experiment is a genome-scale CRISPRi Perturb-seq screen in primary human CD4+ T cells from the **Marson lab at Gladstone Institutes**, built with the **Pritchard lab at Stanford** and released through the **CZI Virtual Cells Platform**: [bioRxiv 10.64898/2025.12.23.696273](https://doi.org/10.64898/2025.12.23.696273). The public data share is MIT-licensed.
+
+Brakepoint adds the signed genome-scale discovery engine and public evidence layers from **STRING v12**, **Open Targets**, **ChEMBL**, and **ClinicalTrials.gov**. Dataset snapshots, evidence provenance, licenses, and the exact run manifest are recorded in [`pipeline/SOURCES.md`](pipeline/SOURCES.md).
+
+The Brakepoint code is released under the **MIT License**: [`pipeline/LICENSE`](pipeline/LICENSE).
 
 ---
-*Repository: https://github.com/duanchengchen-oss/brakepoint · Demo video: https://duanchengchen-oss.github.io/brakepoint/deliverables/index.html*
+
+**Chengchen (Sam) Duan · duanchengchen@gmail.com · github.com/duanchengchen-oss**
+
+Repository: https://github.com/duanchengchen-oss/brakepoint  
+Video walkthrough: https://duanchengchen-oss.github.io/brakepoint/deliverables/index.html

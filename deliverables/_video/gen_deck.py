@@ -33,9 +33,13 @@ SLIDES=[
   "Five candidate brakes, led by CBLB — a target the industry already drugs, so recovering it validates our method. Every figure regenerates from cached outputs with one command, checked against a real bug we caught ourselves. Explore the live map, clone the code, and help find the brakes today's drugs still miss. Built with Claude Science."),
 ]
 
+import pathlib as _pl
+_caps=[l.strip() for l in _pl.Path("_video/captions_v4.txt").read_text().splitlines() if l.strip()]
+assert len(_caps)==len(SLIDES), f"caption/slide mismatch {len(_caps)} vs {len(SLIDES)}"
 prs=Presentation(); prs.slide_width=W; prs.slide_height=H
 blank=prs.slide_layouts[6]
-for eyebrow,parts,note in SLIDES:
+for _i,(eyebrow,parts,_oldnote) in enumerate(SLIDES):
+    note=_caps[_i]
     s=prs.slides.add_slide(blank)
     # bg
     s.background.fill.solid(); s.background.fill.fore_color.rgb=BG
@@ -49,8 +53,8 @@ for eyebrow,parts,note in SLIDES:
         r=p.add_run(); r.text=txt; f=r.font; f.size=Pt(46); f.bold=True; f.color.rgb=col; f.name="Arial"
     # footer wordmark
     fb=s.shapes.add_textbox(Inches(0.9),Inches(6.7),Inches(11.5),Inches(0.5)).text_frame
-    r=fb.paragraphs[0].add_run(); r.text="Brakepoint · Built with Claude Science"; f=r.font; f.size=Pt(12); f.color.rgb=MUT; f.name="Arial"
+    r=fb.paragraphs[0].add_run(); r.text="Brakepoint · Chengchen (Sam) Duan · duanchengchen@gmail.com · github.com/duanchengchen-oss · Built with Claude Science"; f=r.font; f.size=Pt(11); f.color.rgb=MUT; f.name="Arial"
     # speaker notes = narration
     s.notes_slide.notes_text_frame.text=note
-prs.save("demo_deck.pptx")
-print("rebuilt demo_deck.pptx:", len(prs.slides.__iter__.__self__._sldIdLst), "slides")
+prs.save("brakepoint_slides.pptx")
+print("rebuilt brakepoint_slides.pptx:", len(prs.slides.__iter__.__self__._sldIdLst), "slides")

@@ -24,6 +24,7 @@ figure:           ## render the hero signed-causal-map figure from the merged le
 	$(PY) figure_targets.py
 	$(PY) figure_evidence.py
 	$(PY) figure_significance.py
+	$(PY) figure_onepager.py
 
 hero:             ## full pipeline on real data -> outputs/ranked_perturbations.csv
 	$(PY) run_pipeline.py --data $(DATA) --control $(CONTROL) --outdir outputs

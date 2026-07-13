@@ -1,0 +1,173 @@
+WEBVTT
+
+1
+00:00:00.400 --> 00:00:09.433 line:88% align:center
+Checkpoint drugs work by releasing the brakes on a T cell, but they help only a minority of patients, because only a handful of those brakes are drugged.
+
+2
+00:00:09.433 --> 00:00:13.271 line:88% align:center
+So we went looking for the rest of them, right across the genome.
+
+3
+00:00:13.271 --> 00:00:15.987 line:88% align:center
+This is Brakepoint, built with Claude Science.
+
+4
+00:00:16.400 --> 00:00:19.171 line:88% align:center
+Those brakes matter beyond checkpoint therapy.
+
+5
+00:00:19.171 --> 00:00:21.339 line:88% align:center
+They also throttle engineered CAR-T.
+
+6
+00:00:21.339 --> 00:00:24.291 line:88% align:center
+So across the genome, which genes are the brakes?
+
+7
+00:00:24.291 --> 00:00:28.748 line:88% align:center
+And which knockdowns push a human T cell toward a stronger effector state?
+
+8
+00:00:29.167 --> 00:00:37.856 line:88% align:center
+6 million primary human CD4 T cells, from the Gladstone Institutes.
+
+9
+00:00:37.856 --> 00:00:42.525 line:88% align:center
+Two donors, out of an intended four.
+
+10
+00:00:42.933 --> 00:00:46.617 line:88% align:center
+How do you find the brakes in twelve thousand knockdowns?
+
+11
+00:00:46.617 --> 00:00:51.917 line:88% align:center
+The reflex is to rank by significance, but at two million cells, that breaks down.
+
+12
+00:00:51.917 --> 00:00:55.019 line:88% align:center
+Over 97% of the tested knockdowns clear the bar.
+
+13
+00:00:55.019 --> 00:00:57.669 line:88% align:center
+So we rank by causal effect size instead.
+
+14
+00:00:58.100 --> 00:01:01.324 line:88% align:center
+But effect size alone still points at the wrong genes.
+
+15
+00:01:01.324 --> 00:01:04.667 line:88% align:center
+The biggest hits are the cell's own signaling machinery.
+
+16
+00:01:04.667 --> 00:01:07.413 line:88% align:center
+So we add what a magnitude ranking leaves out.
+
+17
+00:01:07.413 --> 00:01:08.010 line:88% align:center
+Direction.
+
+18
+00:01:08.010 --> 00:01:11.652 line:88% align:center
+Does the knockdown push toward the effector program, or away?
+
+19
+00:01:11.652 --> 00:01:15.830 line:88% align:center
+Now the machinery falls away, and the candidate brakes rise into view.
+
+20
+00:01:16.233 --> 00:01:18.161 line:88% align:center
+And this isn't a static picture.
+
+21
+00:01:18.161 --> 00:01:23.342 line:88% align:center
+Every one of the eleven thousand that passed our testing threshold is here to explore.
+
+22
+00:01:23.342 --> 00:01:28.101 line:88% align:center
+Search any gene, hover any point, and read its causal effect and its direction.
+
+23
+00:01:28.101 --> 00:01:30.028 line:88% align:center
+It's the real leaderboard, live.
+
+24
+00:01:30.433 --> 00:01:31.636 line:88% align:center
+And that's the edge.
+
+25
+00:01:31.636 --> 00:01:35.306 line:88% align:center
+Differential expression finds correlations, not what to drug.
+
+26
+00:01:35.306 --> 00:01:38.133 line:88% align:center
+Genetics points to a locus, rarely a direction.
+
+27
+00:01:38.133 --> 00:01:44.991 line:88% align:center
+We measure what a knockdown actually does, and which way it pushes, then weigh it against genetics and the clinic.
+
+28
+00:01:45.400 --> 00:01:52.114 line:88% align:center
+From that map, five candidates chosen using prior evidence: CBLB, CD5, DGKA, SMAD3, and UBASH3A.
+
+29
+00:01:52.114 --> 00:02:00.367 line:88% align:center
+Each scored across seven lines of evidence, from causal effect and direction to human genetics and clinical precedent.
+
+30
+00:02:00.800 --> 00:02:01.938 line:88% align:center
+Our lead is CBLB.
+
+31
+00:02:01.938 --> 00:02:08.500 line:88% align:center
+It's a natural off-switch for T-cell activation, and inhibitors are already in early-phase trials.
+
+32
+00:02:08.500 --> 00:02:13.053 line:88% align:center
+Its genetics point the same way, and it lands in our brake quadrant.
+
+33
+00:02:13.053 --> 00:02:14.593 line:88% align:center
+CD5 and DGKA come next.
+
+34
+00:02:15.000 --> 00:02:17.906 line:88% align:center
+We're honest about what two donors can support.
+
+35
+00:02:17.906 --> 00:02:19.699 line:88% align:center
+CD5 and DGKA hold up in both.
+
+36
+00:02:19.699 --> 00:02:21.802 line:88% align:center
+The other three ride on one donor.
+
+37
+00:02:21.802 --> 00:02:27.862 line:88% align:center
+Known brakes aren't significantly enriched, but that's a two-donor power limit, not a null result.
+
+38
+00:02:27.862 --> 00:02:33.922 line:88% align:center
+So this stays a ranked shortlist for the full cohort, a hypothesis to test, not a finished answer.
+
+39
+00:02:34.333 --> 00:02:36.484 line:88% align:center
+Five candidate brakes, led by CBLB.
+
+40
+00:02:36.484 --> 00:02:41.400 line:88% align:center
+It's a target the industry already drugs, so recovering it validates our method.
+
+41
+00:02:41.400 --> 00:02:48.159 line:88% align:center
+Every figure regenerates from cached outputs with one command, checked against a real bug we caught ourselves.
+
+42
+00:02:48.159 --> 00:02:53.567 line:88% align:center
+Explore the live map, clone the code, and help find the brakes today's drugs still miss.
+
+43
+00:02:53.567 --> 00:02:55.164 line:88% align:center
+Built with Claude Science.

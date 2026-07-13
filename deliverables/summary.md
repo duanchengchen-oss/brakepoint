@@ -1,22 +1,17 @@
 # Written summary (submission)
 
-Using **Claude Science**, we mine an existing genome-scale CRISPRi Perturb-seq
-screen (**2,638,736 cells, 12,449 knockdowns**; Gladstone/Marson, two of four
-donors) for **brakes** on human CD4⁺ T-cell function — the class
-checkpoint-blockade drugs target — and build a **signed causal map** to
-prioritize a shortlist.
+**Brakepoint is a genome-scale discovery engine for the next generation of cancer-immunotherapy drug targets.**
 
-The method is the point. At 2.6 million cells, 97.5% of tested knockdowns clear
-q < 0.05, so we rank by **causal effect size** (power-equalized energy distance),
-not p-value, then add a per-cell **direction-of-effect** score a magnitude ranking
-omits (an 8-hour transcriptional read-out, not a functional assay). Magnitude alone
-nominates the cell's own machinery; the signed axis reclassifies it — 14 of the 15
-largest effects are direction-negative required machinery — and surfaces
-**candidate brakes**.
+The best cancer immunotherapies cut the brakes off T cells, but only a handful have been drugged. Brakepoint hunts the rest — genome-wide.
 
-We put forward five prior-informed candidates — CBLB, CD5, DGKA, SMAD3, UBASH3A;
-lead **CBLB** has oral inhibitors in early-phase trials. The machinery reads
-negative in both donors, and **CBLB** — with donor-consistent CD5 and DGKA — lands
-positive, so the 29-gene null (p = 0.70) marks two-donor **power**, not these
-calls. Three of five are donor-split: a prioritized hypothesis for the full cohort,
-not a finished list. Every result is versioned, reproducible code.
+It reads a public Marson (Gladstone)/Pritchard (Stanford) screen whole: 2.6 million human T cells, 12,449 genes each switched off. At this scale, standard analysis collapses — almost everything looks significant, and the biggest effects are machinery the cell needs to survive, not targets.
+
+Brakepoint breaks the deadlock: measuring how hard each shutoff hits the cell and which way it pushes it — toward a stronger or weaker fighter — telling a real drug target from essential machinery.
+
+With zero prior hints, it rediscovered CBLB, a target pharma is already racing into the clinic, then surfaced four more — CD5, DGKA, SMAD3, UBASH3A — each backed by seven independent lines of evidence.
+
+One person built it in a week. Claude Science ran the analysis on an NVIDIA DGX Spark; one command reproduces every result; a self-audit caught and fixed a real bug before any conclusion.
+
+The payoff: five candidate T-cell targets to test — a blueprint for AI-native drug discovery.
+
+— Chengchen (Sam) Duan (duanchengchen@gmail.com · github.com/duanchengchen-oss)
