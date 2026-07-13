@@ -6,8 +6,10 @@ Y = signed direction-of-effect (effector - dysfunction program vs control).
 The point: the magnitude leaderboard alone cannot tell a drug target from the
 cell's own machinery. Adding the sign splits the map — the largest effects
 (TCR module) sit far-right but strongly NEGATIVE (knockdown cripples the cell =
-required machinery), while the therapeutically useful signal lives ABOVE zero
-(knockdown enhances the effector program = candidate brakes).
+required machinery), while the candidate-brake signal lives ABOVE zero
+(knockdown shifts cells toward the effector program). The positive quadrant is a
+hypothesis space, not a validated set — known brakes are not enriched there
+(Mann-Whitney p = 0.70) and 3 of the 5 highlighted candidates are donor-split.
 
 Reads the merged ``ranked_perturbations.csv`` (needs ``direction_score``).
 Renders a high-DPI PNG + an SVG. Design follows the dataviz skill: diverging
@@ -29,7 +31,7 @@ from matplotlib.patches import FancyBboxPatch  # noqa: E402
 
 # --- palette (validated: teal<->amber CVD dE 60.8) ----------------------------
 SURFACE = "#fcfcfb"
-INK = "#0b0b0b"
+INK = "#0b1220"  # house ink
 INK2 = "#52514e"
 MUTED = "#8a8880"
 BULK = "#cdccc4"
@@ -61,9 +63,9 @@ LABEL_OFFSETS: dict[str, tuple[float, float, str]] = {
     "ITK": (-8, -12, "right"),
     "SMAD3": (8, 8, "left"),
     "LAT2": (8, 4, "left"),
-    "CBLB": (-8, 10, "right"),
-    "CD5": (8, 8, "left"),
-    "DGKA": (-8, -12, "right"),
+    "CBLB": (0, 15, "center"),
+    "CD5": (11, -7, "left"),
+    "DGKA": (9, -13, "left"),
     "UBASH3A": (8, -10, "left"),
     "CDKN1B": (-8, 8, "right"),
 }
@@ -96,6 +98,7 @@ def build(ranked_csv: str, out_png: str, out_svg: str) -> None:
 
     top15 = df.sort_values("e_distance", ascending=False).head(15)
     n_neg = int((top15.direction_score < 0).sum())
+    n_split = sum(1 for g in BRAKES if g in agreed and not agreed[g])
 
     plt.rcParams.update({
         "font.family": "sans-serif",
@@ -107,7 +110,10 @@ def build(ranked_csv: str, out_png: str, out_svg: str) -> None:
     ax.set_facecolor(SURFACE)
 
     xmax = float(df.e_distance.max()) * 1.06
-    ymin, ymax = -0.92, 0.72
+    # derive y-limits from the plotted data (never clip a real observation)
+    dmin, dmax = float(df.direction_score.min()), float(df.direction_score.max())
+    ymin = min(-0.92, dmin * 1.06)
+    ymax = max(0.75, dmax * 1.07)
     ax.set_xlim(-1.5, xmax)
     ax.set_ylim(ymin, ymax)
 
@@ -149,17 +155,25 @@ def build(ranked_csv: str, out_png: str, out_svg: str) -> None:
     )
     leg.set_zorder(9)
 
-    # quadrant captions
-    ax.text(xmax * 0.985, 0.63,
-            "knockdown ENHANCES the effector program",
-            ha="right", va="center", fontsize=12, color=AMBER_DK, fontweight="bold")
-    ax.text(xmax * 0.985, 0.555, "candidate brakes — a prioritized hypothesis space",
-            ha="right", va="center", fontsize=11, color=AMBER_DK, style="italic")
-    ax.text(xmax * 0.985, -0.80,
-            "knockdown IMPAIRS the effector program",
-            ha="right", va="center", fontsize=12, color=TEAL_DK, fontweight="bold")
-    ax.text(xmax * 0.985, -0.865, "required machinery — not druggable",
-            ha="right", va="center", fontsize=11, color=TEAL_DK, style="italic")
+    # quadrant captions (axes-fraction coords so they never collide with data or
+    # shift when the limits change)
+    ax.text(0.985, 0.965, "knockdown ENHANCES the effector program",
+            transform=ax.transAxes, ha="right", va="top",
+            fontsize=12, color=AMBER_DK, fontweight="bold")
+    ax.text(0.985, 0.918,
+            "candidate brakes — a hypothesis space, not brake-enriched (Mann–Whitney p = 0.70)",
+            transform=ax.transAxes, ha="right", va="top",
+            fontsize=10.5, color=AMBER_DK, style="italic")
+    ax.text(0.985, 0.879,
+            f"{n_split} of {len(BRAKES)} highlighted candidates are donor-split (n = 2)",
+            transform=ax.transAxes, ha="right", va="top",
+            fontsize=10.5, color=AMBER_DK, style="italic")
+    ax.text(0.985, 0.058, "knockdown IMPAIRS the effector program",
+            transform=ax.transAxes, ha="right", va="bottom",
+            fontsize=12, color=TEAL_DK, fontweight="bold")
+    ax.text(0.985, 0.015, "required TCR machinery — inhibition opposes the goal",
+            transform=ax.transAxes, ha="right", va="bottom",
+            fontsize=10.5, color=TEAL_DK, style="italic")
 
     # headline-stat callout box (upper-left)
     box = FancyBboxPatch((0.022, 0.80), 0.40, 0.155, transform=ax.transAxes,
@@ -189,8 +203,8 @@ def build(ranked_csv: str, out_png: str, out_svg: str) -> None:
     fig.text(0.062, 0.975, "A genome-scale signed causal map of CD4⁺ T-cell function",
              fontsize=17.5, fontweight="bold", color=INK, va="top")
     fig.text(0.062, 0.936,
-             "2,638,736 primary human CD4⁺ T cells · 12,449 CRISPRi knockdowns · "
-             "Gladstone Perturb-seq · built with Claude Science",
+             f"{len(df):,} CRISPRi knockdowns with a measurable causal effect · "
+             "E-distance on 2.44 M post-QC CD4⁺ T cells · Gladstone Perturb-seq · built with Claude Science",
              fontsize=11.5, color=MUTED, va="top")
 
     fig.subplots_adjust(left=0.075, right=0.975, top=0.885, bottom=0.092)

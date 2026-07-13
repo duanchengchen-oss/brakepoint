@@ -1,6 +1,6 @@
-# Brakepoint · druggable-brake target discovery in human T cells — Built with Claude Science
+# Brakepoint · candidate druggable-brake target discovery in human T cells — Built with Claude Science
 
-*Checkpoint-blockade therapy works by releasing **brakes** on T cells (CAR-T, separately, is engineered antigen recognition that brake-removal can enhance). Brakepoint screens the genome for candidate brakes — genes whose knockdown makes a stronger effector — and scores their druggability separately.*
+*Checkpoint-blockade therapy works by releasing **brakes** on T cells (CAR-T, separately, is engineered antigen recognition that brake-removal can enhance). Brakepoint mines a genome-scale screen for candidate brakes — genes whose knockdown pushes the cell toward a stronger effector state — and scores their druggability separately.*
 
 **Built with Claude: Life Sciences · research track (solo).** From a
 2.6-million-cell CRISPRi Perturb-seq screen, Brakepoint prioritizes a shortlist of
@@ -15,7 +15,7 @@ back to versioned, Claude-Science-provenanced code.
 ## The finding — a shortlist of candidate T-cell brakes
 A T-cell "brake" is a gene whose knockdown pushes the cell toward a stronger effector *transcriptional* state (functional validation is the next step).
 From the **genome-scale Gladstone CRISPRi Perturb-seq** (**2,638,736 CD4⁺ T cells,
-12,449 knockdowns**), Brakepoint prioritizes **five candidate targets for validation** by convergent
+12,449 knockdowns**; 11,438 passed QC and were ranked), Brakepoint prioritizes **five candidate targets for validation** by convergent
 evidence — which varies by target (three of five are donor-split) — across causal
 effect, direction, donor consistency, viability, druggability, immune genetics, and
 clinical precedent:
@@ -25,18 +25,18 @@ clinical precedent:
 - **SMAD3, UBASH3A** — a high-effect TGF-β node and a genetics-led (autoimmune-GWAS), currently-undrugged phosphatase.
 
 **How we find them.** Ranking by causal effect alone points at the wrong genes: 8
-of the 9 largest effects are the cell's own TCR machinery — activation-required,
-unsuitable inhibition targets for this objective. A per-cell **direction-of-effect** axis flips it — 14 of the top 15 largest
+of the 9 largest-magnitude effects are the cell's own TCR machinery — activation-required,
+unsuitable inhibition targets for this objective. A per-cell **direction-of-effect** axis flips it — 14 of the top 15 largest-magnitude
 effects are direction-negative (activation-required; knockdown impairs the effector
 program) — and the TCR module among them is donor-consistent; the candidate brakes surface in the positive
 quadrant (mostly modest-to-moderate effect, reported with their donor-consistency).
 
 The **positive quadrant** (knockdown *enhances* the effector transcriptional program) is the
-therapeutic hypothesis space — and we report it honestly. At 2 donors it is noisy:
+therapeutic hypothesis space (candidate generation, not proof of benefit) — and we report it honestly. At 2 donors it is noisy:
 a curated set of 29 known T-cell brakes shows **no significant evidence of enrichment** there (one-sided Mann–Whitney vs a matched 2-donor background, p = 0.70; `pipeline/brake_enrichment.py`), and the strongest raw
 positives include likely artifacts. Individual literature brakes — **CD5, DGKA**
 (donor-consistent), and the TGF-β node **SMAD3** (donor-split) — do land positive
-as a consistency check, but the positive side is a **prioritized hypothesis space
+as a consistency check (descriptive, not independent validation, given the null above), but the positive side is a **prioritized hypothesis space
 for the full 4-donor cohort, not a finished target list**. Full write-up:
 [`pipeline/real-finding-genomescale.md`](pipeline/real-finding-genomescale.md).
 
@@ -63,8 +63,8 @@ Brakepoint does two things that ranking can't:
   [`figures/significance_wall.png`](deliverables/figures/significance_wall.png)).
 - **Adds the missing sign.** Magnitude can't tell an activation-*required* gene
   from a therapeutic *brake* — both land far from control. The signed axis does,
-  and it self-validates: the TCR machinery is correctly flagged negative,
-  donor-consistently. This is the sign an unsigned effect-size ranking omits.
+  and it passes an internal sanity check: the TCR machinery is correctly flagged
+  negative in both donors. This is the sign an unsigned effect-size ranking omits.
 - **Gated + honest:** viability (catches toxic knockdowns), author-provided
   knockdown efficiency, **donor-stratified** with a per-donor sign-agreement flag (two donors; no
   donor-level population inference).
@@ -82,14 +82,14 @@ python brake_enrichment.py  # the honest brake-enrichment null (p=0.70)
 # genome-scale (needs scanpy + the built h5ad on a GPU workstation):
 make direction  DATA=<built.h5ad> LIB=<sgrna_library_metadata.csv> CONTROL=control
 ```
-Fixed seeds; version-pinned `environment.yml` (exact builds via `make lock`); one-command regeneration.
+Fixed seeds; version-pinned `environment.yml` (exact builds via `make lock`); one-command figure regeneration.
 
 ## How Claude Science got us there
 Every result is a versioned artifact carrying its exact code, environment, and
 conversation trail; a background reviewer checks claims against what actually ran.
 The heavy genome-scale analysis runs on an **NVIDIA DGX Spark** over Claude
 Science's SSH remote-compute; the signed direction axis over 2.64 M cells
-completes in ~40 s.
+completes in ~40 s (the scoring pass; excludes preprocessing and model fitting).
 
 ## Repository layout
 ```

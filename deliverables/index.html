@@ -18,12 +18,17 @@
   *{box-sizing:border-box}html{scroll-behavior:smooth}
   body{margin:0;background:var(--page);color:var(--body);font-family:var(--sans);line-height:1.62;-webkit-font-smoothing:antialiased}
   a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:4px}
+  section[id]{scroll-margin-top:96px}
+  .skip{position:fixed;left:12px;top:-64px;z-index:60;background:var(--ink);color:#fff;padding:10px 16px;border-radius:10px;font-weight:600;font-size:14px;transition:top .2s var(--ease)}
+  .skip:focus{top:12px}
+  .vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
   h1,h2,h3{font-family:var(--disp);color:var(--ink);letter-spacing:-.02em;line-height:1.06;margin:0}
   h1{font-size:clamp(38px,6.2vw,72px);font-weight:700}
   h2{font-size:clamp(26px,3.4vw,40px);font-weight:600;letter-spacing:-.025em}
   p{margin:0}
-  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:10.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--teal-dk);background:rgba(13,148,136,.09);border:1px solid rgba(13,148,136,.18);padding:6px 13px;border-radius:999px}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--teal-dk);background:rgba(13,148,136,.09);border:1px solid rgba(13,148,136,.18);padding:6px 13px;border-radius:999px}
   .eyebrow.on-dark{color:#7fe9d8;background:rgba(127,233,216,.08);border-color:rgba(127,233,216,.16)}
   .lead{font-size:clamp(17px,1.5vw,20px);color:var(--muted);max-width:64ch}
   .mono{font-family:"Space Grotesk",ui-monospace,monospace;font-variant-numeric:tabular-nums}
@@ -53,7 +58,7 @@
   .frame .core{background:var(--card);border-radius:calc(var(--r) - 9px);overflow:hidden;box-shadow:inset 0 1px 1px rgba(255,255,255,.6),0 30px 60px -40px rgba(11,18,32,.4)}
   .frame.on-dark{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1)}
   .frame img,.frame video{display:block;width:100%}
-  .kicker{display:block;margin-bottom:16px}.cap{color:var(--muted);font-size:13px;margin-top:14px;max-width:92ch}
+  .kicker{display:block;margin-bottom:16px}.cap{color:var(--muted);font-size:14px;margin-top:14px;max-width:78ch;text-wrap:pretty}
   .split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
   @media(max-width:880px){.split{grid-template-columns:1fr}}
   .lead-card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:8px}
@@ -69,9 +74,10 @@
   footer{background:var(--dark-2);color:var(--on-dark-mut);padding:56px 0 44px;font-size:14px}
   footer a{color:var(--on-dark)}footer .fl{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
   footer .fl a{border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:7px 15px;font-size:13px}
-  .reveal{opacity:0;transform:translateY(24px);filter:blur(6px);transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease)}
+  .reveal{transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease)}
+  .js .reveal{opacity:0;transform:translateY(24px);filter:blur(6px)}
   .reveal.in{opacity:1;transform:none;filter:none}
-  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;filter:none}html{scroll-behavior:auto}}
+  @media(prefers-reduced-motion:reduce){.js .reveal{opacity:1;transform:none;filter:none}html{scroll-behavior:auto}}
   /* method steps */
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
   @media(max-width:880px){.steps{grid-template-columns:1fr}}
@@ -79,6 +85,13 @@
   .step .no{font-family:var(--disp);font-size:12px;font-weight:700;color:var(--teal-dk);letter-spacing:.16em}
   .step h4{font-family:var(--disp);font-size:18.5px;color:var(--ink);margin:12px 0 8px;font-weight:600;letter-spacing:-.01em;line-height:1.15}
   .step p{font-size:14.5px;color:var(--body);line-height:1.55}
+  /* candidate shortlist */
+  .cands{display:grid;grid-template-columns:1fr 1fr;gap:0 34px;margin-top:30px;border-bottom:1px solid var(--line)}
+  @media(max-width:760px){.cands{grid-template-columns:1fr}}
+  .cand{display:flex;gap:14px;align-items:baseline;padding:15px 2px;border-top:1px solid var(--line)}
+  .cand .g{font-family:var(--disp);font-weight:600;color:var(--ink);font-size:16px;min-width:82px;letter-spacing:-.01em}
+  .cand .t{font-size:14.5px;color:var(--body);line-height:1.5}
+  .cand .t b{color:var(--ink);font-weight:600}
   /* rigor chips */
   .chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
   .chip{display:inline-flex;align-items:center;gap:9px;font-size:13.5px;color:var(--body);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:9px 15px}
@@ -120,25 +133,28 @@
   .exp-tip .r b{color:#fff;font-variant-numeric:tabular-nums;font-weight:600}
   .exp-tip .t2{display:inline-block;margin-top:8px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px}
 </style>
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
+<a class="skip" href="#main">Skip to main content</a>
 <header><nav>
   <span class="brand"><span class="dot"></span>Brakepoint</span>
   <div class="links"><a href="#targets">Targets</a><a href="#lead">Lead</a><a href="#map">How</a><a href="#explore">Explore</a><a href="#edge">Vs traditional</a><a href="#demo">Demo</a></div>
   <a class="btn primary" href="https://github.com/duanchengchen-oss/brakepoint" style="padding:8px 10px 8px 18px;font-size:14px">Repository <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 17 17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
 </nav></header>
+<main id="main">
 
 <!-- HERO -->
 <section class="hero"><div class="wrap">
   <span class="eyebrow on-dark">Built with Claude · Life Sciences · Research track</span>
   <h1>Releasing a T cell's <span class="g">brakes</span> is how checkpoint immunotherapy works.</h1>
-  <p class="lead">From a 2.6-million-cell CRISPRi Perturb-seq screen, Brakepoint nominates a shortlist of <b style="color:#f4b062">candidate targets</b> whose knockdown shifts human CD4⁺ T cells toward a stronger effector transcriptional state — a brake-release strategy mechanistically analogous to checkpoint blockade — led by <b style="color:#fff">CBLB</b>, whose inhibitors are in early-phase trials.</p>
+  <p class="lead">Re-analyzing a <b style="color:#fff">public</b> 2.6-million-cell CRISPRi Perturb-seq screen (Gladstone / Marson lab — <b style="color:#fff">we generated no data</b>), Brakepoint nominates a shortlist of <b style="color:#f4b062">candidate targets</b> whose knockdown shifts human CD4⁺ T cells toward a stronger effector transcriptional state — a brake-release strategy mechanistically analogous to checkpoint blockade — led by <b style="color:#fff">CBLB</b>, whose inhibitors are in early-phase clinical trials.</p>
   <div class="hero-actions">
     <a class="btn on-dark" href="#targets">See the targets <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
     <a class="btn" href="#demo" style="background:rgba(255,255,255,.07);color:#fff;border:1px solid rgba(255,255,255,.14);padding-right:22px">Watch the 2-min demo</a>
   </div>
   <div class="metrics">
-    <div class="m"><div class="n mono">12,449</div><div class="l">knockdowns screened, genome-scale</div></div>
+    <div class="m"><div class="n mono">12,449</div><div class="l">gene knockdowns profiled, genome-scale</div></div>
     <div class="m"><div class="n mono">5</div><div class="l">candidate brakes nominated</div></div>
     <div class="m"><div class="n mono">CBLB</div><div class="l">lead — CBL-B inhibitors in early-phase trials (NX-1607, HST-1011)</div></div>
   </div>
@@ -147,10 +163,17 @@
 <!-- TARGETS -->
 <section class="pad" id="targets"><div class="wrap">
   <span class="eyebrow kicker reveal">The finding · a target shortlist</span>
-  <h2 class="reveal" style="max-width:22ch">Five candidate brakes, ranked by convergent evidence.</h2>
-  <p class="lead reveal" style="margin-top:18px">A T-cell "brake" is a gene whose knockdown shifts the cell toward a stronger effector transcriptional state; checkpoint-blockade therapy works by drugging such brakes to boost immunity. Our direction axis is an 8-hour transcriptional signature, so functional validation (cytokines, proliferation, killing) is the required next step. We score each candidate across seven evidence axes: causal effect, brake direction, donor consistency, viability, druggability, immune genetics, and clinical precedent.</p>
-  <div class="frame reveal" style="margin-top:38px"><div class="core"><img src="figures/target_matrix.svg" alt="Convergent-evidence matrix scoring CBLB, CD5, DGKA, SMAD3, UBASH3A across seven evidence dimensions"/></div></div>
+  <h2 class="reveal" style="max-width:22ch">Five candidate brakes, scored across convergent evidence.</h2>
+  <p class="lead reveal" style="margin-top:18px">A candidate "brake" is a gene whose CRISPRi knockdown raises an 8-hour <b>effector-minus-dysfunction</b> transcriptional score — the direction checkpoint-blockade therapy exploits when it drugs such brakes to boost immunity. This is a transcriptional readout, not a functional one: cytokine, proliferation and killing assays are the required next step, and tractability varies across the shortlist (CBLB has clinical-stage inhibitors; UBASH3A is currently undrugged; SMAD3 is supported at the pathway level). We score each candidate across seven evidence axes — causal effect, brake direction, donor consistency, viability, druggability, immune genetics and clinical precedent.</p>
+  <div class="frame reveal" style="margin-top:38px"><div class="core"><img src="figures/target_matrix.svg" loading="lazy" decoding="async" alt="Convergent-evidence matrix scoring CBLB, CD5, DGKA, SMAD3, UBASH3A across seven evidence dimensions"/></div></div>
   <p class="cap reveal">Effect, direction, donor consistency and viability are computed from the genome-scale CD4⁺ leaderboard; druggability, immune-genetics and clinical precedent are curated from Open Targets, ChEMBL and ClinicalTrials.gov. Reproduce with <span class="mono">make figure</span>.</p>
+  <div class="cands reveal">
+    <div class="cand"><span class="g">CBLB</span><span class="t"><b>Translational lead.</b> Encodes CBL-B, an E3-ligase off-switch with clinical-stage inhibitors. Donor-split at n=2.</span></div>
+    <div class="cand"><span class="g">CD5</span><span class="t">Donor-consistent. Inhibitory co-receptor that raises the TCR activation threshold.</span></div>
+    <div class="cand"><span class="g">DGKA</span><span class="t">Donor-consistent. DGKα brakes TCR signalling by clearing diacylglycerol second messenger.</span></div>
+    <div class="cand"><span class="g">SMAD3</span><span class="t">TGF-β effector; supported at the pathway level, not gene-specifically. Donor-split.</span></div>
+    <div class="cand"><span class="g">UBASH3A</span><span class="t">Undrugged today; a tractable phosphatase at an autoimmune-risk (T1D/RA) locus — a genetics-led hypothesis. Donor-split.</span></div>
+  </div>
 </div></section>
 
 <!-- LEAD: CBLB -->
@@ -158,16 +181,16 @@
   <div class="reveal">
     <span class="eyebrow kicker">The lead · CBLB</span>
     <h2 style="max-width:16ch">A brake with inhibitors in clinical trials.</h2>
-    <p class="lead" style="margin-top:18px">CBLB is an E3 ubiquitin ligase that restrains T-cell activation. Its knockdown lands in the brake quadrant in our screen, and it converges with the strongest external evidence of any candidate — which is why it's our lead.</p>
+    <p class="lead" style="margin-top:18px">CBLB encodes CBL-B, an E3 ubiquitin ligase that restrains T-cell activation. Its knockdown lands in the brake quadrant in our screen, and it converges with the strongest external evidence of any candidate — which is why it's our lead.</p>
     <div class="lead-card" style="margin-top:22px"><div class="in">
       <span class="tag lead">LEAD TARGET · CBLB</span>
-      <div class="evrow"><span class="d"></span><div><b style="color:var(--ink)">Druggable, clinically:</b> two oral CBL-B inhibitors in trials — NX-1607 (Ph1) and HST-1011 (Ph1/2).</div></div>
-      <div class="evrow"><span class="d"></span><div><b style="color:var(--ink)">Human genetics &amp; biology:</b> CBLB carries an autoimmune-risk association, and Cbl-b loss enhances T-cell activation in preclinical models — the rationale behind the clinical CBL-B inhibitor programs (NX-1607, HST-1011).</div></div>
-      <div class="evrow"><span class="d"></span><div><b style="color:var(--ink)">Causal signal:</b> a top-decile effect by rank (E-distance 6.4) in the brake direction — a prior-informed nomination with a donor-split caveat.</div></div>
-      <div class="evrow"><span class="d" style="background:var(--amber)"></span><div><b style="color:var(--ink)">Honest caveat:</b> donor-split at n=2 (one of two donors drives the effect) — see the donor plot below.</div></div>
+      <div class="evrow"><span class="d"></span><div><b style="color:var(--ink)">Clinical tractability:</b> two oral CBL-B inhibitors are in early-phase trials — NX-1607 (<span class="mono">NCT05107674</span>, Ph1) and HST-1011 (<span class="mono">NCT05662397</span>, Ph1/2). Clinical interest, not proven efficacy.</div></div>
+      <div class="evrow"><span class="d"></span><div><b style="color:var(--ink)">Human genetics &amp; biology:</b> CBLB carries an autoimmune-risk association, and Cbl-b loss enhances T-cell activation in preclinical models — the rationale behind those CBL-B inhibitor programs.</div></div>
+      <div class="evrow"><span class="d"></span><div><b style="color:var(--ink)">Causal signal:</b> E-distance 6.4 in the brake direction, a top-decile effect by rank — a prior-informed nomination with a donor-split caveat.</div></div>
+      <div class="evrow"><span class="d" style="background:var(--amber)"></span><div><b style="color:var(--ink)">Caveat:</b> donor-split at n=2 (one of two donors drives the effect) — see the donor plot below.</div></div>
     </div></div>
   </div>
-  <figure class="reveal" style="margin:0"><div class="frame"><div class="core"><img src="figures/direction_dist.png" alt="Distribution of the signed direction score across 12,449 knockdowns"/></div></div>
+  <figure class="reveal" style="margin:0"><div class="frame"><div class="core"><img src="figures/direction_dist.png" loading="lazy" decoding="async" alt="Distribution of the signed direction score across 12,449 knockdowns"/></div></div>
     <figcaption class="cap">The signed axis splits every knockdown: machinery in the negative tail, the brake search space in the positive tail.</figcaption></figure>
 </div></section>
 
@@ -175,24 +198,24 @@
 <section class="pad" id="map"><div class="wrap">
   <span class="eyebrow kicker reveal">How it works · the signed causal map</span>
   <h2 class="reveal" style="max-width:24ch">A discovery engine that tells a brake from the machinery.</h2>
-  <p class="lead reveal" style="margin-top:18px">Perturb-seq gives you 12,449 causal experiments at once — but a significance-first read-out can't separate a candidate brake from a gene the cell can't live without. Three steps do.</p>
+  <p class="lead reveal" style="margin-top:18px">Perturb-seq gives you 12,449 causal experiments at once — but a significance-first readout can't separate a candidate brake from a gene the cell can't live without. Three steps do.</p>
 
   <div class="steps reveal">
-    <div class="step"><div class="no">01 · RANK</div><h4>By causal effect, not p-value</h4><p>Each knockdown is scored by <b>power-equalized E-distance</b> — the size of its causal shift away from control, made comparable across coverage. The permutation test is only a gate: at this scale, <b>97.5%</b> of the 11,438 tested knockdowns are "significant," so significance can't rank anything.</p></div>
+    <div class="step"><div class="no">01 · RANK</div><h4>By causal effect, not p-value</h4><p>Each knockdown is scored by <b>power-equalized E-distance</b> — the size of its causal shift away from control, made comparable across coverage. The permutation test is only a gate: at this scale, <b>97.5%</b> of the 11,438 tested knockdowns are "significant," so significance barely separates them.</p></div>
     <div class="step"><div class="no">02 · SIGN</div><h4>Add a direction-of-effect axis</h4><p>A per-cell <b>effector − dysfunction</b> score signs every knockdown. It flips the map: the largest effects are the cell's own activation machinery (knockdown <i>cripples</i> it, negative), and the candidate brakes surface in the positive quadrant — a noisy hypothesis space we then prioritize. An unsigned effect-size ranking leaves this direction out.</p></div>
     <div class="step"><div class="no">03 · SCORE</div><h4>Rank by convergent evidence</h4><p>Five prior-informed candidates are then evaluated across <b>seven axes</b> — causal effect, direction, donor consistency, viability, druggability, immune genetics, clinical precedent — each with its evidence and its caveats made explicit.</p></div>
   </div>
 
-  <div class="frame reveal" style="margin-top:40px"><div class="core"><img src="figures/causal_map.svg" alt="Signed causal map: causal effect size vs direction of effect; machinery negative, candidate brakes positive"/></div></div>
-  <p class="cap reveal">Step 2 in one figure: magnitude (x) alone would nominate the TCR machinery; the signed axis (y) reclassifies those top effects as <i>required</i> and surfaces the candidate brakes within the positive quadrant.</p>
+  <div class="frame reveal" style="margin-top:40px"><div class="core"><img src="figures/causal_map.svg" loading="lazy" decoding="async" alt="Signed causal map: causal effect size vs direction of effect; machinery negative, candidate brakes positive"/></div></div>
+  <p class="cap reveal">Step 2 in one figure: magnitude (x) alone would nominate the TCR machinery — 14 of the 15 largest effects are direction-negative machinery; the signed axis (y) reclassifies those top effects as <i>required</i> and surfaces the candidate brakes within the positive quadrant.</p>
 
-  <div class="frame reveal" style="margin-top:34px"><div class="core"><img src="figures/significance_wall.svg" alt="Scatter of E-distance vs significance: 97.5% of tested knockdowns clear q<0.05 in a ceiling band; effect size spreads them, machinery at high effect, brakes at modest-to-moderate effect"/></div></div>
-  <p class="cap reveal">Step 1, honestly: at this scale nearly every tested knockdown clears significance — 9,802 of the 11,438 pile at the permutation floor. Only causal effect size spreads the biology, which is why we rank by it.</p>
+  <div class="frame reveal" style="margin-top:34px"><div class="core"><img src="figures/significance_wall.svg" loading="lazy" decoding="async" alt="Scatter of E-distance vs significance: 97.5% of tested knockdowns clear q<0.05 in a ceiling band; effect size spreads them, machinery at high effect, brakes at modest-to-moderate effect"/></div></div>
+  <p class="cap reveal">Step 1, at scale: nearly every tested knockdown clears significance — 9,802 of the 11,438 pile at the permutation floor. Only causal effect size spreads the biology, which is why we rank by it.</p>
 
   <h3 class="reveal" style="font-family:var(--disp);font-size:20px;color:var(--ink);margin-top:52px;letter-spacing:-.01em">The computational work behind it</h3>
   <div class="rigor reveal">
-    <div class="row"><div class="k2">Effect size, not p-value</div><div class="v">97.5% of the 11,438 tested knockdowns clear q&lt;0.05, so significance can't rank them. We rank by <b>power-equalized energy distance</b> (E-distance) — each perturbation subsampled to a common cell count, so effect sizes compare across coverage — and use the 1,000-permutation test only as a gate.</div></div>
-    <div class="row"><div class="k2">We caught our own bug</div><div class="v">Our first E-distance used the biased V-statistic — a pure null scored <b>E ≈ 5 at n = 40</b> instead of ~0, an n-dependent offset that would have corrupted the whole ranking. An adversarial self-critique reproduced it in-sandbox; we switched to the off-diagonal <b>U-statistic</b>, and the null is now ≈ 0 and n-invariant (asserted in <span class="mono">make smoke</span>).</div></div>
+    <div class="row"><div class="k2">Effect size, not p-value</div><div class="v">97.5% of the 11,438 tested knockdowns clear q&lt;0.05, leaving them nearly tied on significance. We rank by <b>power-equalized energy distance</b> (E-distance) — each perturbation subsampled to a common cell count, so effect sizes compare across coverage — and use the 1,000-permutation test only as a gate.</div></div>
+    <div class="row"><div class="k2">We caught our own bug</div><div class="v">Our first E-distance used the biased V-statistic — a pure null scored <b>E ≈ 5 at n = 40</b> instead of ~0, an n-dependent offset that would have corrupted the whole ranking. An adversarial self-critique reproduced it in-sandbox; we switched to the off-diagonal <b>U-statistic</b>, and the corrected null now centres near zero and no longer shows the cell-count-dependent offset (asserted in <span class="mono">make smoke</span>).</div></div>
     <div class="row"><div class="k2">Genome-scale, fast</div><div class="v">The signed direction axis scored all <b>2,638,736 cells</b> on an NVIDIA DGX Spark (GB10) in <b>~40 s</b>; the E-distance ranking ran on 2.44 M post-QC cells, with scVI donor integration.</div></div>
     <div class="row"><div class="k2">Reproducible</div><div class="v"><span class="mono">make smoke</span> reproduces the dependency-free core anywhere; <span class="mono">make figure</span> regenerates every figure and the interactive dataset. Fixed seeds, version-pinned environment.</div></div>
   </div>
@@ -201,8 +224,8 @@
 <!-- EXPLORE (interactive) -->
 <section class="pad" id="explore" style="background:#f4f4ef"><div class="wrap">
   <span class="eyebrow kicker reveal">Explore · the live leaderboard</span>
-  <h2 class="reveal" style="max-width:24ch">Hover any of 11,438 knockdowns.</h2>
-  <p class="lead reveal" style="margin-top:18px">This isn't a picture of the map — it's the real leaderboard, rendered from the data. Every tested knockdown is placed by its causal effect (x) and its direction (y). Search a gene, or hover to read its numbers: the TCR machinery sits negative, the candidate brakes sit positive.</p>
+  <h2 class="reveal" style="max-width:24ch">Search or hover any of 11,438 knockdowns.</h2>
+  <p class="lead reveal" style="margin-top:18px">This isn't a picture of the map — it's the real leaderboard, rendered from the data. Every tested knockdown is placed by its causal effect (x) and its direction (y). Search a gene — best on a touchscreen — or hover to read its numbers: the TCR machinery sits negative, the candidate brakes sit positive.</p>
   <div class="exp-tools reveal">
     <div class="exp-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2" stroke-linecap="round"/></svg><input id="expq" type="text" placeholder="Search a gene — e.g. CBLB, ZAP70, TOX" autocomplete="off" spellcheck="false" aria-label="Search for a gene in the knockdown map"/></div>
     <div class="exp-legend">
@@ -215,7 +238,7 @@
     <canvas id="expcv" width="2320" height="1180" role="img" aria-label="Interactive scatter of 11,438 knockdowns by causal effect and direction of effect"></canvas>
     <div class="exp-tip" id="exptip"></div>
   </div>
-  <p class="cap reveal">x = causal effect (power-equalized E-distance) · y = direction of effect (effector − dysfunction, vs control). Loaded from <span class="mono">data/causal_map_points.json</span> — 11,438 tested knockdowns, exactly what the ranking sees.</p>
+  <p class="cap reveal">x = causal effect (power-equalized E-distance) · y = 8-hour direction of effect (effector − dysfunction, vs control). Loaded from <span class="mono">data/causal_map_points.json</span> — 11,438 tested knockdowns, exactly what the ranking sees. Prefer a static view? The signed causal map above plots the same axes.</p>
 </div></section>
 
 <!-- VS TRADITIONAL -->
@@ -230,19 +253,19 @@
       <tr><td class="m">Human genetics / GWAS</td><td>disease-linked loci, in humans</td><td>rarely cell-type- or direction-resolved; mostly non-coding</td><td class="edge">direction-resolved causal effect <b>in the target cell</b> — genetics still folded in as a layer</td></tr>
       <tr><td class="m">Literature / network mining</td><td>re-weights known biology</td><td>recapitulates the known; hub-biased; buries understudied genes</td><td class="edge">ranks by <b>measured effect</b>, independent of publication volume</td></tr>
       <tr><td class="m">Bulk CRISPR (viability)</td><td>one fitness phenotype</td><td>can't separate "kills the cell" from "makes a better effector"</td><td class="edge">a full transcriptional phenotype per cell; viability is only a gate</td></tr>
-      <tr><td class="m">Standard Perturb-seq<br>(rank by significance / DE)</td><td>the closest competitor — same data class</td><td>at this scale 97.5% of tested knockdowns are "significant," and significance / DE-count rankings are <b>unsigned</b></td><td class="edge">ranks by <b>effect size</b>, power-equalized, plus the <b>signed axis</b> that splits brake from machinery</td></tr>
+      <tr><td class="m">Significance- or DE-first<br>Perturb-seq analysis</td><td>the closest competitor — same data class</td><td>at this scale 97.5% of tested knockdowns are "significant," and significance / DE-count rankings are <b>unsigned</b></td><td class="edge">ranks by <b>effect size</b>, power-equalized, plus the <b>signed axis</b> that splits brake from machinery</td></tr>
     </tbody>
   </table></div></div>
-  <p class="cap reveal" style="max-width:96ch">Honest framing: none of these is a knockout blow, and Brakepoint leans on genetics and clinical precedent — its direction score is an 8-hour transcriptional read-out that still needs functional validation. Effect-size (E-distance) ranking follows E-distance is the standard; the novelty is combining it at genome scale with a <b>signed transcriptional axis</b> and IO-brake prioritization. The five-gene shortlist is deliberately prior-informed, but the ranking itself is publication-independent — which is how the method can also surface understudied, genetics-led picks like UBASH3A. The edge is the combination and the rigor, not a brand-new statistic.</p>
+  <p class="cap reveal" style="max-width:80ch">In context: none of these is a knockout blow, and Brakepoint leans on genetics and clinical precedent — its direction score is an 8-hour transcriptional readout that still needs functional validation, and prospective superiority isn't yet demonstrated. E-distance is an established perturbation-effect metric (the scPerturb standard); Brakepoint's novelty is the <b>combination</b> — genome-scale, coverage-equalized E-distance ranking, a <b>signed effector-vs-dysfunction axis</b>, and IO-brake prioritization — not a new statistic. The genome-wide map uses no publication-volume features; the five-gene shortlist is then deliberately prior-informed, which is how the method can also surface understudied, genetics-led picks like UBASH3A.</p>
 </div></section>
 
 <!-- ROBUST / honesty -->
 <section class="pad" id="robust" style="background:#f4f4ef"><div class="wrap split">
-  <figure class="reveal" style="margin:0"><div class="frame"><div class="core"><img src="figures/donor_consistency.png" alt="Per-donor direction of effect; consistent brakes vs donor-split candidates"/></div></div></figure>
+  <figure class="reveal" style="margin:0"><div class="frame"><div class="core"><img src="figures/donor_consistency.png" loading="lazy" decoding="async" alt="Per-donor direction of effect; consistent brakes vs donor-split candidates"/></div></div></figure>
   <div class="reveal">
-    <span class="eyebrow kicker">Rigor · reported honestly</span>
+    <span class="eyebrow kicker">Rigor · limitations &amp; next steps</span>
     <h2 style="max-width:18ch">We report what two donors can and can't support.</h2>
-    <p class="lead" style="margin-top:18px">The machinery axis is unanimous — every evaluated TCR gene is donor-consistent. The brake side is where n=2 shows its limits: <b>CD5 and DGKA are donor-consistent</b>; CBLB, SMAD3 and UBASH3A are driven by one donor (as is the high-effect LAT2). As a group, known brakes are <b>not significantly enriched</b> in the positive quadrant (one-sided Mann–Whitney vs background over 29 curated brakes; p = 0.70). So the shortlist is a prioritized set of nominations for the full four-donor cohort — not a finished target list, and we say so.</p>
+    <p class="lead" style="margin-top:18px">The machinery axis is unanimous — every evaluated TCR gene is donor-consistent. The brake side is where n=2 shows its limits: <b>CD5 and DGKA are donor-consistent</b>; CBLB, SMAD3 and UBASH3A are driven by one donor (as is the high-effect LAT2). As a group, the 29 curated brakes don't score higher on the direction axis than background (one-sided Mann–Whitney, <b>p = 0.70</b>) — so the positive-direction region is <b>not enriched</b> for known brakes. The shortlist is therefore a prioritized set of nominations for the full four-donor cohort — a hypothesis to test, not a finished target list.</p>
   </div>
 </div></section>
 
@@ -254,7 +277,7 @@
   <div class="frame on-dark reveal" style="margin-top:36px"><div class="core" style="background:#000">
     <video controls preload="metadata" poster="figures/target_matrix.png" style="background:#000">
       <source src="demo.mp4" type="video/mp4"/>
-      <track kind="subtitles" src="demo.vtt" srclang="en" label="English" default/>Your browser can't play embedded video — <a href="demo.mp4" style="color:#7fe9d8">download the MP4</a>.
+      <track kind="captions" src="demo.vtt" srclang="en" label="English" default/>Your browser can't play embedded video — <a href="demo.mp4" style="color:#7fe9d8">download the MP4</a>.
     </video>
   </div></div>
 </div></section>
@@ -264,22 +287,23 @@
   <div class="reveal">
     <span class="eyebrow on-dark">Open source · MIT</span>
     <h2 style="max-width:16ch">Every target traces back to code.</h2>
-    <p class="lead" style="margin-top:18px">Built with Claude Science: each result is a versioned artifact, and a reviewer agent checks every claim against what ran. An adversarial self-critique pass caught a real n-dependent bias in our effect-size computation before it reached a figure. One command regenerates the shortlist and every figure from a clean clone.</p>
+    <p class="lead" style="margin-top:18px">Built with Claude Science: each result is a versioned artifact, and a reviewer agent checks every claim against what ran. An adversarial self-critique pass caught a real n-dependent bias in our effect-size computation before it reached a figure. From a clean clone, <span class="mono">make smoke</span> re-runs the core checks and <span class="mono">make figure</span> regenerates every figure.</p>
   </div>
   <div class="reveal"><code class="block"><span class="c"># dependency-free core tests</span>
-git clone <span class="k">github.com/duanchengchen-oss/brakepoint</span>
+git clone <span class="k">https://github.com/duanchengchen-oss/brakepoint.git</span>
 cd brakepoint/pipeline && make smoke
 
 <span class="c"># regenerate the target figures</span>
 make figure
 
-<span class="c"># is the brake quadrant enriched? (honest null)</span>
+<span class="c"># is the brake quadrant enriched? (the p=0.70 null)</span>
 python brake_enrichment.py</code></div>
 </div></section>
+</main>
 
 <footer><div class="wrap">
   <span class="brand" style="font-family:var(--disp);color:#fff;font-weight:600;font-size:16px">Brakepoint · Built with Claude Science</span>
-  <p style="margin-top:12px;max-width:82ch">Candidate-brake target discovery on the Gladstone genome-scale CD4⁺ T-cell CRISPRi Perturb-seq (Marson lab; bioRxiv 10.64898/2025.12.23.696273). <b style="color:var(--on-dark)">We generated no data</b> — Brakepoint is the downstream signed-map analysis: an effector-vs-dysfunction direction axis, effect-size ranking, and an IO-druggability shortlist reported with its null. Open source (MIT). STRING and Open Targets are public evidence layers on the provided Perturb-seq.</p>
+  <p style="margin-top:12px;max-width:82ch">Candidate-brake target discovery on the Gladstone genome-scale CD4⁺ T-cell CRISPRi Perturb-seq (Marson lab; bioRxiv 10.64898/2025.12.23.696273). <b style="color:var(--on-dark)">We generated no data</b> — Brakepoint is the downstream signed-map analysis: an effector-vs-dysfunction direction axis, effect-size ranking, and an IO-druggability shortlist reported with its null. Open source (MIT). Open Targets, ChEMBL and ClinicalTrials.gov are public evidence layers on the provided Perturb-seq.</p>
   <div class="fl">
     <a href="#explore">▸ Explore the data</a>
     <a href="#demo">Demo video</a>
@@ -289,8 +313,12 @@ python brake_enrichment.py</code></div>
   </div>
 </div></footer>
 <script>
-  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  (function(){
+    var els=document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){els.forEach(function(el){el.classList.add('in');});return;}
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+    els.forEach(function(el){io.observe(el);});
+  })();
 </script>
 <script>
 // Interactive causal-map explorer — lazy-loaded canvas scatter of every tested knockdown.

@@ -37,7 +37,13 @@ def donor_plot(df: pd.DataFrame, out: str) -> None:
     d = d[pd2[1].notna()]  # need 2 donors
     d1 = pd2[0].astype(float)[d.index]; d2 = pd2[1].astype(float)[d.index]
     by = {g: (float(d1[i]), float(d2[i])) for i, g in zip(d.index, d["perturbation"])}
-    lim = 1.15
+    # derive limits from the data so no observation is clipped
+    lim = float(max(abs(d1).max(), abs(d2).max())) * 1.05
+    # per-gene label offsets (dx, dy points, ha) to keep the crowded clusters legible
+    OFF = {"LAT2": (10, 3, "left"), "SMAD3": (-11, 7, "right"), "UBASH3A": (-12, -2, "right"),
+           "CD5": (11, 5, "left"), "DGKA": (9, -13, "left"), "CBLB": (11, 3, "left"),
+           "ZAP70": (9, -3, "left"), "LCP2": (-9, -4, "right"), "CD3D": (-9, 7, "right"),
+           "ITK": (10, 4, "left")}
     fig, ax = plt.subplots(figsize=(8.6, 8.0), dpi=210)
     fig.patch.set_facecolor(SURFACE); ax.set_facecolor(SURFACE)
     ax.axhspan(0, lim, xmin=0.5, xmax=1, color=AMBER, alpha=0.05)
@@ -52,50 +58,79 @@ def donor_plot(df: pd.DataFrame, out: str) -> None:
         label_set = genes if col == AMBER else ["ZAP70", "LCP2", "CD3D", "ITK"]
         for g in genes:
             if g in by and g in label_set:
-                ax.annotate(g, by[g], textcoords="offset points", xytext=(7, 4), fontsize=10.5,
-                            fontweight="bold", color=edge, zorder=5)
+                dx, dy, ha = OFF.get(g, (7, 4, "left"))
+                ax.annotate(g, by[g], textcoords="offset points", xytext=(dx, dy), ha=ha,
+                            fontsize=10.5, fontweight="bold", color=edge, zorder=5)
         if col == TEAL:
-            ax.annotate("(TCR module)", (-0.33, -0.66), fontsize=10, color=TEAL_DK, style="italic", zorder=5)
-    ax.text(0.62, 1.02, "consistent brake\n(both donors +)", color=AMBER_DK, fontsize=11, fontweight="bold", ha="left")
-    ax.text(-1.08, -1.0, "consistent machinery\n(both donors −)", color=TEAL_DK, fontsize=11, fontweight="bold", ha="left")
+            ax.annotate("(TCR module)", (-0.29 * lim, -0.60 * lim), fontsize=10,
+                        color=TEAL_DK, style="italic", zorder=5)
+    ax.text(0.36 * lim, 0.93 * lim, "replicates positive\n(candidate hypothesis)",
+            color=AMBER_DK, fontsize=11, fontweight="bold", ha="left", va="top")
+    ax.text(-0.96 * lim, -0.86 * lim, "replicates negative\n(TCR machinery)",
+            color=TEAL_DK, fontsize=11, fontweight="bold", ha="left", va="top")
     ax.set_xlim(-lim, lim); ax.set_ylim(-lim, lim)
+    ax.set_aspect("equal")
     ax.set_xlabel("Donor 1 · direction of effect", fontsize=12.5, color=INK)
     ax.set_ylabel("Donor 2 · direction of effect", fontsize=12.5, color=INK)
     _style(ax)
-    fig.suptitle("Which brakes hold up across donors?", x=0.06, ha="left", fontsize=17, fontweight="bold", color=INK)
-    fig.text(0.06, 0.925, "CD5 and DGKA are donor-consistent; CBLB / SMAD3 / LAT2 are driven by one donor (n=2).",
-             fontsize=11, color=MUTED)
+    fig.suptitle("Which candidates replicate across donors?", x=0.06, ha="left", fontsize=17, fontweight="bold", color=INK)
+    fig.text(0.06, 0.925, "CD5 and DGKA replicate in both donors; CBLB, SMAD3, UBASH3A and LAT2 are driven by one donor (n = 2).",
+             fontsize=10.6, color=MUTED)
     fig.subplots_adjust(left=0.11, right=0.97, top=0.88, bottom=0.09)
     fig.savefig(out, dpi=210, facecolor=SURFACE); plt.close(fig); print("wrote", out)
 
 
 def dist_plot(df: pd.DataFrame, out: str) -> None:
     v = df["direction_score"].dropna().to_numpy()
+    xlo, xhi = -0.9, 0.6
+    tau = 0.05  # DIRECTION_TAU — |score| <= tau is treated as no clear direction
     fig, ax = plt.subplots(figsize=(12.2, 5.4), dpi=210)
     fig.patch.set_facecolor(SURFACE); ax.set_facecolor(SURFACE)
-    bins = np.linspace(-0.9, 0.6, 120)
-    ax.hist(v[v <= 0], bins=bins, color=TEAL, alpha=0.55, edgecolor="none")
-    ax.hist(v[v > 0], bins=bins, color=AMBER, alpha=0.6, edgecolor="none")
+    bins = np.linspace(xlo, xhi, 120)
+    # colour marks the SIGN of the shift (descriptive), not a proven function
+    ax.hist(v[v <= 0], bins=bins, color=TEAL, alpha=0.5, edgecolor="none")
+    ax.hist(v[v > 0], bins=bins, color=AMBER, alpha=0.55, edgecolor="none")
+    # neutral dead-band: most knockdowns have no clear direction
+    ax.axvspan(-tau, tau, color="#8a8880", alpha=0.16, zorder=0)
     ax.axvline(0, color=INK2, lw=1.2)
+
+    trans = ax.get_xaxis_transform()  # x in data, y in axes fraction
     by = dict(zip(df["perturbation"], df["direction_score"]))
-    ymax = ax.get_ylim()[1]
-    for g, col, yo in (("ZAP70", TEAL_DK, 0.82), ("CD3D", TEAL_DK, 0.62), ("CD5", AMBER_DK, 0.82),
-                       ("DGKA", AMBER_DK, 0.62), ("CBLB", AMBER_DK, 0.42)):
+    # gene guides live in axes-fraction height so they cannot be mistaken for bars
+    for g, col, yo in (("ZAP70", TEAL_DK, 0.93), ("CD3D", TEAL_DK, 0.79),
+                       ("CD5", AMBER_DK, 0.93), ("DGKA", AMBER_DK, 0.79), ("CBLB", AMBER_DK, 0.65)):
         if g in by:
             x = by[g]
-            ax.annotate(g, (x, ymax * yo), textcoords="offset points", xytext=(0, 0), ha="center",
-                        fontsize=10.5, fontweight="bold", color=col)
-            ax.plot([x, x], [0, ymax * (yo - 0.06)], color=col, lw=0.8, alpha=0.5)
-    ax.text(-0.55, ymax * 0.9, "machinery\n(knockdown impairs)", color=TEAL_DK, fontsize=12, fontweight="bold", ha="center")
-    ax.text(0.33, ymax * 0.9, "brakes\n(knockdown enhances)", color=AMBER_DK, fontsize=12, fontweight="bold", ha="center")
-    ax.set_xlim(-0.9, 0.6)
+            ax.plot([x, x], [0, yo - 0.055], transform=trans, color=col, lw=0.9,
+                    ls=(0, (3, 2)), alpha=0.5, zorder=2)
+            ax.text(x, yo, g, transform=trans, ha="center", va="bottom",
+                    fontsize=10.5, fontweight="bold", color=col, zorder=5)
+
+    ax.text(-0.5, 0.90, "negative direction\n(TCR machinery)", transform=trans,
+            color=TEAL_DK, fontsize=12, fontweight="bold", ha="center", va="top", linespacing=1.05)
+    ax.text(0.34, 0.90, "positive direction\n(candidate hypotheses)", transform=trans,
+            color=AMBER_DK, fontsize=12, fontweight="bold", ha="center", va="top", linespacing=1.05)
+    ax.text(0.0, 0.55, "neutral\n|score| ≤ 0.05", transform=trans, ha="center", va="center",
+            fontsize=8.6, color=INK2, linespacing=1.05,
+            bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="#e2e1d8", lw=0.8, alpha=0.92))
+
+    n_lo = int((v < xlo).sum()); n_hi = int((v > xhi).sum())
+    ax.text(0.995, 0.03, f"+{n_hi} knockdowns beyond {xhi:+.1f} · {n_lo} beyond {xlo:+.1f}  (off-axis)",
+            transform=ax.transAxes, ha="right", va="bottom", fontsize=9, color=MUTED)
+
+    ax.set_xlim(xlo, xhi)
     ax.set_xlabel("Direction of effect  ·  effector − dysfunction (vs control)", fontsize=12.5, color=INK)
-    ax.set_ylabel("knockdowns", fontsize=12.5, color=INK)
+    ax.set_ylabel("knockdowns per bin", fontsize=12.5, color=INK)
     _style(ax)
-    fig.suptitle("The signed axis splits 12,449 knockdowns", x=0.055, y=0.97, ha="left", fontsize=17, fontweight="bold", color=INK)
-    fig.text(0.055, 0.895, "Most sit near zero; the negative tail is required machinery, the positive tail is the brake search space.",
+    fig.suptitle(f"The signed axis splits {len(v):,} knockdowns", x=0.055, y=0.965, ha="left",
+                 fontsize=17, fontweight="bold", color=INK)
+    fig.text(0.055, 0.90,
+             "Most sit near zero; the negative tail is enriched for TCR machinery, the positive tail is the candidate hypothesis space.",
              fontsize=11, color=MUTED)
-    fig.subplots_adjust(left=0.075, right=0.975, top=0.80, bottom=0.13)
+    fig.text(0.055, 0.855,
+             "The positive side is not brake-enriched (Mann–Whitney p = 0.70) — a hypothesis space, not a validated set.",
+             fontsize=11, color=MUTED)
+    fig.subplots_adjust(left=0.075, right=0.975, top=0.785, bottom=0.13)
     fig.savefig(out, dpi=210, facecolor=SURFACE); plt.close(fig); print("wrote", out)
 
 

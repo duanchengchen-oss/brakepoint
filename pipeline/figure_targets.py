@@ -21,34 +21,47 @@ import numpy as np  # noqa: E402
 from matplotlib.colors import LinearSegmentedColormap  # noqa: E402
 
 SURFACE = "#fcfcfb"; INK = "#0b1220"; INK2 = "#39424e"; MUTED = "#8a8880"
-TEAL = "#0d9488"; AMBER = "#d97a12"; GRID = "#e9e8e2"
+TEAL = "#0d9488"; AMBER = "#d97a12"; AMBER_DK = "#a85c08"; GRAYBLUE = "#5f6b78"; GRID = "#e9e8e2"
 
-DIMS = ["Causal\neffect", "Brake\ndirection", "Donor\nconsistency", "Viability\n(fitness)",
-        "Drugg-\nability", "Immune\ngenetics", "Clinical\nprecedent"]
+# The first N_SCREEN dimensions are measured in the CD4 screen; the rest are
+# curated from external databases. They are visually separated so the figure
+# never implies the two provenances live on one comparable measured scale.
+N_SCREEN = 4
+DIMS = ["Causal\neffect", "Brake\ndirection", "Donor\nconsistency", "Screen\nfitness",
+        "Target\ntractability", "Immune\ngenetics", "Clinical\nprecedent"]
 
 # rows: (gene, call, call_color, [7 scores 0-1], one-line evidence)
 # NB: this is a curated evidence *summary* (0-1 per axis), not a fitted/weighted
-# model. CBLB leads on external (clinical + genetics) evidence; CD5/DGKA are the
-# most screen-consistent; SMAD3/UBASH3A are exploratory. Scores documented per cell.
+# model, and none of these are validated brakes — the positive quadrant is not
+# brake-enriched (Mann-Whitney p = 0.70). CBLB leads on external (clinical +
+# genetics) evidence; CD5/DGKA are the most screen-consistent; SMAD3/UBASH3A are
+# exploratory. Colour marks candidate identity only (never machinery-teal).
 TARGETS = [
-    ("CBLB", "LEAD · clinical", AMBER,
+    ("CBLB", "LEAD · external evidence", AMBER_DK,
      [0.88, 0.72, 0.35, 0.55, 1.00, 0.90, 0.90],
      "CBL-B inhibitors NX-1607, HST-1011 in trials · autoimmune assoc."),
-    ("CD5", "SCREEN-CONSISTENT", TEAL,
+    ("CD5", "SCREEN-CONSISTENT", AMBER,
      [0.87, 0.75, 1.00, 0.90, 0.70, 0.50, 0.40],
      "donor-consistent · CD5 deletion boosts CAR-T (preclinical)"),
-    ("DGKA", "SCREEN-CONSISTENT", TEAL,
+    ("DGKA", "SCREEN-CONSISTENT", AMBER,
      [0.71, 0.42, 1.00, 0.78, 1.00, 0.25, 0.85],
      "donor-consistent · Bayer DGKα inhibitor in Ph1"),
-    ("SMAD3", "EXPLORATORY", "#7a8a99",
+    ("SMAD3", "EXPLORATORY", GRAYBLUE,
      [0.92, 0.32, 0.35, 0.90, 0.60, 0.45, 0.55],
-     "highest-effect brake · TGF-β node · donor-split"),
-    ("UBASH3A", "GENETICS-LED", "#7a8a99",
+     "highest-effect candidate · TGF-β node · donor-split"),
+    ("UBASH3A", "GENETICS-LED", GRAYBLUE,
      [0.40, 0.28, 0.35, 0.82, 0.55, 0.90, 0.15],
      "T1D / RA GWAS · tractable phosphatase · weak in screen"),
 ]
 
-CMAP = LinearSegmentedColormap.from_list("t", ["#e8f2f0", "#7fccc0", TEAL, "#0b5a53"])
+# Sequential neutral ramp (light -> ink): encodes evidence strength by lightness
+# alone, so it is colourblind-safe and never collides with the teal/amber classes.
+CMAP = LinearSegmentedColormap.from_list("ev", ["#ecebe4", "#b7b5ab", "#6f6e66", INK])
+
+
+def _bubble_size(s: float) -> float:
+    """Marker area — small base so a weak score reads as visibly small."""
+    return 55 + s * 1050
 
 
 def build(out_png: str, out_svg: str) -> None:
@@ -56,30 +69,51 @@ def build(out_png: str, out_svg: str) -> None:
                          "font.sans-serif": ["Helvetica Neue", "Helvetica", "Arial", "DejaVu Sans"],
                          "svg.fonttype": "none"})
     n_r, n_c = len(TARGETS), len(DIMS)
-    fig, ax = plt.subplots(figsize=(13.4, 7.6), dpi=210)
-    fig.patch.set_facecolor(SURFACE); ax.set_facecolor(SURFACE)
 
-    ax.set_xlim(-0.5, n_c + 5.0); ax.set_ylim(-0.9, n_r + 0.2)
+    # Spaced column x-positions with an extra gap between the screen-derived and
+    # curated-external blocks (stops adjacent 2-line headers from merging).
+    pitch, gap = 1.32, 0.62
+    xpos = np.array([j * pitch + (gap if j >= N_SCREEN else 0.0) for j in range(n_c)])
+    x_div = (xpos[N_SCREEN - 1] + xpos[N_SCREEN]) / 2.0   # divider between blocks
+    call_x = xpos[-1] + 1.5
+    gene_x = -1.15
+
+    fig, ax = plt.subplots(figsize=(15.6, 7.8), dpi=210)
+    fig.patch.set_facecolor(SURFACE); ax.set_facecolor(SURFACE)
+    ax.set_xlim(gene_x - 0.55, call_x + 9.6)
+    ax.set_ylim(-2.05, n_r + 0.55)
     ax.invert_yaxis()
+
+    # provenance group headers + a light divider between the two blocks
+    sc_mid = float(np.mean(xpos[:N_SCREEN])); ex_mid = float(np.mean(xpos[N_SCREEN:]))
+    ax.text(sc_mid, -1.72, "MEASURED IN THE CD4 SCREEN", ha="center", va="center",
+            fontsize=10.5, color=INK2, fontweight="bold")
+    ax.text(ex_mid, -1.72, "CURATED EXTERNAL EVIDENCE", ha="center", va="center",
+            fontsize=10.5, color=INK2, fontweight="bold")
+    ax.plot([sc_mid - 1.55, sc_mid + 1.55], [-1.5, -1.5], color="#c3c2b7", lw=1.4)
+    ax.plot([ex_mid - 1.35, ex_mid + 1.35], [-1.5, -1.5], color="#c3c2b7", lw=1.4)
+    ax.plot([x_div, x_div], [-1.35, n_r - 0.55], color="#d8d7cf", lw=1.1, ls=(0, (4, 3)), zorder=0)
 
     # column headers
     for j, d in enumerate(DIMS):
-        ax.text(j, -0.75, d, ha="center", va="center", fontsize=11.5, color=INK2, fontweight="bold", linespacing=1.05)
-    ax.text(n_c + 0.55, -0.75, "Call", ha="left", va="center", fontsize=11.5, color=INK2, fontweight="bold")
+        ax.text(xpos[j], -0.78, d, ha="center", va="center", fontsize=11.5,
+                color=INK2, fontweight="bold", linespacing=1.05)
+    ax.text(call_x, -0.78, "Call", ha="left", va="center", fontsize=11.5,
+            color=INK2, fontweight="bold")
 
     for i, (gene, call, ccol, scores, ev) in enumerate(TARGETS):
-        # gene name
-        ax.text(-0.62, i, gene, ha="right", va="center", fontsize=16, color=INK, fontweight="bold", family="Helvetica Neue")
-        # bubbles
+        ax.text(gene_x, i, gene, ha="right", va="center", fontsize=16, color=INK,
+                fontweight="bold", family="Helvetica Neue")
         for j, s in enumerate(scores):
-            ax.scatter(j, i, s=120 + s * 900, c=[CMAP(s)], edgecolors="white", linewidths=1.4, zorder=3)
-        # call chip
-        ax.text(n_c + 0.55, i - 0.16, call, ha="left", va="center", fontsize=12.5, color=ccol, fontweight="bold")
-        ax.text(n_c + 0.55, i + 0.2, ev, ha="left", va="center", fontsize=8.6, color=MUTED)
+            ax.scatter(xpos[j], i, s=_bubble_size(s), c=[CMAP(s)],
+                       edgecolors="white", linewidths=1.4, zorder=3)
+        ax.text(call_x, i - 0.17, call, ha="left", va="center", fontsize=12.5,
+                color=ccol, fontweight="bold")
+        ax.text(call_x, i + 0.2, ev, ha="left", va="center", fontsize=8.8, color=MUTED)
 
-    # gridlines (recessive)
+    # recessive gridlines
     for j in range(n_c):
-        ax.axvline(j, color=GRID, lw=0.8, zorder=0)
+        ax.axvline(xpos[j], color=GRID, lw=0.8, zorder=0)
     for i in range(n_r):
         ax.axhline(i, color=GRID, lw=0.8, zorder=0)
 
@@ -87,22 +121,28 @@ def build(out_png: str, out_svg: str) -> None:
     for sp in ax.spines.values():
         sp.set_visible(False)
 
-    # legend for bubble size/color
-    lx = 0.2
+    # bubble size/colour legend with numeric anchors
+    ly = n_r + 0.05
+    ax.text(gene_x, ly, "evidence", ha="right", va="center", fontsize=10, color=MUTED)
     for k, s in enumerate([0.25, 0.6, 1.0]):
-        ax.scatter(lx + k * 0.9, n_r - 0.35, s=120 + s * 900, c=[CMAP(s)], edgecolors="white", linewidths=1.2)
-    ax.text(lx - 0.35, n_r - 0.35, "evidence", ha="right", va="center", fontsize=10, color=MUTED)
-    ax.text(lx + 2.5, n_r - 0.35, "weak to strong  (0–1)", ha="left", va="center", fontsize=10, color=MUTED)
+        lx = 0.15 + k * 1.02
+        ax.scatter(lx, ly, s=_bubble_size(s), c=[CMAP(s)], edgecolors="white", linewidths=1.2)
+        ax.text(lx, ly + 0.42, f"{s:.2f}", ha="center", va="center", fontsize=8.5, color=MUTED)
+    ax.text(0.15 + 2 * 1.02 + 0.7, ly, "weak to strong  (0–1 summary score)",
+            ha="left", va="center", fontsize=10, color=MUTED)
 
-    fig.text(0.045, 0.975, "A convergent-evidence shortlist of druggable T-cell brakes",
+    fig.text(0.038, 0.975, "A convergent-evidence shortlist of candidate T-cell brakes",
              fontsize=18, fontweight="bold", color=INK, va="top")
-    fig.text(0.045, 0.935,
-             "Release the brake, boost the effector program — an 8-hour transcriptional signature, not a functional assay.",
+    fig.text(0.038, 0.935,
+             "Positive direction = a candidate brake hypothesis — an 8-hour transcriptional signature, not a functional assay.",
              fontsize=11, color=MUTED, va="top")
-    fig.text(0.045, 0.906,
-             "Evidence curated 0–1 from Open Targets · ChEMBL · ClinicalTrials.gov — a summary, not a fitted model.",
+    fig.text(0.038, 0.906,
+             "The positive quadrant is not brake-enriched (Mann–Whitney p = 0.70, n = 2 donors) — a shortlist to test, not a validated set.",
              fontsize=11, color=MUTED, va="top")
-    fig.subplots_adjust(left=0.135, right=0.995, top=0.83, bottom=0.05)
+    fig.text(0.038, 0.877,
+             "Scored 0–1 from the CD4 screen and Open Targets · ChEMBL · ClinicalTrials.gov — a curated summary, not a fitted model.",
+             fontsize=11, color=MUTED, va="top")
+    fig.subplots_adjust(left=0.115, right=0.995, top=0.80, bottom=0.05)
     fig.savefig(out_png, dpi=210, facecolor=SURFACE); fig.savefig(out_svg, facecolor=SURFACE)
     plt.close(fig)
     print("wrote", out_png, "+", out_svg)

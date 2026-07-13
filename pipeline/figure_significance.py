@@ -42,20 +42,26 @@ def significance_wall(df: pd.DataFrame, out: str) -> None:
     n = len(d)
     n_sig = int((d["e_qval"] < 0.05).sum())
     pct_sig = 100 * n_sig / n
-    floor = q.min()
-    n_floor = int((q <= floor + 1e-9).sum())
+    # the "floor" is a permutation p-value floor (p = 1/(n_perm+1)); the y-axis is
+    # the BH-adjusted q, so compute the pile-up from the underlying p to be precise.
+    p_floor = float(d["e_pval"].min())
+    n_floor = int(np.isclose(d["e_pval"], p_floor).sum())
+    perm_denom = int(round(1.0 / p_floor))
     by = {g: (float(row.e_distance), float(-np.log10(max(row.e_qval, 1e-6))))
           for g, row in d.set_index("perturbation").iterrows()}
+    cand_x = float(np.median([by[g][0] for g in CAND if g in by]))
+    mach_x = float(np.median([by[g][0] for g in TCR if g in by]))
 
     fig, ax = plt.subplots(figsize=(12.4, 7.0), dpi=210)
     fig.patch.set_facecolor(SURFACE); ax.set_facecolor(SURFACE)
 
     ymax = float(y.max()) * 1.16
     sig_line = -np.log10(0.05)
-    # shade the "everything is significant" band
-    ax.axhspan(sig_line, ymax, color=TEAL, alpha=0.045)
+    # shade the "everything is significant" band — NEUTRAL grey (not machinery-teal)
+    ax.axhspan(sig_line, ymax, color="#8a8880", alpha=0.07, zorder=0)
     ax.axhline(sig_line, color="#b9b8ad", lw=1.1, ls="--", zorder=2)
-    ax.text(74, sig_line + 0.05, "q = 0.05", color=MUTED, fontsize=10, ha="right", va="bottom")
+    ax.text(0.995, sig_line + 0.03, "q = 0.05", transform=ax.get_yaxis_transform(),
+            color=MUTED, fontsize=10, ha="right", va="bottom")
 
     y_ceil = float(y.max())
     mask = ~d["perturbation"].isin(TCR + CAND)
@@ -65,28 +71,33 @@ def significance_wall(df: pd.DataFrame, out: str) -> None:
         xs = [by[g][0] for g in genes if g in by]; ys = [by[g][1] for g in genes if g in by]
         ax.scatter(xs, ys, s=95, c=col, edgecolors="white", linewidths=1.4, zorder=5)
 
-    # ceiling headline (sits just above the band; no arrow needed)
-    ax.text(24, ymax * 0.965,
-            f"significance ceiling — {pct_sig:.1f}% of tested knockdowns clear q<0.05  ·  {n_floor:,} at the permutation floor",
-            fontsize=11.5, color=INK2, ha="center", fontweight="bold")
-    # candidate-brake cluster callout (low E, on the ceiling)
-    ax.annotate("candidate brakes\nmodest-to-moderate effect · signed positive\nCBLB · CD5 · DGKA · SMAD3 · UBASH3A",
-                xy=(6.2, y_ceil), xytext=(16, 2.28), fontsize=11, color=AMBER_DK,
-                fontweight="bold", ha="left", va="top",
+    # ceiling headline (axes-fraction coords so it never drifts with the ranges)
+    ax.text(0.5, 0.975,
+            f"significance ceiling — {pct_sig:.1f}% of tested knockdowns clear q < 0.05  ·  "
+            f"{n_floor:,} at the permutation p-floor (p = 1/{perm_denom:,})",
+            transform=ax.transAxes, fontsize=11.5, color=INK2, ha="center", va="top",
+            fontweight="bold")
+    # candidate cluster callout — arrow anchored to the real cluster (data), text box
+    # pinned in axes fraction so nothing breaks if the ranges shift.
+    ax.annotate("candidate brakes\nmodest-to-moderate effect · signed positive\n"
+                "not brake-enriched (Mann–Whitney p = 0.70)\nCBLB · CD5 · DGKA · SMAD3 · UBASH3A",
+                xy=(cand_x, y_ceil), xycoords="data",
+                xytext=(0.235, 0.70), textcoords="axes fraction",
+                fontsize=11, color=AMBER_DK, fontweight="bold", ha="left", va="top",
                 bbox=dict(boxstyle="round,pad=0.5", fc="#fdf3e7", ec=AMBER, lw=1.2),
                 arrowprops=dict(arrowstyle="-|>", color=AMBER, lw=1.4))
     # TCR machinery callout (high E)
     ax.annotate("TCR machinery\nthe largest effects\nZAP70 · CD3E · LAT · LCP2 …",
-                xy=(60, y_ceil), xytext=(43, 1.62), fontsize=11, color=TEAL_DK,
-                fontweight="bold", ha="left", va="top",
+                xy=(mach_x, y_ceil), xycoords="data",
+                xytext=(0.60, 0.48), textcoords="axes fraction",
+                fontsize=11, color=TEAL_DK, fontweight="bold", ha="left", va="top",
                 bbox=dict(boxstyle="round,pad=0.5", fc="#e8f4f2", ec=TEAL, lw=1.2),
                 arrowprops=dict(arrowstyle="-|>", color=TEAL, lw=1.4))
-    # the useful axis + the takeaway
-    ax.annotate("larger causal effect  →", xy=(58, 0.42), fontsize=12.5, color=INK,
-                fontweight="bold", ha="center", style="italic")
-    ax.text(3, 0.78,
-            "p-value can't rank these — effect size can.\nThe signed axis then tells brake from machinery.",
-            fontsize=12, color=INK2, ha="left",
+    # takeaway — single-purpose; the sign story lives in the companion causal map
+    ax.text(0.018, 0.10,
+            "p-value can't rank these — effect size can.\n"
+            "(the signed causal map then separates brake from machinery)",
+            transform=ax.transAxes, fontsize=12, color=INK2, ha="left", va="bottom",
             bbox=dict(boxstyle="round,pad=0.55", fc="white", ec="#e2e1d8", lw=1))
 
     ax.set_xlim(-1.5, 76); ax.set_ylim(0, ymax)
