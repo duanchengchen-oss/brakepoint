@@ -13,7 +13,7 @@ item under **NEEDS SAM** is the one human-only step.
       `significance_wall` (why effect size, not p-value), `donor_consistency`,
       `direction_dist` (+ `brakepoint_onepager.png`). Rendered from real data by
       `pipeline/figure_*.py`; categorical palette validated colorblind-safe.
-- [x] **Demo video — narrated motion-graphics, 1080p, ~2:57** — `deliverables/demo.mp4`
+- [x] **Demo video — narrated motion-graphics, 1080p, ~2:42** — `deliverables/demo.mp4`
       (10-scene **Remotion** build): animated signed causal map, a significance-wall
       beat, a vs-traditional comparison, the target shortlist and donor plots, with a
       synced natural voiceover (edge-tts `en-US-AndrewMultilingualNeural`; gene

@@ -1,7 +1,7 @@
 # Demo video — narration script (target discovery)
 
 **The submission video is complete and narrated:** `deliverables/demo.mp4`
-(1920×1080, ~2:57, a **Remotion motion-graphics build** — animated signed causal
+(1920×1080, ~2:42, a **Remotion motion-graphics build** — animated signed causal
 map, a significance-wall beat, a vs-traditional comparison, target-shortlist and
 donor-consistency plots) with a natural voiceover (edge-tts
 `en-US-AndrewMultilingualNeural`; gene/acronym pronunciations are respelled in

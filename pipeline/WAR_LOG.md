@@ -1,7 +1,30 @@
 # WAR LOG — Built with Claude: Life Sciences (research track, solo)
 Append-only, newest first. Self-critique loop: every 8h. Results-watcher: every 6h.
 
-## 2026-07-12T (Day 6) — Fable 5: PIVOT to target discovery + natural voice + plot-heavy; Codex rigor review acted on
+## 2026-07-13T01:50Z (Day 7, 09:50 HKT / Sun 21:50 ET) — results-watcher: video source-of-truth restored, submission re-verified green; NO framing changes
+_Unattended (Fable 5), numpy-only sandbox, network-locked (pip 403). Repo quiet (only `pipeline/watcher-notes/` untracked). ~23 h to the Mon 21:00 ET deadline. No hard walls crossed (no submit / push / creds / connectors). Submission was already complete + pushed since Day 6; this run closed one real gap (missing VIDEO_URL.txt), re-verified everything, and fixed two small accuracy nits._
+
+**Did:**
+1. **VIDEO — polled + b-roll verified + source-of-truth rebuilt.** `get_project_status(60cf1164)` → `completed`; `get_project` → `currentAriesVideoId=3a8adaa1-fbcf-4275-923e-a042bd7c8e55`; `get_render_status` → **COMPLETED**, presigned MP4 URL returned (expires **2026-07-18 13:38 UTC**, i.e. valid through the deadline). That HeyGen cut is the silent 80.9 s auto-composition (21 lint errors, validation skipped) — **b-roll only**. The real submission video is the committed narrated Remotion **`deliverables/demo.mp4`** (ffprobe: 1920×1080, **2:42.0**, video+audio streams, 16.5 MB). **`deliverables/VIDEO_URL.txt` was missing** (GOAL.md's named source-of-truth; dropped during the Day-6 pivot) → **recreated it**: primary = local demo.mp4 + hosted landing; HeyGen project/render IDs + presigned URL logged as insurance with a "do NOT submit" note.
+2. **Accuracy nit fixed.** demo_script.md + SUBMISSION_CHECKLIST.md said the video was "~2:57"; the actual file is **2:42** → corrected both (honest length, still ≤3 min).
+3. **Re-verified green, read-only:** `edistance_core.py` SMOKE PASSED (null n=40 −0.28 / n=500 +0.009; effect E=43.9 p=0.002); `direction.py` SMOKE PASSED (brake +1.99 / enhancer −2.00 / neutral, both donors agree). `run_pipeline.py --direction` flag is wired (L213–248, graceful fallback if scanpy absent); `direction_figure_spec.md` + guarded `direction_figure.py` present. Dossiers IL2RB/VAV2/BLNK/CBLB all cached, valid JSON, substantive (4.6–7.5 KB) → **skipped enrichment per instruction** (last full re-check 2026-07-12, zero corrections).
+4. **Consistency swept, clean.** README / summary.md / index.html / SUBMISSION_CHECKLIST / real-finding-genomescale.md all headline **Brakepoint / signed causal map / 5-candidate brake shortlist (lead CBLB)** coherently; root `index.html` redirects to `deliverables/`. Brake-enrichment null cited as **p=0.70 in every judge-facing file** (the refined matched-2-donor-background value); `p=0.56` appears **only** in older append-only WAR_LOG entries (pre-refinement) — correct, not an inconsistency. No residual "drug-target quadrant" overclaim anywhere live.
+5. Folded the standing `watcher-notes/2026-07-12T0712Z` note (a prior watcher stood down mid-run due to a foreign git lock) into the tree and committed it with the above.
+
+**Decisions (made autonomously, logged):**
+- **Did NOT restore the Canva infographic `DAHPEnceXZE`.** It is superseded by the real-data figure suite the landing already carries (hero `target_matrix.png` + `causal_map`/`significance_wall`/`donor_consistency`/`direction_dist` + the live interactive explorer of all 11,438 tested knockdowns). Re-adding a lower-fidelity standalone infographic would be redundant and off-message; "reference the polished asset" is satisfied by the figures. (Network lockout also blocks pulling the Canva binary, as before.)
+- **Kept IL2RB demoted.** GOAL.md ("hero = IL2RB") and this task's "keep consistent with the IL2RB headline" **predate the Day-6 pivot** and are stale. The deliberate, more-honest framing is the genome-scale signed causal map + brake shortlist: IL2RB KD is ~lethal (viability 0.13, direction −0.24) ⇒ required machinery, so its therapeutic angle is IL-2/CD122 **agonism**, not inhibition — it stays an honestly-caveated convergence note, not the hero. Reverting would re-introduce the single most attackable claim. Not changed.
+- **Did NOT add the CAMERA/cameraPR enrichment upgrade** (self-critique pass #7 P1). On deadline day, against a frozen+pushed submission, with the null already well-caveated (p=0.70) and scipy/gseapy uninstallable here (network-locked), the risk/benefit says leave it. Optional, flagged below.
+
+**Current state:** submission is **complete and pushed** — github.com/duanchengchen-oss/brakepoint (landing live at duanchengchen-oss.github.io/brakepoint/deliverables/). Video, figures, interactive explorer, deck+script, 187-word summary, MIT pipeline, honest rigor pass all done and mutually consistent. Only open item is the human-only submit click.
+
+### NEEDS SAM
+- **[the one blocking step]** Submit on the CV platform before **Mon 2026-07-13 21:00 ET** — attach `deliverables/demo.mp4` (or the hosted landing URL), the repo URL, and `deliverables/summary.md` (paste the Version-A / 187-word block only). Agent cannot submit (no platform creds).
+- **[optional, not done]** CAMERA/cameraPR re-do of the brake-enrichment null (properly handles inter-perturbation correlation; likely still n.s. at 2 donors — calibration, not a flip). Needs scipy/gseapy → a Claude Science env; `brake_enrichment.py` also can't be re-run here (no scipy).
+- **[optional]** Re-record the VO in your own voice (script in `demo_deck.pptx` notes) if you prefer it to edge-tts.
+- **[carried]** The rigorous full CSV with the real `direction_score` column is already computed (Day-6 DGX run, in `outputs_gladstone/`); the 4-donor / Stim-48 h cohort re-run is the science stretch, not a submission blocker.
+
+ + natural voice + plot-heavy; Codex rigor review acted on
 _User feedback: (1) research track = find TARGETS not build tools — much content was off-track; (2) the edge-tts SoniaNeural VO was "pure shit"; (3) loved the dot plot — wants MORE plots, less text, fill the space; keep iterating with Codex._
 
 **Did — the pivot:**
